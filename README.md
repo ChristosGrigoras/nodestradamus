@@ -1,12 +1,13 @@
 # Self-Evolving AI Workflow Template
 
-A reusable template for setting up **Cursor AI** (local IDE assistant) + **OpenCode** (GitHub AI agent) with self-improving rules that learn from your corrections.
+**Reduce entropy in AI-generated code.** A template that constrains Cursor AI and OpenCode to follow shared rules — so your codebase stays coherent across hundreds of AI interactions.
 
 ---
 
 ## Table of Contents
 
 - [Overview](#overview)
+  - [Multi-Project Usage](#multi-project-usage)
 - [How It Works](#how-it-works)
 - [Project Structure](#project-structure)
 - [Installation](#installation)
@@ -24,14 +25,61 @@ A reusable template for setting up **Cursor AI** (local IDE assistant) + **OpenC
 
 ## Overview
 
-This template creates a unified AI development workflow where:
+### The Problem
+
+AI coding tools like Cursor and OpenCode are powerful, but without constraints they produce **high output variance**:
+
+- Ask the same question twice → different code styles
+- Different sessions → different architectural choices
+- Each response is a roll of the dice within the model's probability distribution
+
+Over 100+ AI interactions, this **entropy accumulates**. Your codebase starts looking like it was written by 100 different developers.
+
+### The Solution
+
+This template **constrains the output space** of your AI tools:
 
 | Tool | Where | Purpose |
 |------|-------|---------|
 | **Cursor AI** | Your local IDE | Real-time coding assistance, follows `.cursor/rules/` |
 | **OpenCode** | GitHub Actions | Automated code changes via issue/PR comments |
 
-Both tools share the same coding standards, so you get consistent behavior locally and on GitHub.
+Both tools share the same rules (`.cursor/rules/`), so you get **bounded entropy** — AI outputs converge instead of diverge, regardless of which tool or session produced them.
+
+### Multi-Project Usage
+
+This template isn't just for one project — it's a **portable AI behavior specification** that travels with you:
+
+```
+                    ┌─────────────────────────┐
+                    │  Your Core Rules        │
+                    │  (language-agnostic)    │
+                    │  - code-quality         │
+                    │  - response-quality     │
+                    │  - security             │
+                    │  - architecture         │
+                    └──────────┬──────────────┘
+                               │
+           ┌───────────────────┼───────────────────┐
+           ▼                   ▼                   ▼
+    ┌──────────────┐   ┌──────────────┐   ┌──────────────┐
+    │ Rust Chatbot │   │ Python RAG   │   │ Next.js App  │
+    │ + rust rules │   │ + python     │   │ + typescript │
+    │ + project ctx│   │ + project ctx│   │ + project ctx│
+    └──────────────┘   └──────────────┘   └──────────────┘
+```
+
+**What stays constant across projects:**
+- `003-code-quality.mdc` — Naming, function size, comments
+- `004-response-quality.mdc` — How AI should communicate
+- `005-security.mdc` — Never hardcode secrets, validate inputs
+- `304-architecture.mdc` — Separation of concerns, layering
+
+**What you swap per project:**
+- `100-*.mdc` — Language conventions (Python, Rust, TypeScript)
+- `200-project.mdc` — Project context, domain terminology
+
+Monday you build a Rust chatbot. Tuesday you build a Python RAG system. Both feel like they were written by the same disciplined developer — because the AI followed the same core rules.
 
 ---
 
