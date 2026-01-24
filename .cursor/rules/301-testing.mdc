@@ -52,3 +52,10 @@ alwaysApply: false
 - Failing test = stop and fix before proceeding
 - Never delete failing tests without fixing the underlying issue
 - Tests should fail fast with clear error messages
+
+## Test-First Workflow
+
+- **Test immediately after each change** — don't write multiple files before testing
+- **Verify functionality works** before moving to next task
+- **Fix issues before proceeding** — never leave broken code behind
+- **Run relevant tests** after each modification, not just at the end

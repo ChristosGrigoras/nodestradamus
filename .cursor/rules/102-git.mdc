@@ -122,3 +122,11 @@ build/
 3. **Push and create PR**
 4. **Review and merge** (squash or rebase preferred)
 5. **Delete branch** after merge
+
+## Commit Discipline
+
+- **One task = one commit** — keep commits atomic and focused
+- **Test before committing** — verify change works before `git commit`
+- **Small, frequent commits** — easier to review, revert, track progress
+- **Never batch unrelated changes** — split into separate commits
+- **Commit working code only** — don't commit broken or half-done work

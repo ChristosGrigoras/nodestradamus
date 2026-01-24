@@ -77,6 +77,14 @@ Always specify these explicitly — agents skip them by default:
 - Synchronous calls that block under load
 - Missing error boundaries
 
+## Design-First Approach
+
+- **No code until design is validated** — resist urge to start coding immediately
+- **Validate assumptions early** — test design concepts before implementation
+- **Document design decisions** — keep record of why choices were made
+- **Iterate on design cheaply** — changes are easier in design phase than code
+- **Get stakeholder buy-in** — ensure alignment before development starts
+
 ## When Planning
 
 Before coding, define:

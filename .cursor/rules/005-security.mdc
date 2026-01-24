@@ -57,6 +57,13 @@ priority: 100
 - Never auto-approve MCP operations that modify data
 - Audit `.cursor/mcp.json` in cloned repositories
 
+## Environment Files
+
+- NEVER auto-create `.env` files — only create when explicitly instructed
+- Assume `.env` files exist even if not readable (they contain secrets)
+- Always create `.env.example` with placeholder values, never real secrets
+- Reference existing `.env.example` for required variable names
+
 ## Prohibited Actions
 
 - DO NOT commit `.env`, `*.key`, `*.pem`, or credential files
