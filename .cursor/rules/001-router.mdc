@@ -25,3 +25,10 @@ alwaysApply: true
 - Apply code-quality standards
 - Use universal best practices
 - Ask for clarification if ambiguous
+
+## Meta-Generator Integration
+
+When user corrects generated code 3+ times with same pattern:
+1. Note the correction pattern
+2. Suggest: "I noticed you keep correcting X. Should I create a rule for this?"
+3. If approved, invoke meta-generator to create rule
