@@ -768,6 +768,33 @@ Just open your project in Cursor IDE. The rules in `.cursor/rules/` are automati
 - External services/APIs used
 - Team conventions
 
+### Applying Rule Changes
+
+**Important:** When you create or modify a rule file, Cursor may not pick up changes immediately.
+
+**To apply rule changes:**
+
+1. **Reload Window** (recommended):
+   - Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux)
+   - Type "Developer: Reload Window"
+   - Press Enter
+
+2. **Or start a new chat session:**
+   - New rules only apply to new chat/agent sessions
+   - Close current chat and start fresh
+
+**When AI modifies rules:**
+If Cursor's agent edits `.mdc` files, changes may not save correctly. Workaround:
+1. Manually save the file (`Cmd/Ctrl+S`)
+2. Reload window as above
+
+**Quick reference:**
+| Action | Required Step |
+|--------|---------------|
+| Create new rule | Reload Window |
+| Edit existing rule | Reload Window |
+| AI modifies rule | Save manually → Reload Window |
+
 ---
 
 ## OpenCode Configuration Explained
@@ -1091,6 +1118,14 @@ The workflow is missing git config. Ensure these lines exist in your workflow:
    alwaysApply: false
    ---
    ```
+4. **Reload window after changes:** `Cmd/Ctrl+Shift+P` → "Developer: Reload Window"
+
+### Rule Changes Not Taking Effect
+
+After creating or modifying a rule:
+1. Save the file (`Cmd/Ctrl+S`)
+2. Reload window: `Cmd/Ctrl+Shift+P` → "Developer: Reload Window"
+3. Start a new chat session (rules may not apply to existing chats)
 
 ### Meta-Generator Not Suggesting Rules
 
