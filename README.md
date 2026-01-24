@@ -93,7 +93,9 @@ your-project/
 │       ├── 005-security.mdc        # Security guardrails (always applied)
 │       ├── 100-python.mdc          # Python-specific rules
 │       ├── 200-project.mdc         # Your project's specific context
-│       └── 3xx-*.mdc               # Capability-specific rules (optional)
+│       ├── 301-testing.mdc         # Testing patterns (language-agnostic)
+│       ├── 302-validation.mdc      # Data validation patterns
+│       └── 303-api-patterns.mdc    # REST API conventions
 │
 ├── .opencode/
 │   ├── agents/                     # Custom AI agents for OpenCode
@@ -788,6 +790,39 @@ This rule has `priority: 100` (highest) to ensure security overrides other rules
 - Domain-specific terminology
 - External services/APIs used
 - Team conventions
+
+### File: `301-testing.mdc`
+
+**Purpose:** Language-agnostic testing patterns.
+
+**Contains:**
+- AAA pattern (Arrange → Act → Assert)
+- Test isolation and independence
+- Mocking guidelines (mock boundaries, not internals)
+- Coverage philosophy (meaningful, not 100%)
+- What to test vs what NOT to test
+
+### File: `302-validation.mdc`
+
+**Purpose:** Data validation patterns and boundaries.
+
+**Contains:**
+- Fail-fast validation principles
+- Validation boundaries (user input, APIs, files)
+- Error message guidelines
+- Type coercion rules
+- Schema-first approach
+
+### File: `303-api-patterns.mdc`
+
+**Purpose:** REST API design conventions.
+
+**Contains:**
+- HTTP method semantics (GET, POST, PUT, PATCH, DELETE)
+- URL design (nouns, plurals, nesting)
+- Consistent response/error formats
+- Status code usage
+- Authentication patterns
 
 ### Applying Rule Changes
 

@@ -1,0 +1,54 @@
+---
+description: Testing patterns and practices
+globs: ["**/test_*.py", "**/*.test.ts", "**/*.test.js", "**/*.spec.ts", "**/*.spec.js", "**/tests/**"]
+alwaysApply: false
+---
+
+# Testing Rules
+
+## Test Structure
+
+- **AAA Pattern:** Arrange → Act → Assert (one logical assertion per test)
+- **Descriptive names:** `test_user_creation_fails_with_invalid_email`
+- **One behavior per test:** Don't test multiple scenarios in one test
+- **No logic in tests:** No conditionals, loops, or complex setup
+
+## Test Isolation
+
+- Tests must not depend on execution order
+- Each test sets up and tears down its own state
+- No shared mutable state between tests
+- Use fixtures/factories for common setup
+
+## What to Test
+
+- **Unit tests:** Pure functions, business logic, edge cases
+- **Integration tests:** Database, external APIs, file I/O
+- **Boundaries:** Validate at system edges, trust internal code
+
+## What NOT to Test
+
+- Framework/library internals (trust them)
+- Private methods directly (test via public interface)
+- Trivial getters/setters
+- Third-party code behavior
+
+## Mocking Guidelines
+
+- Mock external dependencies (APIs, databases, file system)
+- Don't mock the code under test
+- Prefer fakes over mocks when possible
+- Verify behavior, not implementation details
+
+## Coverage
+
+- Aim for meaningful coverage, not 100%
+- Critical paths: 90%+ coverage
+- Edge cases and error handling: always tested
+- Generated/boilerplate code: exclude from coverage
+
+## Test Failures
+
+- Failing test = stop and fix before proceeding
+- Never delete failing tests without fixing the underlying issue
+- Tests should fail fast with clear error messages

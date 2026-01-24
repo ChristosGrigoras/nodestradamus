@@ -12,6 +12,9 @@ alwaysApply: true
 |---------|----------|-------|------|
 | **Python** | api, backend, server, flask, django | *.py, **/api/** | `100-python.mdc` |
 | **Git** | commit, branch, merge, pr, changelog | .git*, CHANGELOG | `102-git.mdc` |
+| **Testing** | test, spec, coverage, mock, fixture | test_*, *.test.*, *.spec.* | `301-testing.mdc` |
+| **Validation** | validate, schema, pydantic, zod | **/models/**, **/schemas/** | `302-validation.mdc` |
+| **API** | endpoint, route, handler, REST | **/api/**, **/routes/** | `303-api-patterns.mdc` |
 | **DevOps** | deploy, docker, ci, pipeline | Dockerfile, *.yml, .github/** | *(planned)* |
 | **Docs** | readme, docs, documentation | *.md, **/docs/** | *(planned)* |
 
