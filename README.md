@@ -95,7 +95,8 @@ your-project/
 │       ├── 200-project.mdc         # Your project's specific context
 │       ├── 301-testing.mdc         # Testing patterns (language-agnostic)
 │       ├── 302-validation.mdc      # Data validation patterns
-│       └── 303-api-patterns.mdc    # REST API conventions
+│       ├── 303-api-patterns.mdc    # REST API conventions
+│       └── 304-architecture.mdc    # Architectural patterns
 │
 ├── .opencode/
 │   ├── agents/                     # Custom AI agents for OpenCode
@@ -823,6 +824,20 @@ This rule has `priority: 100` (highest) to ensure security overrides other rules
 - Consistent response/error formats
 - Status code usage
 - Authentication patterns
+
+### File: `304-architecture.mdc`
+
+**Purpose:** Architectural patterns for AI-assisted development.
+
+**Key insight:** AI agents make implicit architectural decisions if not guided explicitly.
+
+**Contains:**
+- Layered architecture (controllers → services → repositories)
+- Separation of concerns
+- Dependency injection patterns
+- Non-functional requirements (observability, resilience, scalability)
+- Statelessness for horizontal scaling
+- Domain boundary guidelines
 
 ### Applying Rule Changes
 
