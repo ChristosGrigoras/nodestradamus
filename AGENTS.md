@@ -6,8 +6,7 @@ Python project with OpenCode GitHub integration and Cursor AI for local developm
 
 - `.github/workflows/` - GitHub Actions (OpenCode integration)
 - `.cursor/rules/` - Cursor AI rules
-- `.opencode/` - OpenCode configuration
-- `utils.py` - Helper/utility functions
+- `.opencode/` - OpenCode agents and skills
 
 ## Code Standards
 
@@ -31,5 +30,5 @@ Python project with OpenCode GitHub integration and Cursor AI for local developm
 
 ## External References
 
-For detailed coding standards: @.cursor/rules/002-code-quality.mdc
-For response guidelines: @.cursor/rules/003-response-quality.mdc
+For detailed coding standards: @.cursor/rules/003-code-quality.mdc
+For response guidelines: @.cursor/rules/004-response-quality.mdc

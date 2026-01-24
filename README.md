@@ -1,141 +1,113 @@
-# OpenCode Plan Project
+# Self-Evolving AI Workflow Template
 
-A demonstration project showcasing OpenCode GitHub integration for automated code generation and task management.
+A reusable template for setting up **Cursor AI** + **OpenCode** with self-improving rules.
 
-## About OpenCode
-
-OpenCode is an AI-powered development assistant that integrates with GitHub through slash commands. It can automatically create, modify, and refactor code based on natural language instructions provided in GitHub comments.
-
-## How to Use OpenCode
-
-### Triggering OpenCode via GitHub Comments
-
-To trigger OpenCode, use the `/opencode` command in GitHub issue comments or pull request review comments:
+## What's Included
 
 ```
-/opencode [instruction]
+├── .cursor/rules/           # Cursor AI configuration
+│   ├── 001-router.mdc       # Context detection & routing
+│   ├── 002-meta-generator.mdc  # Self-improving rules (detects patterns)
+│   ├── 003-code-quality.mdc    # Universal coding standards
+│   ├── 004-response-quality.mdc # AI communication style
+│   ├── 100-python.mdc       # Python-specific conventions
+│   └── 200-project.mdc      # Project-specific context
+├── .opencode/               # OpenCode configuration
+│   ├── agents/              # Custom agents (reviewer, documenter, housekeeper)
+│   └── skills/              # Reusable skills (code-review, git-commit, etc.)
+├── .github/workflows/
+│   ├── opencode.yml         # Trigger via /opencode comments
+│   ├── update-cursorrules.yml  # Auto-update rules on push
+│   └── housekeeping.yml     # Monthly cleanup tasks
+├── AGENTS.md                # OpenCode main instructions
+├── opencode.json            # OpenCode config (shares Cursor rules)
+└── README.md                # This file
 ```
 
-**Examples:**
-- `/opencode create a hello.py file that prints Hello World`
-- `/opencode add a function to calculate the sum of two numbers`
-- `/opencode refactor the authentication logic`
-- `/opencode write tests for the user service`
+## Key Features
 
-### Supported Commands
+### 🔄 Self-Improving Rules (Meta-Generator)
+When you correct AI-generated code 3+ times with the same pattern:
+1. AI detects the pattern
+2. Suggests creating a rule
+3. You approve → rule is added
+4. Future code follows your preference
 
-OpenCode understands various types of instructions:
-- **File creation**: Create new files with specific functionality
-- **Code modification**: Update existing code with new features
-- **Refactoring**: Improve code structure and organization
-- **Testing**: Generate unit tests and integration tests
-- **Documentation**: Add comments and documentation
-- **Debugging**: Fix bugs and resolve issues
+### 🤝 Shared Standards
+Both Cursor and OpenCode use the same quality rules:
+- `opencode.json` references `.cursor/rules/003-code-quality.mdc`
+- Consistent behavior across local and GitHub AI
 
-## Project Structure
+### 🤖 GitHub Automation
+- `/opencode <task>` or `/oc <task>` on issues/PRs
+- Auto-updates rules on codebase changes
+- Monthly housekeeping scans
 
-This project currently contains:
+## Quick Start
 
-- **README.md** - Project documentation (this file)
-- **.github/workflows/opencode.yml** - GitHub Action workflow for OpenCode integration
-
-### Python Files
-
-Currently, there are no Python files in the project. The project is set up as a demonstration of OpenCode capabilities and can be populated with Python files using OpenCode commands.
-
-## Setup Instructions
-
-### Prerequisites
-
-1. A GitHub repository
-2. GitHub Actions enabled
-3. Appropriate permissions for the repository
-
-### Installation
-
-1. **Create the GitHub Action workflow** in `.github/workflows/opencode.yml`:
-
-```yaml
-name: opencode
-
-on:
-  issue_comment:
-    types: [created]
-  pull_request_review_comment:
-    types: [created]
-
-jobs:
-  opencode:
-    if: |
-      contains(github.event.comment.body, '/oc') ||
-      contains(github.event.comment.body, '/opencode')
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: write
-      pull-requests: write
-      issues: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Configure Git
-        run: |
-          git config --global user.name "opencode-agent[bot]"
-          git config --global user.email "opencode-agent[bot]@users.noreply.github.com"
-
-      - name: Run OpenCode
-        uses: anomalyco/opencode/github@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          model: opencode/big-pickle
-          use_github_token: true
+### 1. Install OpenCode
+```bash
+curl -fsSL https://opencode.ai/install | bash
 ```
 
-2. **Commit and push** the workflow file to your repository
+### 2. Clone This Template
+```bash
+git clone https://github.com/ChristosGrigoras/opencode_plan.git my-project
+cd my-project
+rm -rf .git && git init
+```
 
-3. **Enable GitHub Actions** in your repository settings if not already enabled
+### 3. Push to Your Repo
+```bash
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+git add -A && git commit -m "Initial commit from template"
+git push -u origin main
+```
 
-### Usage
+### 4. Configure GitHub
+1. **Settings → Actions → General**
+   - Workflow permissions: "Read and write permissions"
+   - Check "Allow GitHub Actions to create and approve pull requests"
 
-Once set up, you can use OpenCode by:
+2. **Create a "General tasks" issue** (issue #4 is used by auto-update workflow)
 
-1. Creating an issue or pull request
-2. Adding a comment with `/opencode` followed by your instruction
-3. OpenCode will automatically process your request and create a pull request with the changes
+## Using OpenCode via GitHub
 
-## Example Workflow
+Comment on any issue or PR:
+```
+/opencode add user authentication to the API
+/oc fix the bug in utils.py
+/opencode refactor the database module
+```
 
-1. **Create an issue**: "Add a greeting function"
-2. **Comment**: `/opencode create hello.py with a greet function that takes a name parameter`
-3. **OpenCode processes**: Creates hello.py with the requested function
-4. **Pull request created**: OpenCode automatically creates a PR with the changes
+OpenCode will create a PR with the changes.
 
-## Permissions
+## Cursor AI Rules
 
-The GitHub Action requires the following permissions:
-- `id-token: write` - For authentication
-- `contents: write` - To modify repository files
-- `pull-requests: write` - To create and manage pull requests
-- `issues: write` - To interact with issues
+| File | Purpose |
+|------|---------|
+| `001-router.mdc` | Detects context (Python, DevOps, etc.) and loads relevant rules |
+| `002-meta-generator.mdc` | Observes corrections, suggests new rules |
+| `003-code-quality.mdc` | Universal standards (naming, functions, errors) |
+| `004-response-quality.mdc` | How AI should communicate |
+| `100-python.mdc` | Python-specific (type hints, docstrings) |
+| `200-project.mdc` | Your project's specific context |
 
-## Troubleshooting
+## OpenCode Agents
 
-### Common Issues
+| Agent | Trigger | Purpose |
+|-------|---------|---------|
+| `@reviewer` | Code review requests | Quality, security, performance checks |
+| `@documenter` | Documentation tasks | Generate/update docs |
+| `@housekeeper` | Cleanup tasks | Find dead code, outdated deps |
 
-1. **Permission denied**: Ensure the GitHub Action has the required permissions
-2. **Command not recognized**: Make sure to use `/opencode` or `/oc` at the beginning of your comment
-3. **No response**: Check the Actions tab in GitHub for any error messages
+## Customization
 
-### Getting Help
+1. **Add language rules**: Create `101-javascript.mdc`, `102-go.mdc`, etc.
+2. **Add project context**: Update `200-project.mdc` with your specifics
+3. **Create new agents**: Add files to `.opencode/agents/`
+4. **Define skills**: Add to `.opencode/skills/`
 
-- Check the GitHub Action logs for detailed error messages
-- Ensure your comment starts with `/opencode` or `/oc`
-- Verify that the workflow file is correctly placed in `.github/workflows/`
+## License
 
-## Contributing
-
-This project serves as a demonstration of OpenCode capabilities. Feel free to experiment with different `/opencode` commands to explore its features and capabilities.
+MIT - Use this template for any project.
