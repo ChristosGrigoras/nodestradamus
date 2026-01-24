@@ -8,10 +8,12 @@ alwaysApply: true
 
 ## Context Detection
 
-**Python:** api, backend, server, flask, django → *.py, **/api/**
-**DevOps:** deploy, docker, ci, pipeline → Dockerfile, *.yml, .github/**
-**Docs:** readme, docs, changelog → *.md, **/docs/**
-**Git:** commit, branch, merge → .git*, CHANGELOG
+| Context | Keywords | Files | Rule |
+|---------|----------|-------|------|
+| **Python** | api, backend, server, flask, django | *.py, **/api/** | `100-python.mdc` |
+| **Git** | commit, branch, merge, pr, changelog | .git*, CHANGELOG | `102-git.mdc` |
+| **DevOps** | deploy, docker, ci, pipeline | Dockerfile, *.yml, .github/** | *(planned)* |
+| **Docs** | readme, docs, documentation | *.md, **/docs/** | *(planned)* |
 
 ## Activation Logic
 
