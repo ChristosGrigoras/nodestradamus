@@ -1,0 +1,49 @@
+name: Monthly Housekeeping
+
+on:
+  schedule:
+    # Run first day of every month at 9am UTC
+    - cron: '0 9 1 * *'
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  housekeeping:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "opencode-agent[bot]"
+          git config --global user.email "opencode-agent[bot]@users.noreply.github.com"
+
+      - name: Create housekeeping issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Check if housekeeping issue exists
+          EXISTING=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${{ github.repository }}/issues?labels=housekeeping&state=open" | jq length)
+          
+          if [ "$EXISTING" -eq "0" ]; then
+            # Create new housekeeping issue
+            curl -s -X POST \
+              -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              -d '{
+                "title": "🧹 Monthly Housekeeping Review",
+                "body": "Time for monthly codebase housekeeping!\n\n/opencode @housekeeper Run a full housekeeping scan. Check for:\n- Backup/temp files to delete\n- Dead code and unused imports\n- Files not modified in 6+ months\n- TODO/FIXME comments to address\n- Organization improvements\n\nGenerate a housekeeping report.",
+                "labels": ["housekeeping", "maintenance"]
+              }' \
+              "https://api.github.com/repos/${{ github.repository }}/issues"
+          else
+            echo "Housekeeping issue already exists, skipping creation"
+          fi
