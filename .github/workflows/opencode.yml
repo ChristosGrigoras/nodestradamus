@@ -1,0 +1,49 @@
+name: opencode
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+
+jobs:
+  opencode:
+    if: |
+      contains(github.event.comment.body, '/oc') ||
+      contains(github.event.comment.body, '/opencode')
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Run OpenCode
+        uses: anomalyco/opencode/github@latest
+        env:
+          # Add your API key secrets here based on your provider
+          # For OpenCode Zen (free models):
+          # OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          # For Anthropic:
+          # ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # For OpenAI:
+          # OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          # For Google:
+          # GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        with:
+          # Change this to your preferred model
+          # Format: provider/model
+          # Examples:
+          # - opencode/big-pickle (free)
+          # - opencode/gpt-5-nano (free)
+          # - anthropic/claude-sonnet-4-20250514
+          # - openai/gpt-4
+          model: opencode/big-pickle
+          # share: true  # Uncomment to share sessions (defaults to true for public repos)
+          # github_token: ${{ secrets.GITHUB_TOKEN }}  # Optional: uses GitHub App token by default
