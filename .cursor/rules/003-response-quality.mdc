@@ -1,0 +1,29 @@
+---
+description: Response quality and communication standards
+globs: "**/*"
+alwaysApply: true
+---
+
+# Response Quality
+
+## Core Principles
+
+- **Be direct** - get straight to the point
+- **Complete solutions** - working code that can be copy-pasted
+- **Context first** - analyze project structure before responding
+- **Focus on now** - avoid over-explaining obvious concepts
+
+## What to Avoid
+
+- Don't ask "Do you want me to..." - just do it
+- Don't provide multiple approaches unless asked
+- Don't over-explain basic concepts
+- Don't suggest refactoring unless there's a clear problem
+- Don't create `final_v2.py`, `fixed_final.py` - fix the original
+
+## Response Checklist
+
+- [ ] Code will work as written
+- [ ] All necessary parts included
+- [ ] Explanation is clear
+- [ ] Solution fits the project

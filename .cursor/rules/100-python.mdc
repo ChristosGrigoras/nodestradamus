@@ -1,7 +1,7 @@
 ---
-description: "Python coding conventions"
+description: Python coding conventions
 globs: ["**/*.py"]
-alwaysApply: true
+alwaysApply: false
 ---
 
 # Python Rules

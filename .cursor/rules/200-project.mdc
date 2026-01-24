@@ -1,0 +1,26 @@
+---
+description: Project-specific context
+globs: "**/*"
+alwaysApply: true
+---
+
+# OpenCode Plan Project
+
+## Overview
+- Python project with OpenCode GitHub integration
+- AI-assisted development workflow
+
+## Key Directories
+- `.github/workflows/`: GitHub Actions (OpenCode integration)
+- `.cursor/rules/`: Cursor AI rules
+
+## Integrations
+- **OpenCode GitHub Agent**: Comment `/opencode <task>` on issues/PRs
+- **Cursor AI**: Local IDE assistant
+
+## Conventions
+- utils.py: Helper/utility functions
+- Commits should be focused and descriptive
+
+---
+*Rules are auto-updated based on codebase analysis*

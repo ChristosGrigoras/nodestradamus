@@ -1,0 +1,30 @@
+---
+description: Universal code quality standards
+globs: "**/*"
+alwaysApply: true
+---
+
+# Code Quality Standards
+
+## Core Standards
+
+- **Naming:** Descriptive, consistent, avoid abbreviations
+- **Functions:** Single responsibility, <50 lines, clear parameters
+- **Comments:** Explain why, not what; update with code changes
+- **Error handling:** Explicit, meaningful messages, proper logging
+
+## Code Structure
+
+- **DRY:** Don't repeat yourself, extract common patterns
+- **SOLID:** Single responsibility, dependency inversion
+- **Readability:** Clear intent, consistent formatting
+
+## Security
+
+- **Secrets:** Never hardcode, use environment variables
+- **Input validation:** Validate all external inputs
+
+## Documentation
+
+- **README:** Clear setup, usage, contribution guidelines
+- **Code comments:** Complex logic, business rules, edge cases

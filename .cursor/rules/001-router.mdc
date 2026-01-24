@@ -1,0 +1,27 @@
+---
+description: Router for context detection and rule activation
+globs: "**/*"
+alwaysApply: true
+---
+
+# Rule Router
+
+## Context Detection
+
+**Python:** api, backend, server, flask, django → *.py, **/api/**
+**DevOps:** deploy, docker, ci, pipeline → Dockerfile, *.yml, .github/**
+**Docs:** readme, docs, changelog → *.md, **/docs/**
+**Git:** commit, branch, merge → .git*, CHANGELOG
+
+## Activation Logic
+
+1. Single context → Load that rule
+2. Multiple contexts → Ask to clarify
+3. No context → Code-quality baseline only
+4. File extension → Override keyword detection
+
+## Default Behavior
+
+- Apply code-quality standards
+- Use universal best practices
+- Ask for clarification if ambiguous
