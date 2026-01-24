@@ -23,6 +23,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Configure Git
+        run: |
+          git config --global user.name "opencode-agent[bot]"
+          git config --global user.email "opencode-agent[bot]@users.noreply.github.com"
+
       - name: Run OpenCode
         uses: anomalyco/opencode/github@latest
         env:
