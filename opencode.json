@@ -1,0 +1,33 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+    ".cursor/rules/002-code-quality.mdc",
+    ".cursor/rules/003-response-quality.mdc"
+  ],
+  "agent": {
+    "build": {
+      "model": "opencode/big-pickle",
+      "temperature": 0.3
+    },
+    "plan": {
+      "model": "opencode/big-pickle",
+      "temperature": 0.1,
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false
+      }
+    }
+  },
+  "permission": {
+    "edit": "allow",
+    "bash": {
+      "*": "ask",
+      "git status": "allow",
+      "git diff": "allow",
+      "git log*": "allow",
+      "python *": "allow",
+      "pytest *": "allow"
+    }
+  }
+}
