@@ -21,19 +21,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
-          fetch-depth: 1
-          persist-credentials: false
+          fetch-depth: 0
 
       - name: Run OpenCode
         uses: anomalyco/opencode/github@latest
         with:
-          # Change this to your preferred model
-          # Format: provider/model
-          # Examples:
-          # - opencode/big-pickle (free)
-          # - opencode/gpt-5-nano (free)
-          # - anthropic/claude-sonnet-4-20250514
-          # - openai/gpt-4
           model: opencode/big-pickle
-          # share: true  # Uncomment to share sessions (defaults to true for public repos)
-          # github_token: ${{ secrets.GITHUB_TOKEN }}  # Optional: uses GitHub App token by default
+          github_token: ${{ secrets.GITHUB_TOKEN }}
