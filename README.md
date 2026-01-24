@@ -81,6 +81,8 @@ Both tools share the same coding standards, so you get consistent behavior local
 
 ## Project Structure
 
+> **Note:** Dot-directories (`.cursor/`, `.github/`, `.opencode/`) may not be visible to Cursor AI in the initial project snapshot due to `.cursorignore` or default behavior. Use `list_dir` or file exploration tools to access these directories.
+
 ```
 your-project/
 │
