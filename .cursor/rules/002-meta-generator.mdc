@@ -68,3 +68,10 @@ alwaysApply: false
 3. Present to user for approval
 4. Create rule file on approval
 5. Update router triggers
+6. Remind user to reload window
+
+## After Rule Changes
+
+**Always remind user after creating or modifying rules:**
+
+> ⚠️ **Reload required:** Press `Cmd/Ctrl+Shift+P` → "Developer: Reload Window"
