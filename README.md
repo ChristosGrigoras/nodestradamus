@@ -118,21 +118,60 @@ your-project/
 
 ## Installation
 
-### Step 1: Install OpenCode Locally (Optional)
+### Step 1: Install OpenCode Locally
 
-If you want to use OpenCode from your terminal:
+OpenCode can run both locally (terminal) and on GitHub (Actions). Install locally first:
 
 ```bash
+# Download and install OpenCode
 curl -fsSL https://opencode.ai/install | bash
-source ~/.bashrc  # or restart your terminal
 ```
 
-Verify installation:
+This installs OpenCode to `~/.opencode/bin/`. The installer adds it to your PATH in `~/.bashrc`.
+
+**Activate in current terminal:**
+```bash
+source ~/.bashrc
+```
+
+**Or manually add to PATH:**
+```bash
+export PATH="$HOME/.opencode/bin:$PATH"
+```
+
+**Verify installation:**
 ```bash
 opencode --version
+# Should output: opencode version X.X.X
 ```
 
-### Step 2: Clone This Template
+**If `opencode: command not found`:**
+```bash
+# Check if binary exists
+ls -la ~/.opencode/bin/
+
+# Create symlink in a standard PATH location
+mkdir -p ~/.local/bin
+ln -sf ~/.opencode/bin/opencode ~/.local/bin/opencode
+
+# Add ~/.local/bin to PATH if not already
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+### Step 2: Configure OpenCode API Key (Optional)
+
+For local terminal usage, you may need an API key:
+
+```bash
+# Set API key (get from https://opencode.ai/settings)
+export OPENCODE_API_KEY="your-api-key-here"
+
+# Or add to ~/.bashrc for persistence
+echo 'export OPENCODE_API_KEY="your-api-key-here"' >> ~/.bashrc
+```
+
+### Step 3: Clone This Template
 
 ```bash
 # Clone the template
@@ -168,42 +207,310 @@ git push -u origin main
 
 ## GitHub Configuration
 
-### Required: Repository Permissions
+### Step 1: Repository Workflow Permissions
 
-1. Go to your repo on GitHub
-2. Navigate to **Settings → Actions → General**
-3. Under "Workflow permissions":
-   - Select **"Read and write permissions"**
-   - Check **"Allow GitHub Actions to create and approve pull requests"**
-4. Click **Save**
+OpenCode needs permission to create commits and PRs. Configure this:
 
-### Required: Create a General Tasks Issue
+1. **Go to your repository on GitHub**
+2. **Click Settings** (gear icon, top right)
+3. **Left sidebar → Actions → General**
+4. **Scroll to "Workflow permissions"**
+5. **Select these options:**
 
-The `update-cursorrules.yml` workflow posts to issue #4. Create it:
+```
+☑ Read and write permissions
+  (Workflows have read and write permissions in the repository for all scopes)
 
-1. Go to **Issues → New Issue**
-2. Title: `General tasks`
-3. Body: `Ongoing tasks and automated updates`
-4. Submit
-
-**Important:** This should be issue #4. If it's a different number, update the workflow:
-
-```yaml
-# In .github/workflows/update-cursorrules.yml, line 41
-"https://api.github.com/repos/${{ github.repository }}/issues/YOUR_ISSUE_NUMBER/comments"
+☑ Allow GitHub Actions to create and approve pull requests
 ```
 
-### Optional: Fine-Grained Personal Access Token
+6. **Click "Save"**
 
-For enhanced permissions, create a PAT:
+**Without these settings, you'll see errors like:**
+- `User opencode-agent[bot] does not have write permissions`
+- `fatal: unable to access '...': The requested URL returned error: 403`
 
-1. GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens
-2. Create token with:
-   - **Repository access:** Your specific repo
-   - **Permissions:** Contents (Read and write), Issues (Read and write), Pull requests (Read and write)
-3. Add to repo: Settings → Secrets and variables → Actions → New repository secret
-   - Name: `OPENCODE_PAT`
-   - Value: Your token
+### Step 2: Create the General Tasks Issue
+
+The `update-cursorrules.yml` workflow needs an issue to post comments to:
+
+1. **Go to Issues tab → New Issue**
+2. **Title:** `General tasks`
+3. **Body:** 
+   ```
+   Ongoing tasks and automated updates.
+   
+   OpenCode will post analysis comments here when the codebase changes.
+   ```
+4. **Submit**
+
+**Note the issue number.** If it's not #4, update the workflow:
+
+```bash
+# Edit .github/workflows/update-cursorrules.yml
+# Find line with /issues/4/comments and change 4 to your issue number
+```
+
+### Step 3: Create a Personal Access Token (PAT)
+
+For local Git operations and enhanced GitHub API access:
+
+#### Option A: Fine-Grained Token (Recommended)
+
+1. **Go to:** https://github.com/settings/tokens?type=beta
+2. **Click "Generate new token"**
+3. **Configure:**
+
+| Setting | Value |
+|---------|-------|
+| Token name | `opencode-workflow` |
+| Expiration | 90 days (or custom) |
+| Repository access | "Only select repositories" → Select your repo |
+
+4. **Permissions (expand each section):**
+
+| Category | Permission | Access Level |
+|----------|------------|--------------|
+| **Repository permissions** | | |
+| Contents | Read and write |
+| Issues | Read and write |
+| Pull requests | Read and write |
+| Metadata | Read-only (auto-selected) |
+
+5. **Click "Generate token"**
+6. **Copy the token immediately** (starts with `github_pat_`)
+
+#### Option B: Classic Token (Simpler)
+
+1. **Go to:** https://github.com/settings/tokens
+2. **Click "Generate new token (classic)"**
+3. **Configure:**
+
+| Setting | Value |
+|---------|-------|
+| Note | `opencode-workflow` |
+| Expiration | 90 days |
+| Scopes | ☑ `repo` (full control of private repositories) |
+
+4. **Click "Generate token"**
+5. **Copy the token** (starts with `ghp_`)
+
+### Step 4: Configure Git Credentials Locally
+
+Store your PAT so Git doesn't ask for it repeatedly:
+
+```bash
+# Enable credential storage
+git config --global credential.helper store
+
+# Set your GitHub username
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+
+# Clone or push once - enter PAT as password when prompted
+git push origin main
+# Username: your-github-username
+# Password: [paste your PAT here]
+
+# Credentials are now stored in ~/.git-credentials
+```
+
+**Alternative: Include username in remote URL:**
+```bash
+git remote set-url origin https://YOUR_USERNAME@github.com/YOUR_USERNAME/YOUR_REPO.git
+```
+
+### Step 5: Add PAT to GitHub Secrets (Optional)
+
+If you want workflows to use your PAT instead of `GITHUB_TOKEN`:
+
+1. **Go to:** Repository → Settings → Secrets and variables → Actions
+2. **Click "New repository secret"**
+3. **Add:**
+
+| Name | Value |
+|------|-------|
+| `OPENCODE_PAT` | Your PAT (paste the full token) |
+
+4. **Update workflow to use it:**
+```yaml
+env:
+  GITHUB_TOKEN: ${{ secrets.OPENCODE_PAT }}
+```
+
+---
+
+## GitHub Actions Workflows Explained
+
+This template includes three workflows:
+
+### Workflow 1: `opencode.yml` - Main OpenCode Trigger
+
+**Location:** `.github/workflows/opencode.yml`
+
+**Triggers when:** Someone comments `/opencode` or `/oc` on an issue or PR.
+
+**What it does:**
+1. Checks out the repository
+2. Configures Git identity for commits
+3. Runs OpenCode with the comment as instructions
+4. OpenCode creates a PR with changes
+
+**Full workflow file:**
+```yaml
+name: opencode
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+
+jobs:
+  opencode:
+    # Only run if comment contains trigger
+    if: |
+      contains(github.event.comment.body, '/oc') ||
+      contains(github.event.comment.body, '/opencode')
+    runs-on: ubuntu-latest
+    
+    # Required permissions
+    permissions:
+      id-token: write        # For OpenCode authentication
+      contents: write        # To create commits
+      pull-requests: write   # To create PRs
+      issues: write          # To comment on issues
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0     # Full history for better context
+      
+      - name: Configure Git
+        run: |
+          git config --global user.name "opencode-agent[bot]"
+          git config --global user.email "opencode-agent[bot]@users.noreply.github.com"
+      
+      - name: Run OpenCode
+        uses: anomalyco/opencode/github@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          model: opencode/big-pickle
+          use_github_token: true
+```
+
+**Key settings explained:**
+
+| Setting | Purpose |
+|---------|---------|
+| `fetch-depth: 0` | Get full git history (helps AI understand context) |
+| `git config` | Identity for commits (required or you get "empty ident" error) |
+| `GITHUB_TOKEN` | Auto-provided secret for GitHub API access |
+| `use_github_token: true` | Tell OpenCode to use the token |
+
+### Workflow 2: `update-cursorrules.yml` - Auto-Update Rules
+
+**Location:** `.github/workflows/update-cursorrules.yml`
+
+**Triggers when:** Code is pushed to main (excluding changes to `.cursor/` itself).
+
+**What it does:**
+1. Analyzes recent commits
+2. Posts a comment to the General Tasks issue
+3. That comment triggers OpenCode to update rules
+
+**Why this design:** GitHub Actions can't directly trigger other Actions, so we use an issue comment as a bridge.
+
+**Full workflow file:**
+```yaml
+name: Update Cursor Rules
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '.cursor/**'      # Don't trigger on rule changes
+      - '.cursorrules'
+
+jobs:
+  update-rules:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      
+      - name: Configure Git
+        run: |
+          git config --global user.name "opencode-agent[bot]"
+          git config --global user.email "opencode-agent[bot]@users.noreply.github.com"
+      
+      - name: Create analysis issue comment
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get last 5 commits
+          CHANGES=$(git log -5 --oneline --no-merges)
+          
+          # Post comment to trigger OpenCode
+          curl -s -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d "{\"body\": \"/opencode Analyze recent commits and update .cursor/rules/*.mdc files if needed. Recent changes:\n\n\`\`\`\n${CHANGES}\n\`\`\`\n\nUpdate rules to reflect any new patterns, conventions, or file structures observed.\"}" \
+            "https://api.github.com/repos/${{ github.repository }}/issues/4/comments"
+```
+
+### Workflow 3: `housekeeping.yml` - Monthly Cleanup
+
+**Location:** `.github/workflows/housekeeping.yml`
+
+**Triggers when:** First day of each month at midnight UTC.
+
+**What it does:**
+1. Creates a new housekeeping issue
+2. Asks the `@housekeeper` agent to scan for cleanup tasks
+
+**Full workflow file:**
+```yaml
+name: Monthly Housekeeping
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'   # First day of month, midnight UTC
+  workflow_dispatch:       # Allow manual trigger
+
+jobs:
+  housekeeping:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    
+    steps:
+      - name: Create housekeeping issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DATE=$(date +%Y-%m)
+          curl -s -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d "{\"title\": \"Housekeeping: $DATE\", \"body\": \"/opencode @housekeeper Scan the codebase and report:\n\n1. Dead code and unused imports\n2. Outdated dependencies\n3. Files that could be archived\n4. Potential refactoring opportunities\n\nCreate a summary with recommendations.\"}" \
+            "https://api.github.com/repos/${{ github.repository }}/issues"
+```
+
+**To trigger manually:**
+1. Go to Actions tab
+2. Select "Monthly Housekeeping"
+3. Click "Run workflow"
 
 ---
 
