@@ -1,0 +1,20 @@
+---
+description: "General project rules"
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# General Rules
+
+## Code Quality
+- Output FULL file content. No placeholders like `// ...existing code`
+- Write self-documenting code with clear variable names
+- Don't be lazy - complete the task fully
+
+## Project Structure
+- utils.py: Helper/utility functions
+- .github/workflows/: GitHub Actions workflows
+
+## Git
+- Write clear, descriptive commit messages
+- Keep commits focused on single changes

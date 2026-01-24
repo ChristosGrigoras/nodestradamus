@@ -1,0 +1,15 @@
+---
+description: "Python coding conventions"
+globs: ["**/*.py"]
+alwaysApply: true
+---
+
+# Python Rules
+
+- Use Python 3.x syntax
+- Include docstrings for all functions
+- Use snake_case for functions and variables
+- Prefer f-strings over .format()
+- Add type hints where appropriate
+- Keep functions small and focused (< 20 lines ideal)
+- Use pathlib for file paths, not os.path

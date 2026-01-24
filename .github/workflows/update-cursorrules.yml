@@ -1,0 +1,41 @@
+name: Update Cursor Rules
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '.cursor/**'
+      - '.cursorrules'
+
+jobs:
+  update-rules:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "opencode-agent[bot]"
+          git config --global user.email "opencode-agent[bot]@users.noreply.github.com"
+
+      - name: Create analysis issue comment
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get recent changes
+          CHANGES=$(git log -5 --oneline --no-merges)
+          
+          # Create comment on the general tasks issue
+          curl -s -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d "{\"body\": \"/opencode Analyze recent commits and update .cursor/rules/*.mdc files if needed. Recent changes:\n\n\`\`\`\n${CHANGES}\n\`\`\`\n\nUpdate rules to reflect any new patterns, conventions, or file structures observed.\"}" \
+            "https://api.github.com/repos/${{ github.repository }}/issues/4/comments"
