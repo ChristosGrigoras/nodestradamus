@@ -1,54 +1,85 @@
----
-name: rules-sync
-description: Synchronize and update AI rules based on codebase patterns
-license: MIT
----
+# Rules Sync Skill
 
-## What I Do
+## Purpose
 
-- Analyze codebase for coding patterns and conventions
-- Update `.cursor/rules/*.mdc` files to match reality
-- Keep `AGENTS.md` in sync with project structure
-- Suggest new rules based on repeated corrections
+Analyze codebase changes and update `.cursor/rules/` to reflect new patterns.
 
-## When to Use Me
+## When to Trigger
 
-Use this skill when:
-- After major refactoring
-- When adding new file types or patterns
-- Monthly rule review
-- After onboarding feedback
+- After significant code changes pushed to main
+- When new frameworks or libraries are added
+- When coding patterns change
+- Monthly review cycle
 
-## Analysis Steps
+## Analysis Process
 
-1. **Scan file structure** - Update project directories in rules
-2. **Analyze code patterns** - Extract naming conventions, import styles
-3. **Check for consistency** - Rules match actual code
-4. **Identify gaps** - Patterns not covered by rules
+1. **Review recent commits**
+   ```bash
+   git log -10 --oneline --no-merges
+   git diff HEAD~10..HEAD --stat
+   ```
 
-## Files to Update
+2. **Identify new patterns**
+   - New file types or directories
+   - New frameworks or libraries
+   - Changed naming conventions
+   - New architectural patterns
 
-| File | Purpose |
-|------|---------|
-| `.cursor/rules/200-project.mdc` | Project structure, key directories |
-| `AGENTS.md` | Project overview, external references |
-| `opencode.json` | Shared instructions list |
+3. **Check existing rules**
+   - Do current rules cover new patterns?
+   - Are any rules outdated?
+   - Are there conflicts between rules?
 
-## Rule Generation Template
+4. **Propose updates**
+   - Add new patterns to appropriate rule files
+   - Update outdated instructions
+   - Remove obsolete rules
+
+## Rule File Structure
+
+| Range | Purpose |
+|-------|---------|
+| 001-099 | Core system (router, meta-gen, security) |
+| 100-199 | Language-specific (Python, JS, Go) |
+| 200-299 | Project-specific context |
+| 300-399 | Capability-specific (testing, API, arch) |
+
+## Update Checklist
+
+- [ ] Router triggers updated for new contexts
+- [ ] Language rules reflect new frameworks
+- [ ] Project context updated with new directories
+- [ ] Capability rules cover new patterns
+- [ ] No conflicting instructions between rules
+
+## Output Template
 
 ```markdown
----
-description: [What this rule covers]
-globs: ["**/*.ext"]
-alwaysApply: false
----
+## Rules Sync Report
 
-# [Context Name]
+**Analyzed commits:** X
+**Period:** YYYY-MM-DD to YYYY-MM-DD
 
-## Conventions
-- [Pattern 1 observed in codebase]
-- [Pattern 2 observed in codebase]
+### Detected Changes
+- [List of significant changes]
 
-## Avoid
-- [Anti-pattern seen in corrections]
+### Proposed Rule Updates
+
+#### [Rule file name]
+**Add:**
+- [New patterns to add]
+
+**Update:**
+- [Existing patterns to modify]
+
+**Remove:**
+- [Outdated patterns to remove]
+
+### No Action Needed
+- [Rules that are still accurate]
 ```
+
+## Reminder
+
+After updating rules, remind user:
+> ⚠️ **Reload required:** `Cmd/Ctrl+Shift+P` → "Developer: Reload Window"

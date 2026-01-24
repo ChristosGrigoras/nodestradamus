@@ -3,7 +3,11 @@
   "instructions": [
     ".cursor/rules/003-code-quality.mdc",
     ".cursor/rules/004-response-quality.mdc",
-    ".cursor/rules/005-security.mdc"
+    ".cursor/rules/005-security.mdc",
+    ".cursor/rules/301-testing.mdc",
+    ".cursor/rules/302-validation.mdc",
+    ".cursor/rules/303-api-patterns.mdc",
+    ".cursor/rules/304-architecture.mdc"
   ],
   "agent": {
     "build": {

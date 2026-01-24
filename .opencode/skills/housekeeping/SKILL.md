@@ -1,60 +1,92 @@
----
-name: housekeeping
-description: Analyze codebase for cleanup opportunities - dead code, unused files, organization issues
-license: MIT
----
+# Housekeeping Skill
 
-## What I Do
+## Purpose
 
-- Scan for backup/temp files that should be deleted
-- Find dead code and unused imports
-- Identify files not touched in months
-- Check for duplicate or versioned files (`v1`, `final`, `fixed`)
-- Suggest organization improvements
+Find and report cleanup opportunities in the codebase.
 
-## When to Use Me
+## Scan Categories
 
-Use this skill when:
-- Before major releases (cleanup sprint)
-- Monthly maintenance reviews
-- Onboarding new team members (clean house first)
-- Repository is feeling "cluttered"
+### 1. Dead Code
+- Unreachable code branches
+- Unused functions and classes
+- Commented-out code blocks
+- Unused variables
 
-## Scan Commands
-
+**Commands:**
 ```bash
-# Find backup/temp files
-find . -name "*.bak" -o -name "*.tmp" -o -name "*~" -o -name "*.old"
+# Python
+vulture .
+ruff check . --select=F401,F841
 
-# Find files not modified in 6 months
-find . -type f -mtime +180 -not -path "./.git/*"
-
-# Find potential duplicates (similar names)
-find . -type f -name "*final*" -o -name "*v[0-9]*" -o -name "*fixed*" -o -name "*backup*"
-
-# Find empty files
-find . -type f -empty -not -path "./.git/*"
-
-# Find large files (>1MB)
-find . -type f -size +1M -not -path "./.git/*"
+# JavaScript/TypeScript
+npx ts-prune
 ```
 
-## Cleanup Checklist
+### 2. Unused Imports
+- Imports never referenced
+- Wildcard imports that could be specific
 
-1. **Immediate Delete**: `.bak`, `.tmp`, `~` files, `.DS_Store`
-2. **Review Before Delete**: `*final*`, `*v2*`, `*fixed*` files
-3. **Archive to Branch**: Old features, deprecated code
-4. **Update .gitignore**: Prevent future clutter
+### 3. Outdated Dependencies
+- Security vulnerabilities
+- Major version updates available
+- Deprecated packages
 
-## Archive Strategy
-
-For files worth keeping but not in main:
-
+**Commands:**
 ```bash
-# Create archive branch
-git checkout -b archive/old-features
-git add archived/
-git commit -m "chore: archive deprecated features"
-git push origin archive/old-features
-git checkout main
+# Python
+pip list --outdated
+pip-audit
+
+# JavaScript
+npm outdated
+npm audit
+```
+
+### 4. Code Duplication
+- Similar logic in multiple files
+- Copy-pasted functions
+- Patterns that could be abstracted
+
+### 5. Large Files
+- Files over 500 lines
+- Classes with too many methods
+- Functions over 50 lines
+
+### 6. TODO/FIXME Items
+- Forgotten tasks
+- Temporary workarounds
+- Technical debt markers
+
+**Commands:**
+```bash
+grep -r "TODO\|FIXME\|HACK\|XXX" --include="*.py" .
+```
+
+## Priority Matrix
+
+| Finding | Effort | Priority |
+|---------|--------|----------|
+| Security vulnerability | Any | 🔴 High |
+| Dead code (large) | Low | 🟡 Medium |
+| Unused imports | Low | 🟢 Low |
+| Code duplication | Medium | 🟡 Medium |
+| Outdated deps (non-security) | Low | 🟢 Low |
+
+## Output Template
+
+```markdown
+## Housekeeping Report
+
+**Date:** YYYY-MM-DD
+
+### Summary
+| Category | Count | Action |
+|----------|-------|--------|
+| ... | ... | ... |
+
+### Findings
+[Detailed list with file paths and recommendations]
+
+### Quick Wins
+[Low-effort, high-impact items]
 ```

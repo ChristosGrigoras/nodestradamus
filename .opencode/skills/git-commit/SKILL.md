@@ -1,54 +1,73 @@
----
-name: git-commit
-description: Generate clear, conventional commit messages
-license: MIT
----
+# Git Commit Skill
 
-## What I Do
+## Purpose
 
-- Analyze staged changes
-- Generate descriptive commit messages
-- Follow conventional commit format
-- Keep messages focused and clear
+Write clear, consistent commit messages following Conventional Commits.
 
-## Commit Format
+## Format
 
 ```
 <type>(<scope>): <subject>
 
 <body>
+
+<footer>
 ```
 
 ## Types
 
-- **feat**: New feature
-- **fix**: Bug fix
-- **docs**: Documentation changes
-- **refactor**: Code restructuring
-- **test**: Adding/updating tests
-- **chore**: Maintenance tasks
+| Type | When to Use |
+|------|-------------|
+| `feat` | New feature |
+| `fix` | Bug fix |
+| `docs` | Documentation only |
+| `style` | Formatting, no code change |
+| `refactor` | Code change that neither fixes nor adds |
+| `perf` | Performance improvement |
+| `test` | Adding or fixing tests |
+| `chore` | Maintenance, dependencies |
+| `ci` | CI/CD changes |
 
-## Guidelines
+## Rules
 
-- Subject line: max 50 chars, imperative mood
-- Body: explain WHAT and WHY, not HOW
-- Reference issues when applicable
-- One logical change per commit
+### Subject Line
+- Imperative mood: "add" not "added" or "adds"
+- No period at end
+- Max 50 characters
+- Lowercase
+
+### Body
+- Explain what and why, not how
+- Wrap at 72 characters
+- Separate from subject with blank line
+
+### Footer
+- Reference issues: `Fixes #123`, `Closes #456`
+- Breaking changes: `BREAKING CHANGE: description`
 
 ## Examples
 
 ```
-feat(auth): add JWT token refresh endpoint
+feat(auth): add password reset functionality
 
-Implements automatic token refresh to improve UX.
-Tokens now refresh 5 minutes before expiration.
+Users can now reset their password via email link.
+Token expires after 24 hours.
 
 Closes #42
 ```
 
 ```
-fix(utils): handle empty list in format_list()
+fix(api): handle null response from payment service
 
-Previously raised IndexError on empty input.
-Now returns empty string gracefully.
+The Stripe API occasionally returns null instead of
+an error object. Added defensive check.
+
+Fixes #78
 ```
+
+## Process
+
+1. Stage changes: `git add -A`
+2. Review diff: `git diff --staged`
+3. Write message following format
+4. Commit: `git commit -m "..."`

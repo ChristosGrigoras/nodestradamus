@@ -1,38 +1,55 @@
----
-name: code-review
-description: Perform thorough code review with security, performance, and quality checks
-license: MIT
----
+# Code Review Skill
 
-## What I Do
+## Purpose
 
-- Review code for bugs, security issues, and performance problems
-- Check adherence to project coding standards
-- Suggest specific improvements with examples
-- Prioritize issues by severity
+Systematically review code changes for quality, security, and maintainability.
 
-## When to Use Me
+## Checklist
 
-Use this skill when:
-- Reviewing pull requests
-- Auditing existing code for quality
-- Checking for security vulnerabilities
-- Validating before deployment
+### Security
+- [ ] No hardcoded secrets or credentials
+- [ ] Input validation on all external data
+- [ ] SQL queries use parameterized statements
+- [ ] No path traversal vulnerabilities
+- [ ] Authentication/authorization checks present
 
-## Review Checklist
+### Code Quality
+- [ ] Functions have single responsibility
+- [ ] No code duplication (DRY)
+- [ ] Meaningful variable/function names
+- [ ] Error handling is explicit
+- [ ] No god classes or methods
 
-1. **Security**: Input validation, auth, secrets exposure
-2. **Bugs**: Edge cases, null checks, error handling
-3. **Performance**: N+1 queries, unnecessary loops, memory leaks
-4. **Quality**: Naming, structure, documentation
-5. **Tests**: Coverage, edge cases, assertions
+### Testing
+- [ ] Critical paths have tests
+- [ ] Edge cases are covered
+- [ ] Tests are isolated and independent
+- [ ] No flaky tests introduced
 
-## Output Format
+### Performance
+- [ ] No N+1 query patterns
+- [ ] Pagination for large datasets
+- [ ] No blocking operations in async code
+- [ ] Appropriate caching strategy
+
+## Severity Levels
+
+| Level | Meaning | Action |
+|-------|---------|--------|
+| 🔴 Critical | Security risk, data loss | Block merge |
+| 🟡 Warning | Bug, bad pattern | Request changes |
+| 🟢 Suggestion | Style, minor improvement | Optional |
+
+## Output Template
 
 ```markdown
-## [SEVERITY] Issue Title
+## Review: [PR Title]
 
-**File**: path/to/file.py:42
-**Issue**: Description of the problem
-**Fix**: Suggested solution with code example
+**Verdict:** ✅ Approve / ⚠️ Changes Requested / ❌ Blocked
+
+### Issues
+[List with severity, file:line, description, fix]
+
+### Positives
+[What's done well]
 ```
