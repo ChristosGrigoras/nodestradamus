@@ -1,0 +1,51 @@
+---
+description: Type hints enforcement for Python functions
+globs: ["**/*.py"]
+alwaysApply: true
+---
+
+# Type Hints Enforcement
+
+## Required Type Hints
+
+ALL functions MUST have complete type annotations:
+- Parameters: `name: str`
+- Return types: `-> str`
+- Complex types: `-> List[str]`, `-> Dict[str, int]`
+
+## Examples
+
+### Good
+```python
+def greet(name: str) -> str:
+    """Greet a user by name."""
+    return f"Hello, {name}!"
+
+def format_list(items: List[str]) -> str:
+    """Format a list of items as a comma-separated string."""
+    return ", ".join(items)
+```
+
+### Bad
+```python
+def greet(name):
+    """Greet a user by name."""
+    return f"Hello, {name}!"
+
+def format_list(items):
+    """Format a list of items as a comma-separated string."""
+    return ", ".join(items)
+```
+
+## Exceptions
+
+- Simple scripts with only top-level statements (no functions)
+- Lambda functions where type hints would be redundant
+- Function signatures that would become unreadable
+
+## Import Requirements
+
+When using complex types, import from `typing`:
+```python
+from typing import List, Dict, Optional, Union
+```
