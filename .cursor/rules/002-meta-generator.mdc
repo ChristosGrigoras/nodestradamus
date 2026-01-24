@@ -84,3 +84,24 @@ alwaysApply: false
 > ⚠️ **Reload required:** To apply this rule change, press `Cmd/Ctrl+Shift+P` → "Developer: Reload Window"
 
 This ensures the new rules take effect immediately.
+
+## OpenCode Synchronization
+
+**When Cursor rules are created or modified, prompt:**
+
+> 🔄 **OpenCode sync:** Should I update OpenCode configuration to match?
+> - Add new rule to `opencode.json` instructions array?
+> - Update `AGENTS.md` with new patterns?
+> - Sync relevant `.opencode/agents/` or `.opencode/skills/`?
+
+**Auto-sync checklist:**
+1. New rule file → Add to `opencode.json` instructions
+2. Changed code-quality/security → Update `AGENTS.md` boundaries
+3. New capability rule (3xx) → Check if agents need the pattern
+4. Changed patterns → Update relevant SKILL.md files
+
+**After syncing, commit both:**
+```bash
+git add .cursor/rules/ .opencode/ opencode.json AGENTS.md
+git commit -m "chore(rules): sync Cursor and OpenCode configurations"
+```
