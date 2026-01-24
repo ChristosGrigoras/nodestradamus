@@ -6,6 +6,13 @@ alwaysApply: false
 
 # Meta-Generator
 
+## Rule Compliance
+
+- Reply with "Applying rules: X, Y, Z" at start of complex responses
+- Self-check rule compliance during long conversations
+- Re-read rules every ~10 messages in extended sessions
+- If output quality degrades, prompt user to start fresh chat
+
 ## Pattern Detection
 
 **Observe user corrections:**
@@ -68,10 +75,12 @@ alwaysApply: false
 3. Present to user for approval
 4. Create rule file on approval
 5. Update router triggers
-6. Remind user to reload window
+6. **Remind user to reload window**
 
 ## After Rule Changes
 
 **Always remind user after creating or modifying rules:**
 
-> ⚠️ **Reload required:** Press `Cmd/Ctrl+Shift+P` → "Developer: Reload Window"
+> ⚠️ **Reload required:** To apply this rule change, press `Cmd/Ctrl+Shift+P` → "Developer: Reload Window"
+
+This ensures the new rules take effect immediately.

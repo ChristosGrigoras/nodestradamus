@@ -8,22 +8,29 @@ alwaysApply: true
 
 ## Core Principles
 
-- **Be direct** - get straight to the point
-- **Complete solutions** - working code that can be copy-pasted
-- **Context first** - analyze project structure before responding
-- **Focus on now** - avoid over-explaining obvious concepts
+- Be direct, get to the point
+- Provide complete, working solutions
+- Analyze project structure before responding
+- Focus on current task, skip obvious explanations
 
-## What to Avoid
+## Prohibited
 
-- Don't ask "Do you want me to..." - just do it
-- Don't provide multiple approaches unless asked
-- Don't over-explain basic concepts
-- Don't suggest refactoring unless there's a clear problem
-- Don't create `final_v2.py`, `fixed_final.py` - fix the original
+- DO NOT use `// ...existing code...` placeholders
+- DO NOT use `# TODO: implement` stubs
+- DO NOT truncate or abbreviate code output
+- Output FULL file content when editing
 
-## Response Checklist
+## Avoid
 
-- [ ] Code will work as written
-- [ ] All necessary parts included
-- [ ] Explanation is clear
-- [ ] Solution fits the project
+- Act, don't ask permission
+- One approach unless alternatives requested
+- No over-explanation of basics
+- No refactoring without clear problem
+- Fix original files, never create `_v2` or `_fixed` variants
+
+## Quality Check
+
+- Code works as written
+- All parts included
+- Clear explanation
+- Fits project context

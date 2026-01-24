@@ -90,8 +90,10 @@ your-project/
 │       ├── 002-meta-generator.mdc  # Detects patterns in your corrections
 │       ├── 003-code-quality.mdc    # Universal coding standards
 │       ├── 004-response-quality.mdc# How AI should communicate
+│       ├── 005-security.mdc        # Security guardrails (always applied)
 │       ├── 100-python.mdc          # Python-specific rules
-│       └── 200-project.mdc         # Your project's specific context
+│       ├── 200-project.mdc         # Your project's specific context
+│       └── 3xx-*.mdc               # Capability-specific rules (optional)
 │
 ├── .opencode/
 │   ├── agents/                     # Custom AI agents for OpenCode
@@ -696,9 +698,12 @@ Just open your project in Cursor IDE. The rules in `.cursor/rules/` are automati
 
 | Range | Purpose | Example |
 |-------|---------|---------|
-| `001-099` | Core system rules | Router, meta-generator |
+| `001-099` | Core system rules | Router, meta-generator, security |
 | `100-199` | Language-specific | Python, JavaScript, Go |
 | `200-299` | Project-specific | Your project context |
+| `300-399` | Capability-specific | API patterns, auth, database, testing |
+
+**Capability Rules (300-399):** For larger projects, create rules for specific capabilities like authentication, database access, or API design. Examples: `301-api-patterns.mdc`, `302-database-access.mdc`, `303-testing.mdc`.
 
 ### File: `001-router.mdc`
 
@@ -730,6 +735,8 @@ Just open your project in Cursor IDE. The rules in `.cursor/rules/` are automati
 **Purpose:** Universal coding standards that apply to all languages.
 
 **Contains:**
+- **Critical Partner Mindset:** Question assumptions, prioritize truth over agreement
+- **Execution Sequence:** Search first, reuse first, no assumptions, challenge ideas
 - Naming conventions (descriptive, no abbreviations)
 - Function guidelines (single responsibility, <50 lines)
 - Comment standards (explain why, not what)
@@ -745,6 +752,20 @@ Just open your project in Cursor IDE. The rules in `.cursor/rules/` are automati
 - Provide complete, working solutions
 - Don't over-explain obvious concepts
 - Never create `final_v2.py` - fix the original
+- Never use `// ...existing code...` placeholders
+
+### File: `005-security.mdc`
+
+**Purpose:** Security guardrails that prevent common vulnerabilities.
+
+**Protections:**
+- Secrets: Never expose in logs, frontend, or hardcode
+- SQL injection: Always use parameterized queries
+- Command injection: Block dangerous shell commands
+- Path traversal: Validate all file paths
+- SSRF/XXE: Validate URLs, disable external entities
+
+This rule has `priority: 100` (highest) to ensure security overrides other rules.
 
 ### File: `100-python.mdc`
 
