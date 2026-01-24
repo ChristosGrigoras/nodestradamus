@@ -26,16 +26,6 @@ jobs:
 
       - name: Run OpenCode
         uses: anomalyco/opencode/github@latest
-        env:
-          # Add your API key secrets here based on your provider
-          # For OpenCode Zen (free models):
-          # OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
-          # For Anthropic:
-          # ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          # For OpenAI:
-          # OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          # For Google:
-          # GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         with:
           # Change this to your preferred model
           # Format: provider/model
