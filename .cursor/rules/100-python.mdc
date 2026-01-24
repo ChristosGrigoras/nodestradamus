@@ -6,6 +6,7 @@ alwaysApply: false
 
 # Python Rules
 
+## Style
 - Use Python 3.x syntax
 - Include docstrings for all functions
 - Use snake_case for functions and variables
@@ -13,3 +14,9 @@ alwaysApply: false
 - Add type hints where appropriate
 - Keep functions small and focused (< 20 lines ideal)
 - Use pathlib for file paths, not os.path
+
+## Secrets & Config
+- Load secrets via `os.getenv("VAR")` or `os.environ["VAR"]` for required vars
+- Use `python-dotenv` for local development: `load_dotenv()` at entry point
+- Fail fast on missing required env vars with clear error messages
+- Never log or print secret values

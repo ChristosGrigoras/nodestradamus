@@ -23,8 +23,12 @@ alwaysApply: true
 
 - **Secrets:** Never hardcode, use environment variables
 - **Input validation:** Validate all external inputs
+- **Env files:** Create `.env.example` with placeholders, never commit `.env`
+- **Git safety:** Verify `.gitignore` excludes `.env`, `*.key`, `*.pem`, secrets
 
 ## Documentation
 
 - **README:** Clear setup, usage, contribution guidelines
+- **Keep docs current:** Update README/docs when adding features, changing APIs, or modifying setup
+- **Env documentation:** Document all required env vars in README or `.env.example`
 - **Code comments:** Complex logic, business rules, edge cases

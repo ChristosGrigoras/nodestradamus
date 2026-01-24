@@ -185,7 +185,7 @@ rm -rf .git
 git init
 ```
 
-### Step 3: Customize for Your Project
+### Step 4: Customize for Your Project
 
 Edit these files:
 
@@ -193,7 +193,7 @@ Edit these files:
 2. **`AGENTS.md`** - Update project description for OpenCode
 3. **`README.md`** - Replace with your project's documentation
 
-### Step 4: Push to Your GitHub Repository
+### Step 5: Push to Your GitHub Repository
 
 ```bash
 # Create repo on GitHub first, then:
@@ -244,12 +244,13 @@ The `update-cursorrules.yml` workflow needs an issue to post comments to:
    ```
 4. **Submit**
 
-**Note the issue number.** If it's not #4, update the workflow:
+**Note the issue number.** Then set it as a repository variable:
 
-```bash
-# Edit .github/workflows/update-cursorrules.yml
-# Find line with /issues/4/comments and change 4 to your issue number
-```
+1. Go to **Settings → Secrets and variables → Actions → Variables**
+2. Click **"New repository variable"**
+3. Name: `GENERAL_TASKS_ISSUE`, Value: your issue number (e.g., `1`)
+
+If not set, the workflow defaults to issue `#1`.
 
 ### Step 3: Create a Personal Access Token (PAT)
 
@@ -456,16 +457,17 @@ jobs:
       - name: Create analysis issue comment
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GENERAL_TASKS_ISSUE: ${{ vars.GENERAL_TASKS_ISSUE || '1' }}
         run: |
           # Get last 5 commits
           CHANGES=$(git log -5 --oneline --no-merges)
           
-          # Post comment to trigger OpenCode
+          # Post comment to trigger OpenCode (uses GENERAL_TASKS_ISSUE variable)
           curl -s -X POST \
             -H "Authorization: token $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
             -d "{\"body\": \"/opencode Analyze recent commits and update .cursor/rules/*.mdc files if needed. Recent changes:\n\n\`\`\`\n${CHANGES}\n\`\`\`\n\nUpdate rules to reflect any new patterns, conventions, or file structures observed.\"}" \
-            "https://api.github.com/repos/${{ github.repository }}/issues/4/comments"
+            "https://api.github.com/repos/${{ github.repository }}/issues/${GENERAL_TASKS_ISSUE}/comments"
 ```
 
 ### Workflow 3: `housekeeping.yml` - Monthly Cleanup
