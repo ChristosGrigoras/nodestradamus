@@ -620,10 +620,10 @@ jobs:
       - name: Run OpenCode Review
         uses: anomalyco/opencode/github@latest
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          model: anthropic/claude-sonnet-4-20250514
+          model: deepseek/deepseek-chat
           use_github_token: true
           prompt: |
             Review this pull request:
@@ -689,9 +689,9 @@ jobs:
         if: steps.check.outputs.result == 'true'
         uses: anomalyco/opencode/github@latest
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         with:
-          model: anthropic/claude-sonnet-4-20250514
+          model: deepseek/deepseek-chat
           prompt: |
             Review this issue. If there's a clear fix or relevant docs:
             - Provide documentation links
