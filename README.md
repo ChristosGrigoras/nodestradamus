@@ -19,6 +19,7 @@
 - [The Meta-Generator: Self-Improving Rules](#the-meta-generator-self-improving-rules)
 - [Rule Governance](#rule-governance)
 - [Customization Guide](#customization-guide)
+- [Dependency Graphs (Optional)](#dependency-graphs-optional)
 - [Troubleshooting](#troubleshooting)
 
 ---
@@ -135,18 +136,22 @@ Monday you build a Rust chatbot. Tuesday you build a Python RAG system. Both fee
 your-project/
 │
 ├── .cursor/
-│   └── rules/                      # Cursor AI reads these files
-│       ├── 001-router.mdc          # Routes to correct rules based on context
-│       ├── 002-meta-generator.mdc  # Detects patterns in your corrections
-│       ├── 003-code-quality.mdc    # Universal coding standards
-│       ├── 004-response-quality.mdc# How AI should communicate
-│       ├── 005-security.mdc        # Security guardrails (always applied)
-│       ├── 100-python.mdc          # Python-specific rules
-│       ├── 200-project.mdc         # Your project's specific context
-│       ├── 301-testing.mdc         # Testing patterns (language-agnostic)
-│       ├── 302-validation.mdc      # Data validation patterns
-│       ├── 303-api-patterns.mdc    # REST API conventions
-│       └── 304-architecture.mdc    # Architectural patterns
+│   ├── rules/                      # Cursor AI reads these files
+│   │   ├── 001-router.mdc          # Routes to correct rules based on context
+│   │   ├── 002-meta-generator.mdc  # Detects patterns in your corrections
+│   │   ├── 003-code-quality.mdc    # Universal coding standards
+│   │   ├── 004-response-quality.mdc# How AI should communicate
+│   │   ├── 005-security.mdc        # Security guardrails (always applied)
+│   │   ├── 100-python.mdc          # Python-specific rules
+│   │   ├── 200-project.mdc         # Your project's specific context
+│   │   ├── 301-testing.mdc         # Testing patterns (language-agnostic)
+│   │   ├── 302-validation.mdc      # Data validation patterns
+│   │   ├── 303-api-patterns.mdc    # REST API conventions
+│   │   ├── 304-architecture.mdc    # Architectural patterns
+│   │   └── 305-dependency-graph.mdc# Dependency graph awareness
+│   │
+│   └── graph/                      # Dependency graphs (optional)
+│       └── README.md               # How to generate graphs
 │
 ├── .opencode/
 │   ├── agents/                     # Custom AI agents for OpenCode
@@ -167,6 +172,10 @@ your-project/
 │       ├── housekeeping.yml        # Monthly cleanup scan
 │       ├── opencode-review.yml     # Auto-review PRs when opened
 │       └── issue-triage.yml        # Auto-triage new issues
+│
+├── scripts/                        # Utility scripts (optional)
+│   ├── analyze_python_deps.py      # Generate Python dependency graph
+│   └── analyze_git_cooccurrence.py # Generate co-occurrence graph
 │
 ├── AGENTS.md                       # OpenCode reads this for instructions
 ├── opencode.json                   # OpenCode configuration
@@ -1199,6 +1208,104 @@ on:
   schedule:
     - cron: '0 0 * * 0'  # Weekly on Sunday midnight
 ```
+
+---
+
+## Dependency Graphs (Optional)
+
+For larger projects, you can generate dependency graphs that help AI understand code relationships and perform impact analysis.
+
+### What Graphs Provide
+
+When you ask AI to modify a function, it can check the graph to see:
+- What calls this function (downstream impact)
+- What this function calls (upstream dependencies)
+- What files tend to change together (co-occurrence)
+
+### Graph Types
+
+| Type | What It Tracks | Generator |
+|------|----------------|-----------|
+| **Static analysis** | Function calls, imports, inheritance | Language-specific tools |
+| **Co-occurrence** | Files that change together in git | `scripts/analyze_git_cooccurrence.py` |
+
+### Quick Start
+
+**Python dependencies:**
+
+```bash
+python scripts/analyze_python_deps.py src/ > .cursor/graph/python-deps.json
+```
+
+**TypeScript dependencies:**
+
+```bash
+npm install -g madge
+madge src/ --json > .cursor/graph/ts-deps.json
+```
+
+**Git co-occurrence:**
+
+```bash
+python scripts/analyze_git_cooccurrence.py > .cursor/graph/co-occurrence.json
+```
+
+### How AI Uses Graphs
+
+When `.cursor/graph/` contains graph files, the `305-dependency-graph.mdc` rule tells AI to:
+
+1. Check for downstream impacts before modifying functions
+2. List affected files in responses
+3. Update related code proactively
+
+### CI Integration
+
+To keep graphs updated automatically, add a workflow:
+
+```yaml
+# .github/workflows/update-graphs.yml
+name: Update Dependency Graphs
+
+on:
+  push:
+    branches: [main]
+    paths: ['src/**', '*.py', '*.ts']
+
+jobs:
+  update-graphs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 100
+      
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Generate graphs
+        run: |
+          python scripts/analyze_python_deps.py src/ > .cursor/graph/python-deps.json || true
+          python scripts/analyze_git_cooccurrence.py > .cursor/graph/co-occurrence.json
+      
+      - name: Commit graphs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .cursor/graph/
+          git commit -m "chore: update dependency graphs" || true
+          git push
+```
+
+### Limitations
+
+- **Config files:** JSON/YAML dependencies are implicit. AI searches for usage at change time.
+- **Dynamic calls:** Reflection, `getattr()`, etc. won't appear in static graphs.
+- **Cross-repo:** Dependencies across repositories not tracked.
+
+When graphs are missing or incomplete, AI falls back to searching the codebase.
+
+For detailed graph format and options, see `.cursor/graph/README.md`.
 
 ---
 

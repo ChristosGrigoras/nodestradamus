@@ -1,0 +1,77 @@
+---
+description: Dependency graph awareness for impact analysis
+globs: "**/*"
+alwaysApply: false
+---
+
+# Dependency Graph
+
+## Before Modifying Code
+
+1. **Check for graphs:** Look in `.cursor/graph/` for dependency information
+2. **If graphs exist:** Identify what calls the function you're modifying
+3. **Note impacts:** List affected files in your response
+
+## When Modifying Config Files
+
+Config files (JSON, YAML, TOML, .env) don't have call graphs. Instead:
+
+1. **Search for usage:** Grep for files that load/reference the config
+2. **Check field usage:** If adding/removing fields, find code that accesses them
+3. **Update consumers:** Modify files that need to handle changes
+
+Example search patterns:
+- `json.load` + filename
+- `yaml.safe_load` + filename
+- `os.getenv("FIELD_NAME")`
+- Import statements referencing the config
+
+## Response Format
+
+When changes have downstream impacts:
+
+```
+## Impact Analysis
+
+**Modified:** `src/utils.py::validate_order()`
+
+**Downstream impacts:**
+- `src/orders.py::create_order()` - calls validate_order()
+- `src/payments.py::process_payment()` - calls validate_order()
+- `tests/test_orders.py` - tests validate_order()
+
+**Changes needed:** [list what needs updating]
+```
+
+## Graph File Formats
+
+If `.cursor/graph/` contains files:
+
+- `*-deps.json` — Static analysis output (function calls)
+- `co-occurrence.json` — Files that change together (from git history)
+
+JSON structure:
+```json
+{
+  "nodes": ["file_a", "func_b"],
+  "edges": [
+    {"from": "file_a", "to": "func_b", "type": "calls"}
+  ]
+}
+```
+
+## When No Graph Exists
+
+If `.cursor/graph/` is empty or missing, fall back to:
+
+1. Search codebase for function/file references
+2. Check import statements
+3. Use git history: `git log --all --full-history -- <file>`
+
+## Limitations
+
+- Config → code dependencies are implicit; search may miss some
+- Dynamic calls (reflection, `getattr`) won't appear in static graphs
+- Cross-repo dependencies not tracked
+
+When uncertain, note it: "There may be additional callers not detected by static analysis."
