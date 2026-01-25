@@ -9,7 +9,7 @@
     ".cursor/rules/303-api-patterns.mdc",
     ".cursor/rules/304-architecture.mdc"
   ],
-  "model": "deepseek/deepseek-reasoner",
+  "model": "deepseek/deepseek-chat",
   "agent": {
     "build": {
       "temperature": 0.3
