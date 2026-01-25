@@ -28,7 +28,7 @@ jobs:
 
       - name: Trigger housekeeping via comment
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.OPENCODE_PAT || secrets.GITHUB_TOKEN }}
           GENERAL_TASKS_ISSUE: ${{ vars.GENERAL_TASKS_ISSUE || '4' }}
         run: |
           curl -s -X POST \
