@@ -10,10 +10,11 @@ jobs:
   housekeeping:
     runs-on: ubuntu-latest
     permissions:
+      id-token: write
       contents: write
       issues: write
       pull-requests: write
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -25,25 +26,15 @@ jobs:
           git config --global user.name "opencode-agent[bot]"
           git config --global user.email "opencode-agent[bot]@users.noreply.github.com"
 
-      - name: Create housekeeping issue
+      - name: Trigger housekeeping via comment
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GENERAL_TASKS_ISSUE: ${{ vars.GENERAL_TASKS_ISSUE || '4' }}
         run: |
-          # Check if housekeeping issue exists
-          EXISTING=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/repos/${{ github.repository }}/issues?labels=housekeeping&state=open" | jq length)
-          
-          if [ "$EXISTING" -eq "0" ]; then
-            # Create new housekeeping issue
-            curl -s -X POST \
-              -H "Authorization: token $GITHUB_TOKEN" \
-              -H "Accept: application/vnd.github.v3+json" \
-              -d '{
-                "title": "🧹 Monthly Housekeeping Review",
-                "body": "Time for monthly codebase housekeeping!\n\n/opencode @housekeeper Run a full housekeeping scan. Check for:\n- Backup/temp files to delete\n- Dead code and unused imports\n- Files not modified in 6+ months\n- TODO/FIXME comments to address\n- Organization improvements\n\nGenerate a housekeeping report.",
-                "labels": ["housekeeping", "maintenance"]
-              }' \
-              "https://api.github.com/repos/${{ github.repository }}/issues"
-          else
-            echo "Housekeeping issue already exists, skipping creation"
-          fi
+          curl -s -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d '{
+              "body": "/opencode @housekeeper Run monthly housekeeping scan:\n\n- Check for backup/temp files to delete\n- Find dead code and unused imports\n- Identify files not modified in 6+ months\n- List TODO/FIXME comments to address\n- Suggest organization improvements\n\nGenerate a report and create a PR with any automated fixes."
+            }' \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${GENERAL_TASKS_ISSUE}/comments"
