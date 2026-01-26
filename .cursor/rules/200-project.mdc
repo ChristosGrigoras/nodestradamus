@@ -4,11 +4,11 @@ globs: "**/*"
 alwaysApply: true
 ---
 
-# OpenCode Plan Project
+# AImanac
 
 ## Overview
-- Python project with OpenCode GitHub integration
-- AI-assisted development workflow
+- Template for AI-assisted development workflows
+- Unifies Cursor AI and OpenCode under shared rules
 
 ## Key Directories
 - `.github/workflows/`: GitHub Actions (OpenCode integration)
@@ -35,14 +35,14 @@ curl -s -X POST \
   -H "Authorization: token $TOKEN" \
   -H "Accept: application/vnd.github.v3+json" \
   -d '{"body": "/opencode <task>"}' \
-  "https://api.github.com/repos/ChristosGrigoras/opencode_plan/issues/<issue_number>/comments"
+  "https://api.github.com/repos/ChristosGrigoras/aimanac/issues/<issue_number>/comments"
 
 # Example: Create a new issue
 curl -s -X POST \
   -H "Authorization: token $TOKEN" \
   -H "Accept: application/vnd.github.v3+json" \
   -d '{"title": "Issue title", "body": "/opencode <task>"}' \
-  "https://api.github.com/repos/ChristosGrigoras/opencode_plan/issues"
+  "https://api.github.com/repos/ChristosGrigoras/aimanac/issues"
 ```
 
 ---

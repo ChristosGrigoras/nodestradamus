@@ -1,6 +1,6 @@
-# OpenCode Plan Project
+# AImanac
 
-You are an AI coding agent for a Python project with OpenCode GitHub integration and Cursor AI for local development.
+You are an AI coding agent for AImanac — a template that unifies Cursor AI and OpenCode under shared rules for consistent AI-assisted development.
 
 ## Critical Partner Mindset
 

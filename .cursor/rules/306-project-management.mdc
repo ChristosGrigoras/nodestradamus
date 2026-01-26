@@ -1,0 +1,54 @@
+---
+description: Project management and task breakdown standards
+globs: "**/*-tasks.md,**/project/**,**/planning/**"
+alwaysApply: false
+---
+
+# Project Management Rules
+
+## Task Creation
+- **Create physical .md files** using write tool (never just provide content)
+- **Design-first approach**: complete design before implementation
+- **Break features** into 5-10 specific, actionable tasks
+- **Include git/version control** tasks throughout all phases
+- **One task = one commit** strategy for atomic changes
+
+## Design Phase (Complete First)
+- **Requirements gathering**: user stories, acceptance criteria, constraints
+- **Research & analysis**: existing solutions, technical dependencies
+- **Design definition**: wireframes, data models, API contracts
+- **Design validation**: stakeholder review, technical feasibility
+- **No coding until design approved** - resist urge to start immediately
+
+## Implementation Planning
+- **Prerequisites first**: environment setup, version control, dependencies
+- **Test immediately** after each change before proceeding
+- **Update task status** as work progresses with [x] checkboxes
+- **Document blockers** and risks upfront in task file
+- **Commit frequently** with descriptive messages referencing tasks
+
+## File Structure
+- **Naming**: Use `[feature-name]-tasks.md` format
+- **Template sections**: Design Phase, Setup, Implementation, Completed, Blockers
+- **Progress tracking**: Mark completed tasks, keep one "in progress"
+- **Context requirements**: list relevant files and dependencies
+- **Success criteria**: define "done" for each major task
+
+## Task Granularity
+- **Size appropriately**: 2-4 hours max per task, break down if larger
+- **Separate concerns**: database, backend, frontend work when logical
+- **Include testing**: unit, integration, E2E as separate tasks
+- **Documentation tasks**: update docs, cleanup, final review
+
+## Environment Handling
+- **Never auto-create .env files** - only when explicitly instructed
+- **Assume .env exists** - even if not readable, environment files present
+- **Ask for configuration** - if environment variables needed, ask user
+- **Look for .env.example** - reference existing template patterns
+
+## Common Patterns
+- **Start with design questions** - understand problem before solution
+- **Validate requirements** - don't assume full scope understanding
+- **Get stakeholder buy-in** - ensure alignment before development
+- **Iterate on design cheaply** - changes easier in design phase
+- **Complete design validation** before any implementation begins
