@@ -35,14 +35,14 @@ curl -s -X POST \
   -H "Authorization: token $TOKEN" \
   -H "Accept: application/vnd.github.v3+json" \
   -d '{"body": "/opencode <task>"}' \
-  "https://api.github.com/repos/ChristosGrigoras/aimanac/issues/<issue_number>/comments"
+  "https://api.github.com/repos/ChristosGrigoras/AImanac/issues/<issue_number>/comments"
 
 # Example: Create a new issue
 curl -s -X POST \
   -H "Authorization: token $TOKEN" \
   -H "Accept: application/vnd.github.v3+json" \
   -d '{"title": "Issue title", "body": "/opencode <task>"}' \
-  "https://api.github.com/repos/ChristosGrigoras/aimanac/issues"
+  "https://api.github.com/repos/ChristosGrigoras/AImanac/issues"
 ```
 
 ---
