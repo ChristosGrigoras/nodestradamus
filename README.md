@@ -1363,6 +1363,12 @@ After creating or modifying a rule:
 
 ---
 
+## TODO
+
+- [ ] Document non-code applications (reference letters, professional emails, reports)
+
+---
+
 ## License
 
 MIT - Use this template freely for any project.
