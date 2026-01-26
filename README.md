@@ -276,20 +276,45 @@ git push -u origin main
 
 ## Adding to Existing Projects
 
-If you're adding this template to an **existing codebase** (not starting fresh), the default rules may conflict with your established conventions.
+If you're adding this template to an **existing codebase** (not starting fresh), follow these steps.
 
-### The Problem
+### Step 1: Copy the Template Files
 
-The template rules are prescriptive — they define conventions like:
+From the template repo, copy these to your existing project:
+
+```bash
+# Clone template temporarily
+git clone https://github.com/ChristosGrigoras/opencode_plan.git /tmp/ai-template
+
+# Copy Cursor rules (required)
+cp -r /tmp/ai-template/.cursor/rules/ your-project/.cursor/rules/
+
+# Copy OpenCode config (optional - for GitHub integration)
+cp /tmp/ai-template/opencode.json your-project/
+cp /tmp/ai-template/AGENTS.md your-project/
+cp -r /tmp/ai-template/.github/workflows/ your-project/.github/workflows/
+cp -r /tmp/ai-template/.opencode/ your-project/.opencode/
+
+# Cleanup
+rm -rf /tmp/ai-template
+```
+
+**Minimal install (Cursor only):**
+```bash
+# Just the rules folder
+cp -r /tmp/ai-template/.cursor/rules/ your-project/.cursor/rules/
+```
+
+### Step 2: Adapt Rules to Your Conventions
+
+The default rules are prescriptive — they define conventions like:
 - `snake_case` for Python functions
 - Google-style docstrings
 - pytest patterns
 
 Your existing codebase may use different conventions. Without adaptation, AI suggestions will clash with your code style.
 
-### The Solution: Onboarding
-
-After copying `.cursor/rules/` to your project, ask Cursor to adapt:
+Open Cursor in your project and ask it to adapt:
 
 ```
 Adapt rules to my codebase
