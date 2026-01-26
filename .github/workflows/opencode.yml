@@ -8,10 +8,15 @@ on:
 
 jobs:
   opencode:
+    # Only allow repo owner, org members, or collaborators to trigger
+    # author_association values: OWNER, MEMBER, COLLABORATOR, CONTRIBUTOR, NONE
     if: |
       !startsWith(github.event.comment.user.login, 'opencode') &&
+      (github.event.comment.author_association == 'OWNER' ||
+       github.event.comment.author_association == 'MEMBER' ||
+       github.event.comment.author_association == 'COLLABORATOR') &&
       (contains(github.event.comment.body, '/oc') ||
-      contains(github.event.comment.body, '/opencode'))
+       contains(github.event.comment.body, '/opencode'))
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
