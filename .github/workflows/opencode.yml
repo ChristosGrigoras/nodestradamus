@@ -41,6 +41,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.OPENCODE_PAT || secrets.GITHUB_TOKEN }}
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          GIT_AUTHOR_NAME: "opencode-agent[bot]"
+          GIT_AUTHOR_EMAIL: "opencode-agent[bot]@users.noreply.github.com"
+          GIT_COMMITTER_NAME: "opencode-agent[bot]"
+          GIT_COMMITTER_EMAIL: "opencode-agent[bot]@users.noreply.github.com"
         with:
           model: deepseek/deepseek-chat
           use_github_token: true
