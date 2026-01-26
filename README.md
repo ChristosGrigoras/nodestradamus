@@ -299,7 +299,22 @@ cp -r /tmp/ai-template/.opencode/ your-project/.opencode/
 rm -rf /tmp/ai-template
 ```
 
-**Minimal install (Cursor only):**
+**If you already have `.cursor/rules/`:**
+
+```bash
+# Option A: Backup existing rules first
+mv your-project/.cursor/rules/ your-project/.cursor/rules-backup/
+cp -r /tmp/ai-template/.cursor/rules/ your-project/.cursor/rules/
+
+# Option B: Copy only new files (keep your existing rules)
+cp -rn /tmp/ai-template/.cursor/rules/* your-project/.cursor/rules/
+
+# Option C: Copy template rules to a separate folder for manual merge
+cp -r /tmp/ai-template/.cursor/rules/ your-project/.cursor/rules-template/
+# Then ask Cursor: "Merge rules-template/ into my existing rules/"
+```
+
+**Minimal install (Cursor only, no existing rules):**
 ```bash
 # Just the rules folder
 cp -r /tmp/ai-template/.cursor/rules/ your-project/.cursor/rules/
