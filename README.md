@@ -11,6 +11,7 @@
 - [How It Works](#how-it-works)
 - [Project Structure](#project-structure)
 - [Installation](#installation)
+- [Adding to Existing Projects](#adding-to-existing-projects)
 - [GitHub Configuration](#github-configuration)
 - [GitHub Actions Workflows Explained](#github-actions-workflows-explained)
 - [Usage Examples](#usage-examples)
@@ -270,6 +271,74 @@ git add -A
 git commit -m "Initial commit from AI workflow template"
 git push -u origin main
 ```
+
+---
+
+## Adding to Existing Projects
+
+If you're adding this template to an **existing codebase** (not starting fresh), the default rules may conflict with your established conventions.
+
+### The Problem
+
+The template rules are prescriptive — they define conventions like:
+- `snake_case` for Python functions
+- Google-style docstrings
+- pytest patterns
+
+Your existing codebase may use different conventions. Without adaptation, AI suggestions will clash with your code style.
+
+### The Solution: Onboarding
+
+After copying `.cursor/rules/` to your project, ask Cursor to adapt:
+
+```
+Adapt rules to my codebase
+```
+
+Or any of these trigger phrases:
+- "Compare rules to my code"
+- "Onboard this project"
+- "Check rule conflicts"
+- "Analyze my conventions"
+
+### What Happens
+
+Cursor will:
+
+1. **Sample your codebase** — Read 5-10 representative files
+2. **Detect conventions** — Naming, docstrings, testing patterns, etc.
+3. **Compare against rules** — Identify conflicts
+4. **Report findings** — Show a clear table of conflicts
+5. **Propose changes** — Suggest specific rule edits
+6. **Apply on approval** — Update `200-project.mdc` with your conventions
+
+### Example Output
+
+```markdown
+## Codebase Analysis
+
+| Area | Your Codebase | Current Rules | Conflict? |
+|------|---------------|---------------|-----------|
+| Naming | camelCase | snake_case | ⚠️ Yes |
+| Docstrings | None | Google style | ⚠️ Yes |
+| Testing | unittest | pytest | ⚠️ Yes |
+| Imports | Relative | No preference | ✅ OK |
+
+### Recommended: Update 200-project.mdc
+
+- Use camelCase for functions (override 100-python.mdc)
+- Docstrings optional for internal functions
+- Use unittest.TestCase patterns
+```
+
+### After Onboarding
+
+Reload Cursor to apply the adapted rules:
+
+**Windows/Linux:** `Ctrl+Shift+P` → "Developer: Reload Window"  
+**macOS:** `Cmd+Shift+P` → "Developer: Reload Window"
+
+Your AI assistant will now follow your project's conventions, not the template defaults.
 
 ---
 

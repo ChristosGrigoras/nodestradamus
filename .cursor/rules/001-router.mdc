@@ -10,6 +10,7 @@ alwaysApply: true
 
 | Context | Keywords | Files | Rule |
 |---------|----------|-------|------|
+| **Onboarding** | adapt rules, compare rules, onboard, conventions | — | `000-onboarding.mdc` |
 | **Python** | api, backend, server, flask, django | *.py, **/api/** | `100-python.mdc` |
 | **Git** | commit, branch, merge, pr, changelog | .git*, CHANGELOG | `102-git.mdc` |
 | **Testing** | test, spec, coverage, mock, fixture | test_*, *.test.*, *.spec.* | `301-testing.mdc` |
