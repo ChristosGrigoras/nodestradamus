@@ -1,14 +1,14 @@
 [project]
 name = "nodestradamus"
 version = "0.1.0"
-description = "Nodestradamus - MCP server for codebase intelligence"
+description = "See what breaks before you break it. Codebase intelligence for AI assistants."
 readme = { file = "README.md", content-type = "text/markdown" }
 license = { text = "MIT" }
 requires-python = ">=3.12"
 authors = [
     { name = "Christos Grigoras", email = "chris.grigoras@gmail.com" }
 ]
-keywords = ["ai", "cursor", "mcp", "development", "automation", "codebase-intelligence"]
+keywords = ["mcp", "dependency-graph", "code-analysis", "cursor", "claude", "impact-analysis", "codebase-intelligence"]
 urls = { Homepage = "https://github.com/ChristosGrigoras/nodestradamus", Repository = "https://github.com/ChristosGrigoras/nodestradamus", Documentation = "https://github.com/ChristosGrigoras/nodestradamus/tree/main/docs" }
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -17,6 +17,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.12",
     "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Software Development :: Libraries",
 ]
 dependencies = [
     "mcp>=1.0.0",
@@ -78,6 +79,7 @@ manifest-path = "rust/Cargo.toml"
 python-source = "."
 features = ["pyo3/extension-module"]
 module-name = "nodestradamus_graph"
+include = ["LICENSE", "README.md"]
 
 [tool.black]
 line-length = 100

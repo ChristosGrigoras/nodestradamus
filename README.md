@@ -55,6 +55,9 @@ cd nodestradamus && pip install -e .
 # With FAISS for faster similarity search on large codebases (optional)
 pip install nodestradamus[faiss]
 
+# With Mistral for API-based embeddings (optional; set MISTRAL_API_KEY and NODESTRADAMUS_EMBEDDING_PROVIDER=mistral)
+pip install nodestradamus[mistral]
+
 # With Rust acceleration (optional, requires Rust toolchain)
 pip install maturin
 maturin develop --release
@@ -161,7 +164,7 @@ Results are cached under **`.nodestradamus/`** (repo when standalone, workspace 
 
 ### Environment
 
-Copy `.env.example` to `.env` for embedding provider and API keys. See [docs/installation.md](docs/installation.md).
+Copy `.env.example` to `.env` for embedding provider and API keys. **Embeddings:** default is local (sentence-transformers, model `jinaai/jina-embeddings-v2-base-code`); for API-based embeddings use Mistral Codestral Embed: `pip install nodestradamus[mistral]`, set `NODESTRADAMUS_EMBEDDING_PROVIDER=mistral` and `MISTRAL_API_KEY`. See [docs/installation.md](docs/installation.md).
 
 ## Cursor Rules
 
@@ -180,6 +183,22 @@ Nodestradamus ships `.cursor/rules/` for code quality, security, and meta-genera
 | Cursor Rules | [docs/cursor-rules.md](docs/cursor-rules.md) |
 | GitHub Setup | [docs/github-setup.md](docs/github-setup.md) |
 | Troubleshooting | [docs/troubleshooting.md](docs/troubleshooting.md) |
+| Publishing to PyPI | [docs/publishing-pypi.md](docs/publishing-pypi.md) |
+
+## Publishing to PyPI
+
+Maintainers: see [docs/publishing-pypi.md](docs/publishing-pypi.md) for prerequisites, one-time setup (`~/.pypirc`), build with **maturin** (this project uses a Rust extension), upload with twine, TestPyPI, and a pre-publish checklist.
+
+Quick build and upload:
+
+```bash
+pip install build twine maturin
+rm -rf dist/ build/ *.egg-info/
+maturin build --release --out dist --sdist
+twine upload dist/*
+```
+
+Verify: `pip install nodestradamus` then `nodestradamus --version`.
 
 ## License
 
@@ -192,5 +211,6 @@ MIT
 - [petgraph](https://github.com/petgraph/petgraph) — Graph algorithms (Rust)
 - [PyO3](https://pyo3.rs) — Rust-Python bindings
 - [FAISS](https://github.com/facebookresearch/faiss) — Approximate nearest neighbor search (optional)
-- [sentence-transformers](https://sbert.net) — Embeddings
+- [sentence-transformers](https://sbert.net) — Local embeddings (default)
+- [Mistral](https://mistral.ai) — Codestral Embed API (optional, for API-based embeddings)
 - [tree-sitter](https://tree-sitter.github.io/tree-sitter/) — Code parsing (Python, TypeScript, Rust, SQL)

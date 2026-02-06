@@ -4,12 +4,12 @@ from pathlib import Path
 
 import pytest
 
-from scripts.detect_rule_conflicts import (
-    analyze_directive_conflicts,
-    check_glob_overlap,
-    detect_conflicts,
-    find_category_mentions,
-    parse_rule_file,
+from nodestradamus.mcp.tools.handlers.rules_validation import (
+    _check_glob_overlap as check_glob_overlap,
+    _detect_category_conflicts as detect_conflicts,
+    _detect_directive_conflicts as analyze_directive_conflicts,
+    _find_category_mentions as find_category_mentions,
+    _parse_rule_for_conflicts as parse_rule_file,
 )
 
 

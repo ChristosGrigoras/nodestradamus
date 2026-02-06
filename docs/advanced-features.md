@@ -279,7 +279,7 @@ print(f"Time saved: ~{result.get('incremental', {}).get('reused', 0) * 0.1:.1f}s
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `NODESTRADAMUS_EMBEDDING_MODEL` | `all-MiniLM-L6-v2` | Sentence transformer model |
+| `NODESTRADAMUS_EMBEDDING_MODEL` | `jinaai/jina-embeddings-v2-base-code` | Local embedding model (sentence-transformers) |
 | `NODESTRADAMUS_FAISS_THRESHOLD` | `10000` | Use FAISS above this chunk count |
 | `NODESTRADAMUS_EMBEDDING_BATCH_SIZE` | `32` | Batch size for embedding computation |
 

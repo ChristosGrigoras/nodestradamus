@@ -4,12 +4,12 @@ from pathlib import Path
 
 import pytest
 
-from scripts.validate_rules import (
-    estimate_tokens,
-    extract_rule_number,
-    parse_frontmatter,
-    validate_rule_file,
-    validate_rules_directory,
+from nodestradamus.mcp.tools.handlers.rules_validation import (
+    _estimate_tokens as estimate_tokens,
+    _extract_rule_number as extract_rule_number,
+    _parse_frontmatter as parse_frontmatter,
+    _validate_rule_file as validate_rule_file,
+    _validate_rules_directory as validate_rules_directory,
 )
 
 
