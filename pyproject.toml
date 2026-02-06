@@ -102,6 +102,8 @@ select = [
 ignore = [
     "E501",   # line too long (handled by black)
 ]
+# Imports after get_context("spawn") are intentional to avoid fork/lock issues.
+per-file-ignores = { "nodestradamus/analyzers/code_parser/__init__.py" = ["E402"] }
 
 [tool.mypy]
 python_version = "3.12"

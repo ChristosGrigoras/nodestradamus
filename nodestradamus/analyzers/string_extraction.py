@@ -17,6 +17,13 @@ from typing import Any
 
 from tree_sitter import Node, Parser
 
+from nodestradamus.analyzers.code_parser import (
+    LANGUAGE_CONFIGS,
+    _extract_class_name,
+    _extract_function_name,
+    _get_language,
+)
+
 # Re-export tree-sitter utilities from code_parser
 from nodestradamus.analyzers.code_parser import (
     _extract_string_value as extract_string_value,
@@ -29,12 +36,6 @@ from nodestradamus.analyzers.code_parser import (
 )
 from nodestradamus.analyzers.code_parser import (
     _get_child_by_type as get_child_by_type,
-)
-from nodestradamus.analyzers.code_parser import (
-    _extract_class_name,
-    _extract_function_name,
-    _get_language,
-    LANGUAGE_CONFIGS,
 )
 
 # =============================================================================
@@ -956,7 +957,7 @@ def extract_rust_strings_from_file(
 
     try:
         source = filepath.read_bytes()
-        content = source.decode("utf-8", errors="replace")
+        source.decode("utf-8", errors="replace")
     except (OSError, UnicodeDecodeError) as e:
         return {"strings": [], "errors": [{"error": str(e), "file": str(filepath)}]}
 
@@ -1075,7 +1076,7 @@ def extract_bash_strings_from_file(
 
     try:
         source = filepath.read_bytes()
-        content = source.decode("utf-8", errors="replace")
+        source.decode("utf-8", errors="replace")
     except (OSError, UnicodeDecodeError) as e:
         return {"strings": [], "errors": [{"error": str(e), "file": str(filepath)}]}
 

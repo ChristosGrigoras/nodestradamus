@@ -30,11 +30,8 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+from tree_sitter import Parser
 
-from nodestradamus.analyzers.embedding_providers import (
-    get_embedding_provider,
-    get_expected_model_name,
-)
 from nodestradamus.analyzers.code_parser import (
     EXTENSION_TO_LANGUAGE,
     LANGUAGE_CONFIGS,
@@ -43,8 +40,11 @@ from nodestradamus.analyzers.code_parser import (
     _find_nodes,
     _get_language,
 )
+from nodestradamus.analyzers.embedding_providers import (
+    get_embedding_provider,
+    get_expected_model_name,
+)
 from nodestradamus.analyzers.ignore import DEFAULT_IGNORES
-from tree_sitter import Parser
 from nodestradamus.logging import logger, progress_bar
 from nodestradamus.utils.cache import get_cache_dir
 from nodestradamus.utils.db import (

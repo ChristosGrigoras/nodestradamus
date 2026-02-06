@@ -6,9 +6,17 @@ import pytest
 
 from nodestradamus.mcp.tools.handlers.rules_validation import (
     _check_glob_overlap as check_glob_overlap,
+)
+from nodestradamus.mcp.tools.handlers.rules_validation import (
     _detect_category_conflicts as detect_conflicts,
+)
+from nodestradamus.mcp.tools.handlers.rules_validation import (
     _detect_directive_conflicts as analyze_directive_conflicts,
+)
+from nodestradamus.mcp.tools.handlers.rules_validation import (
     _find_category_mentions as find_category_mentions,
+)
+from nodestradamus.mcp.tools.handlers.rules_validation import (
     _parse_rule_for_conflicts as parse_rule_file,
 )
 

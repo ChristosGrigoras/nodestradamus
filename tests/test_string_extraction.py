@@ -14,10 +14,10 @@ from nodestradamus.analyzers.string_extraction import (
     extract_bash_strings,
     extract_bash_strings_from_file,
     extract_python_strings,
-    extract_rust_strings,
-    extract_rust_strings_from_file,
     # Python extraction
     extract_python_strings_from_file,
+    extract_rust_strings,
+    extract_rust_strings_from_file,
     extract_sql_strings,
     # SQL extraction
     extract_sql_strings_from_file,
