@@ -97,8 +97,9 @@ def analyze(repo_path: str, analysis_type: str, language: str, commits: int) -> 
 
     if analysis_type in ("cooccurrence", "all"):
         try:
-            graph = analyze_git_cooccurrence(repo, commits=commits)
-            results["cooccurrence"] = json.loads(graph.model_dump_json(by_alias=True))
+            import networkx as nx
+            cooccurrence_graph = analyze_git_cooccurrence(repo, commits=commits)
+            results["cooccurrence"] = nx.node_link_data(cooccurrence_graph)
         except Exception as e:
             click.echo(f"Co-occurrence analysis failed: {e}", err=True)
             if analysis_type == "cooccurrence":
