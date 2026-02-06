@@ -107,6 +107,8 @@ Add to Cursor (`.cursor/mcp.json`):
 | `manage_cache` | Inspect or clear `.nodestradamus/` cache |
 | `analyze_docs` | Docs: stale refs and coverage |
 | `compare_rules_to_codebase` | Audit rules vs hotspots; gaps and stale refs |
+| `validate_rules` | Validate rule file structure and frontmatter |
+| `detect_rule_conflicts` | Detect conflicts between AI rules |
 
 ### Examples
 

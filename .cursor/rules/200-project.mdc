@@ -20,7 +20,7 @@ MCP server for codebase intelligence. Provides AI assistants with dependency gra
 - `scripts/` — Standalone analysis scripts
 - `tests/` — Test suite
 
-## MCP Tools (13 total)
+## MCP Tools (16 total)
 
 | Tool | Purpose |
 |------|---------|
