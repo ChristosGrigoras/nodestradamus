@@ -26,6 +26,18 @@ Nodestradamus pre-computes codebase structure (who calls what, impact, semantic 
 
 Use Nodestradamus so your assistant gets **precise, graph-backed answers** instead of guessing from raw code. That makes cheaper models effective for refactors, impact analysis, and codebase navigation.
 
+### Evaluation
+
+Evaluations on three codebases (LangChain Python monorepo, Rich, Django) compared Nodestradamus-on vs Nodestradamus-off across 18 codebase-understanding questions (overview, impact, cycles, dead code, duplicates, health, etc.):
+
+| Codebase | Finding |
+|----------|--------|
+| **LangChain** | Cheaper model (Composer) + Nodestradamus was ~40% faster and more accurate than Opus without tools (e.g. correct "0 cycles" vs inferred "many potential cycles"). Same model with Nodestradamus: 27% more concise, quantified metrics vs prose. |
+| **Rich** | Haiku + Nodestradamus **42% faster** with comparable verbosity; Opus + Nodestradamus ~14% slower but more metric-rich (betweenness, cohesion, line-level analysis). Both produced more actionable answers with tools. |
+| **Django** | Both models with Nodestradamus gave quantified insights (graph metrics, cycle detection, duplicate file:line refs) vs estimates; trade-off was longer time for substantiated, data-driven answers. |
+
+Across reports: **cheaper LLM + Nodestradamus** can match or beat **expensive LLM without tools** on accuracy and actionability for structural analysis; tools provide ground truth (cycles, dead code, centrality) that models often get wrong when inferring.
+
 ## Install
 
 ```bash
