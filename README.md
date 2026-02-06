@@ -1,6 +1,6 @@
 # <img src="assets/nodestradamus-logo.png" alt="Nodestradamus" width="42" style="vertical-align: middle;" /> Nodestradamus
 
-**Codebase intelligence for AI & Human coders.** An MCP server that gives Cursor, Claude, and other AI tools deep understanding of your code through dependency graphs, semantic search, and impact analysis.
+**Nodestradamus: See what breaks before you break it.** Codebase intelligence for AI and human coders—an MCP server and a Python library that give Cursor, Claude, and other AI tools (or your own scripts) deep understanding of your code through dependency graphs, semantic search, and impact analysis.
 
 Nodestradamus predicts **what breaks** if you change something—impact before you refactor. It builds a map of your code (who calls what) so you or your AI can see that impact and find important or risky areas.
 
