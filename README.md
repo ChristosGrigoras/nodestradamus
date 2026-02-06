@@ -1,8 +1,11 @@
 # <img src="assets/nodestradamus-logo.png" alt="Nodestradamus" width="42" style="vertical-align: middle;" /> Nodestradamus
 
-**Codebase intelligence for AI assistants.** An MCP server that gives Cursor, Claude, and other AI tools deep understanding of your code through dependency graphs, semantic search, and impact analysis.
+**Codebase intelligence for AI & Human coders.** An MCP server that gives Cursor, Claude, and other AI tools deep understanding of your code through dependency graphs, semantic search, and impact analysis.
 
-Nodestradamus builds a map of your code (what calls what), so you or your AI can see impact before changing things and find important or risky areas.
+Nodestradamus predicts **what breaks** if you change something—impact before you refactor. It builds a map of your code (who calls what) so you or your AI can see that impact and find important or risky areas.
+
+> I had determined to go as far as declaring in abstruse and puzzling utterances the future causes… Yet lest whatever human changes may be to come should scandalise delicate ears, the whole thing is written in nebulous form, rather than as a clear prophecy of any kind.  
+> — *Nostradamus, 1555*
 
 ### What Nodestradamus does
 
@@ -37,6 +40,8 @@ Evaluations on three codebases (LangChain Python monorepo, Rich, Django) compare
 | **Django** | Both models with Nodestradamus gave quantified insights (graph metrics, cycle detection, duplicate file:line refs) vs estimates; trade-off was longer time for substantiated, data-driven answers. |
 
 Across reports: **cheaper LLM + Nodestradamus** can match or beat **expensive LLM without tools** on accuracy and actionability for structural analysis; tools provide ground truth (cycles, dead code, centrality) that models often get wrong when inferring.
+
+**Note:** The evaluation setup and benchmarks need further tests and validation (more codebases, question sets, and baselines) before drawing stronger conclusions.
 
 ## Install
 
