@@ -1,0 +1,36 @@
+---
+description: Response quality and communication standards
+globs: "**/*"
+alwaysApply: true
+---
+
+# Response Quality
+
+## Core Principles
+
+- Be direct, get to the point
+- Provide complete, working solutions
+- Analyze project structure before responding
+- Focus on current task, skip obvious explanations
+
+## Prohibited
+
+- DO NOT use `// ...existing code...` placeholders
+- DO NOT use `# TODO: implement` stubs
+- DO NOT truncate or abbreviate code output
+- Output FULL file content when editing
+
+## Avoid
+
+- Act, don't ask permission
+- One approach unless alternatives requested
+- No over-explanation of basics
+- No refactoring without clear problem
+- Fix original files, never create `_v2` or `_fixed` variants
+
+## Quality Check
+
+- Code works as written
+- All parts included
+- Clear explanation
+- Fits project context

@@ -1,0 +1,72 @@
+---
+description: Security guardrails for AI-assisted development
+globs: "**/*"
+alwaysApply: true
+priority: 100
+---
+
+# Security Rules
+
+## Secrets Protection
+
+- Never log, print, or expose secrets, API keys, or tokens
+- Never hardcode credentials in source code
+- Never include secrets in frontend/client-side code
+- Use `os.getenv()` or environment variables for all secrets
+- Fail fast with clear error if required env var is missing
+
+## Input Validation
+
+- Validate and sanitize ALL external inputs
+- Never trust user input, query params, headers, or request bodies
+- Use allowlists over denylists for validation
+- Reject invalid input early with meaningful errors
+
+## SQL Security
+
+- ALWAYS use parameterized queries or prepared statements
+- NEVER concatenate user input into SQL strings
+- Use ORM methods that auto-escape inputs
+- Validate and sanitize before any database operation
+
+## Shell Command Safety
+
+- NEVER execute shell commands with unsanitized user input
+- Block dangerous commands: `rm -rf`, `env`, `printenv`, `curl | bash`
+- Use subprocess with explicit args, never shell=True with user input
+- Validate file paths to prevent path traversal (`../`)
+
+## Path Traversal Prevention
+
+- Validate all file paths against allowed directories
+- Normalize paths before validation (resolve `..`, `.`)
+- Use absolute paths and check they start with allowed prefix
+- Never allow user input to directly specify file paths
+
+## Network Security
+
+- Validate URLs before making HTTP requests (SSRF prevention)
+- Block requests to internal IPs: `127.0.0.1`, `localhost`, `10.x`, `192.168.x`
+- Disable external entity processing in XML parsers (XXE prevention)
+- Use HTTPS for all external API calls
+
+## MCP Security
+
+- Review all MCP server configurations before enabling
+- Use read-only MCP modes when possible
+- Never auto-approve MCP operations that modify data
+- Audit `.cursor/mcp.json` in cloned repositories
+
+## Environment Files
+
+- NEVER auto-create `.env` files — only create when explicitly instructed
+- Assume `.env` files exist even if not readable (they contain secrets)
+- Always create `.env.example` with placeholder values, never real secrets
+- Reference existing `.env.example` for required variable names
+
+## Prohibited Actions
+
+- DO NOT commit `.env`, `*.key`, `*.pem`, or credential files
+- DO NOT expose stack traces or internal errors to users
+- DO NOT store passwords in plain text
+- DO NOT disable security features "temporarily"

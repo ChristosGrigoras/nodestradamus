@@ -1,0 +1,17 @@
+---
+description: Python coding conventions
+globs: "**/*.py"
+alwaysApply: false
+---
+
+# Python
+
+## Conventions
+- Use snake_case for functions and variables
+- Use PascalCase for classes
+- Add type hints to all public functions
+- Write docstrings for all public functions
+
+## Avoid
+- Using global variables
+- Mutable default arguments

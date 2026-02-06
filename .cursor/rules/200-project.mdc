@@ -1,0 +1,77 @@
+---
+description: Project-specific context
+globs: "**/*"
+alwaysApply: true
+---
+
+# Nodestradamus
+
+## Overview
+
+MCP server for codebase intelligence. Provides AI assistants with dependency graphs, semantic search, and impact analysis.
+
+## Key Directories
+
+- `nodestradamus/` — MCP server package
+  - `analyzers/` — Core analysis logic (deps, embeddings, graph algorithms)
+  - `mcp/` — MCP server and tool definitions
+  - `models/` — Pydantic models
+- `.cursor/rules/` — Cursor AI rules
+- `scripts/` — Standalone analysis scripts
+- `tests/` — Test suite
+
+## MCP Tools (13 total)
+
+| Tool | Purpose |
+|------|---------|
+| `project_scout` | Quick repo reconnaissance |
+| `analyze_deps` | Build dependency graph |
+| `analyze_cooccurrence` | Git history analysis |
+| `get_impact` | Impact analysis |
+| `analyze_graph` | Graph algorithms (pagerank, betweenness, communities, cycles, path) |
+| `analyze_strings` | String analysis (refs, usages, filter) |
+| `semantic_analysis` | Embeddings (search, similar, duplicates) |
+| `codebase_health` | Comprehensive health check |
+| `find_similar` | Structural fingerprint match (Shazam-like similar code) |
+| `get_changes_since_last` | Diff current state vs last Nodestradamus run (snapshots) |
+| `compare_rules_to_codebase` | Compare AI rules to codebase hotspots |
+| `validate_rules` | Validate rule file structure and frontmatter |
+| `detect_rule_conflicts` | Detect conflicts between AI rules |
+
+## Conventions
+
+- Type hints on all public functions
+- Docstrings with Args/Returns/Raises
+- Tests in `tests/test_*.py`
+- Commits: `feat|fix|docs|refactor(scope): message`
+
+## Running
+
+```bash
+nodestradamus serve          # Start MCP server
+python -m pytest       # Run tests
+python -m mypy .       # Type check
+python -m ruff check . # Lint
+```
+
+## Code Hotspots
+
+High-impact files (highest betweenness centrality). Changes require extra care:
+
+| File | Centrality | Role |
+|------|------------|------|
+| `nodestradamus/mcp/tools/graphs.py` | 0.030 | Central MCP tool hub |
+| `nodestradamus/analyzers/code_parser.py` | 0.025 | Affects all language parsers |
+| `nodestradamus/analyzers/deps.py` | 0.020 | Core dependency analysis |
+| `nodestradamus/analyzers/__init__.py` | 0.018 | Analyzer exports |
+| `nodestradamus/analyzers/impact.py` | 0.010 | Impact analysis logic |
+
+## Technical Debt
+
+Known issues to address:
+
+- **Duplicate code (20 pairs):** `scripts/extract_*.py` files share nearly identical functions:
+  - `_is_noise()` — duplicated across Python, SQL, TS extractors
+  - `extract_strings_from_file()` — similar pattern in all extractors
+  - `extract_strings_from_directory()` — repeated directory walking
+  - **Recommendation:** Consolidate into `nodestradamus/analyzers/string_extraction.py`

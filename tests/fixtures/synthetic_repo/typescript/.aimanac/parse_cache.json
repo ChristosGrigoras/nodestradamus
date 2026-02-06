@@ -1,0 +1,464 @@
+{
+  "version": "1.0",
+  "created_at": "2026-01-29T16:02:17.755663+00:00",
+  "files": {
+    "index.ts": {
+      "mtime": 1769701097.8062892,
+      "size": 405,
+      "nodes": [
+        {
+          "id": "ts:index.ts",
+          "name": "index.ts",
+          "type": "module",
+          "file": "index.ts",
+          "line": 1,
+          "exported": false,
+          "language": "typescript"
+        },
+        {
+          "id": "ts:index.ts::main",
+          "name": "main",
+          "type": "function",
+          "file": "index.ts",
+          "line": 12,
+          "exported": true,
+          "language": "typescript"
+        },
+        {
+          "id": "ts:index.ts::bootstrap",
+          "name": "bootstrap",
+          "type": "function",
+          "file": "index.ts",
+          "line": 17,
+          "exported": false,
+          "language": "typescript"
+        }
+      ],
+      "edges": [
+        {
+          "from": "ts:index.ts::main",
+          "to": "ts:index.ts",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "ts:index.ts",
+          "to": "ts:index.ts::main",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "ts:index.ts::bootstrap",
+          "to": "ts:index.ts",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "ts:index.ts",
+          "to": "ts:index.ts::bootstrap",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "ts:index.ts",
+          "to": "ts:lib/api.ts",
+          "type": "imports",
+          "resolved": true
+        },
+        {
+          "from": "ts:index.ts",
+          "to": "ts:lib/api.ts::initApi",
+          "type": "imports_symbol",
+          "resolved": true
+        },
+        {
+          "from": "ts:index.ts",
+          "to": "ts:lib/utils.ts",
+          "type": "imports",
+          "resolved": true
+        },
+        {
+          "from": "ts:index.ts",
+          "to": "ts:lib/utils.ts::formatDate",
+          "type": "imports_symbol",
+          "resolved": true
+        }
+      ]
+    },
+    "components/Button.tsx": {
+      "mtime": 1769701097.8692908,
+      "size": 376,
+      "nodes": [
+        {
+          "id": "ts:components/Button.tsx",
+          "name": "components/Button.tsx",
+          "type": "module",
+          "file": "components/Button.tsx",
+          "line": 1,
+          "exported": false,
+          "language": "tsx"
+        },
+        {
+          "id": "ts:components/Button.tsx::Button",
+          "name": "Button",
+          "type": "function",
+          "file": "components/Button.tsx",
+          "line": 15,
+          "exported": true,
+          "language": "tsx"
+        },
+        {
+          "id": "ts:components/Button.tsx::ButtonProps",
+          "name": "ButtonProps",
+          "type": "class",
+          "file": "components/Button.tsx",
+          "line": 9,
+          "exported": false,
+          "language": "tsx",
+          "fields": [
+            {
+              "name": "label",
+              "type": "string",
+              "nullable": false,
+              "references": null
+            },
+            {
+              "name": "onClick",
+              "type": "() => void",
+              "nullable": false,
+              "references": null
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "nullable": true,
+              "references": null
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "ts:components/Button.tsx::Button",
+          "to": "ts:components/Button.tsx",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "ts:components/Button.tsx",
+          "to": "ts:components/Button.tsx::Button",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "ts:components/Button.tsx::ButtonProps",
+          "to": "ts:components/Button.tsx",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "ts:components/Button.tsx",
+          "to": "ts:components/Button.tsx::ButtonProps",
+          "type": "contains",
+          "resolved": true
+        }
+      ]
+    },
+    "components/Card.tsx": {
+      "mtime": 1769701097.8662908,
+      "size": 517,
+      "nodes": [
+        {
+          "id": "ts:components/Card.tsx",
+          "name": "components/Card.tsx",
+          "type": "module",
+          "file": "components/Card.tsx",
+          "line": 1,
+          "exported": false,
+          "language": "tsx"
+        },
+        {
+          "id": "ts:components/Card.tsx::Card",
+          "name": "Card",
+          "type": "function",
+          "file": "components/Card.tsx",
+          "line": 14,
+          "exported": true,
+          "language": "tsx"
+        },
+        {
+          "id": "ts:components/Card.tsx::CardHeader",
+          "name": "CardHeader",
+          "type": "function",
+          "file": "components/Card.tsx",
+          "line": 23,
+          "exported": false,
+          "language": "tsx"
+        },
+        {
+          "id": "ts:components/Card.tsx::CardProps",
+          "name": "CardProps",
+          "type": "class",
+          "file": "components/Card.tsx",
+          "line": 9,
+          "exported": false,
+          "language": "tsx",
+          "fields": [
+            {
+              "name": "title",
+              "type": "string",
+              "nullable": false,
+              "references": null
+            },
+            {
+              "name": "children",
+              "type": "React.ReactNode",
+              "nullable": false,
+              "references": null
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "ts:components/Card.tsx::Card",
+          "to": "ts:components/Card.tsx",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "ts:components/Card.tsx",
+          "to": "ts:components/Card.tsx::Card",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "ts:components/Card.tsx::CardHeader",
+          "to": "ts:components/Card.tsx",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "ts:components/Card.tsx",
+          "to": "ts:components/Card.tsx::CardHeader",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "ts:components/Card.tsx::CardProps",
+          "to": "ts:components/Card.tsx",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "ts:components/Card.tsx",
+          "to": "ts:components/Card.tsx::CardProps",
+          "type": "contains",
+          "resolved": true
+        }
+      ]
+    },
+    "lib/api.ts": {
+      "mtime": 1769701097.8692908,
+      "size": 1238,
+      "nodes": [
+        {
+          "id": "ts:lib/api.ts",
+          "name": "lib/api.ts",
+          "type": "module",
+          "file": "lib/api.ts",
+          "line": 1,
+          "exported": false,
+          "language": "typescript"
+        },
+        {
+          "id": "ts:lib/api.ts::initApi",
+          "name": "initApi",
+          "type": "function",
+          "file": "lib/api.ts",
+          "line": 33,
+          "exported": true,
+          "language": "typescript"
+        },
+        {
+          "id": "ts:lib/api.ts::fetchJson",
+          "name": "fetchJson",
+          "type": "function",
+          "file": "lib/api.ts",
+          "line": 38,
+          "exported": true,
+          "language": "typescript"
+        },
+        {
+          "id": "ts:lib/api.ts::handleError",
+          "name": "handleError",
+          "type": "function",
+          "file": "lib/api.ts",
+          "line": 51,
+          "exported": false,
+          "language": "typescript"
+        },
+        {
+          "id": "ts:lib/api.ts::ApiClient",
+          "name": "ApiClient",
+          "type": "class",
+          "file": "lib/api.ts",
+          "line": 10,
+          "exported": true,
+          "language": "typescript"
+        }
+      ],
+      "edges": [
+        {
+          "from": "ts:lib/api.ts::initApi",
+          "to": "ts:lib/api.ts",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "ts:lib/api.ts",
+          "to": "ts:lib/api.ts::initApi",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "ts:lib/api.ts::fetchJson",
+          "to": "ts:lib/api.ts",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "ts:lib/api.ts",
+          "to": "ts:lib/api.ts::fetchJson",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "ts:lib/api.ts::handleError",
+          "to": "ts:lib/api.ts",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "ts:lib/api.ts",
+          "to": "ts:lib/api.ts::handleError",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "ts:lib/api.ts::ApiClient",
+          "to": "ts:lib/api.ts",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "ts:lib/api.ts",
+          "to": "ts:lib/api.ts::ApiClient",
+          "type": "contains",
+          "resolved": true
+        }
+      ]
+    },
+    "lib/utils.ts": {
+      "mtime": 1769701097.8682907,
+      "size": 797,
+      "nodes": [
+        {
+          "id": "ts:lib/utils.ts",
+          "name": "lib/utils.ts",
+          "type": "module",
+          "file": "lib/utils.ts",
+          "line": 1,
+          "exported": false,
+          "language": "typescript"
+        },
+        {
+          "id": "ts:lib/utils.ts::formatDate",
+          "name": "formatDate",
+          "type": "function",
+          "file": "lib/utils.ts",
+          "line": 9,
+          "exported": true,
+          "language": "typescript"
+        },
+        {
+          "id": "ts:lib/utils.ts::slugify",
+          "name": "slugify",
+          "type": "function",
+          "file": "lib/utils.ts",
+          "line": 13,
+          "exported": true,
+          "language": "typescript"
+        },
+        {
+          "id": "ts:lib/utils.ts::debounce",
+          "name": "debounce",
+          "type": "function",
+          "file": "lib/utils.ts",
+          "line": 20,
+          "exported": true,
+          "language": "typescript"
+        },
+        {
+          "id": "ts:lib/utils.ts::clamp",
+          "name": "clamp",
+          "type": "function",
+          "file": "lib/utils.ts",
+          "line": 31,
+          "exported": true,
+          "language": "typescript"
+        }
+      ],
+      "edges": [
+        {
+          "from": "ts:lib/utils.ts::formatDate",
+          "to": "ts:lib/utils.ts",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "ts:lib/utils.ts",
+          "to": "ts:lib/utils.ts::formatDate",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "ts:lib/utils.ts::slugify",
+          "to": "ts:lib/utils.ts",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "ts:lib/utils.ts",
+          "to": "ts:lib/utils.ts::slugify",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "ts:lib/utils.ts::debounce",
+          "to": "ts:lib/utils.ts",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "ts:lib/utils.ts",
+          "to": "ts:lib/utils.ts::debounce",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "ts:lib/utils.ts::clamp",
+          "to": "ts:lib/utils.ts",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "ts:lib/utils.ts",
+          "to": "ts:lib/utils.ts::clamp",
+          "type": "contains",
+          "resolved": true
+        }
+      ]
+    }
+  }
+}

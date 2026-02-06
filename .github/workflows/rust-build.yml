@@ -1,0 +1,104 @@
+name: Build Rust Wheels
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "rust/**"
+      - ".github/workflows/rust-build.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "rust/**"
+      - ".github/workflows/rust-build.yml"
+  workflow_dispatch:
+
+jobs:
+  build-wheels:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python-version: ["3.11", "3.12"]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Rust
+        uses: dtolnay/rust-action@stable
+
+      - name: Install maturin
+        run: pip install maturin
+
+      - name: Build wheel
+        working-directory: rust
+        run: maturin build --release
+
+      - name: Run Rust tests
+        working-directory: rust
+        run: cargo test --release
+
+      - name: Install wheel and test import
+        run: |
+          pip install rust/target/wheels/*.whl
+          python -c "import nodestradamus_graph; print('Import successful')"
+          python -c "
+          import nodestradamus_graph
+          # Test pagerank
+          edges = [('a', 'b'), ('b', 'c'), ('c', 'a')]
+          result = nodestradamus_graph.pagerank(edges)
+          assert len(result) == 3
+          print(f'PageRank test passed: {len(result)} nodes')
+          
+          # Test strongly_connected
+          sccs = nodestradamus_graph.strongly_connected(edges)
+          assert len(sccs) == 1
+          print(f'SCC test passed: {len(sccs)} component')
+          
+          # Test betweenness
+          bc = nodestradamus_graph.betweenness(edges)
+          assert len(bc) == 3
+          print(f'Betweenness test passed: {len(bc)} nodes')
+          "
+
+      - name: Upload wheel artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheel-${{ matrix.os }}-py${{ matrix.python-version }}
+          path: rust/target/wheels/*.whl
+          retention-days: 14
+
+  # Run integration tests with the built wheel
+  integration-test:
+    needs: build-wheels
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Download wheel
+        uses: actions/download-artifact@v4
+        with:
+          name: wheel-ubuntu-latest-py3.12
+          path: wheels/
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install wheels/*.whl
+          pip install -e ".[dev]"
+
+      - name: Run graph algorithm tests
+        run: python -m pytest tests/test_graph_algorithms.py -v --tb=short

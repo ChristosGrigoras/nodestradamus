@@ -1,0 +1,805 @@
+{
+  "version": "1.0",
+  "created_at": "2026-01-29T16:02:17.728347+00:00",
+  "files": {
+    "models.py": {
+      "mtime": 1769701097.8122892,
+      "size": 1149,
+      "nodes": [
+        {
+          "id": "py:models.py",
+          "name": "models.py",
+          "type": "module",
+          "file": "models.py",
+          "line": 1,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:models.py::__init__",
+          "name": "__init__",
+          "type": "function",
+          "file": "models.py",
+          "line": 13,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:models.py::save",
+          "name": "save",
+          "type": "function",
+          "file": "models.py",
+          "line": 17,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:models.py::delete",
+          "name": "delete",
+          "type": "function",
+          "file": "models.py",
+          "line": 21,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:models.py::__init__",
+          "name": "__init__",
+          "type": "function",
+          "file": "models.py",
+          "line": 29,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:models.py::save",
+          "name": "save",
+          "type": "function",
+          "file": "models.py",
+          "line": 33,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:models.py::delete",
+          "name": "delete",
+          "type": "function",
+          "file": "models.py",
+          "line": 37,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:models.py::__init__",
+          "name": "__init__",
+          "type": "function",
+          "file": "models.py",
+          "line": 45,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:models.py::save",
+          "name": "save",
+          "type": "function",
+          "file": "models.py",
+          "line": 49,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:models.py::delete",
+          "name": "delete",
+          "type": "function",
+          "file": "models.py",
+          "line": 53,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:models.py::User",
+          "name": "User",
+          "type": "class",
+          "file": "models.py",
+          "line": 10,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:models.py::Product",
+          "name": "Product",
+          "type": "class",
+          "file": "models.py",
+          "line": 26,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:models.py::Order",
+          "name": "Order",
+          "type": "class",
+          "file": "models.py",
+          "line": 42,
+          "exported": false,
+          "language": "python"
+        }
+      ],
+      "edges": [
+        {
+          "from": "py:models.py::__init__",
+          "to": "py:models.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py",
+          "to": "py:models.py::__init__",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py::save",
+          "to": "py:models.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py",
+          "to": "py:models.py::save",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py::delete",
+          "to": "py:models.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py",
+          "to": "py:models.py::delete",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py::__init__",
+          "to": "py:models.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py",
+          "to": "py:models.py::__init__",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py::save",
+          "to": "py:models.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py",
+          "to": "py:models.py::save",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py::delete",
+          "to": "py:models.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py",
+          "to": "py:models.py::delete",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py::__init__",
+          "to": "py:models.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py",
+          "to": "py:models.py::__init__",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py::save",
+          "to": "py:models.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py",
+          "to": "py:models.py::save",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py::delete",
+          "to": "py:models.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py",
+          "to": "py:models.py::delete",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py::User",
+          "to": "py:models.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py",
+          "to": "py:models.py::User",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py::Product",
+          "to": "py:models.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py",
+          "to": "py:models.py::Product",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py::Order",
+          "to": "py:models.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:models.py",
+          "to": "py:models.py::Order",
+          "type": "contains",
+          "resolved": true
+        }
+      ]
+    },
+    "utils.py": {
+      "mtime": 1769701097.8662908,
+      "size": 909,
+      "nodes": [
+        {
+          "id": "py:utils.py",
+          "name": "utils.py",
+          "type": "module",
+          "file": "utils.py",
+          "line": 1,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:utils.py::format_date",
+          "name": "format_date",
+          "type": "function",
+          "file": "utils.py",
+          "line": 14,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:utils.py::parse_json",
+          "name": "parse_json",
+          "type": "function",
+          "file": "utils.py",
+          "line": 19,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:utils.py::slugify",
+          "name": "slugify",
+          "type": "function",
+          "file": "utils.py",
+          "line": 24,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:utils.py::hash_password",
+          "name": "hash_password",
+          "type": "function",
+          "file": "utils.py",
+          "line": 29,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:utils.py::validate_email",
+          "name": "validate_email",
+          "type": "function",
+          "file": "utils.py",
+          "line": 34,
+          "exported": false,
+          "language": "python"
+        }
+      ],
+      "edges": [
+        {
+          "from": "py:utils.py::format_date",
+          "to": "py:utils.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:utils.py",
+          "to": "py:utils.py::format_date",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:utils.py::parse_json",
+          "to": "py:utils.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:utils.py",
+          "to": "py:utils.py::parse_json",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:utils.py::slugify",
+          "to": "py:utils.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:utils.py",
+          "to": "py:utils.py::slugify",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:utils.py::hash_password",
+          "to": "py:utils.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:utils.py",
+          "to": "py:utils.py::hash_password",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:utils.py::validate_email",
+          "to": "py:utils.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:utils.py",
+          "to": "py:utils.py::validate_email",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:utils.py",
+          "to": "hashlib",
+          "type": "imports",
+          "resolved": false
+        },
+        {
+          "from": "py:utils.py",
+          "to": "json",
+          "type": "imports",
+          "resolved": false
+        },
+        {
+          "from": "py:utils.py",
+          "to": "re",
+          "type": "imports",
+          "resolved": false
+        },
+        {
+          "from": "py:utils.py",
+          "to": "datetime",
+          "type": "imports",
+          "resolved": false
+        }
+      ]
+    },
+    "__init__.py": {
+      "mtime": 1769701097.8682907,
+      "size": 65,
+      "nodes": [
+        {
+          "id": "py:__init__.py",
+          "name": "__init__.py",
+          "type": "module",
+          "file": "__init__.py",
+          "line": 1,
+          "exported": false,
+          "language": "python"
+        }
+      ],
+      "edges": []
+    },
+    "services/users.py": {
+      "mtime": 1769701097.8682907,
+      "size": 1125,
+      "nodes": [
+        {
+          "id": "py:services/users.py",
+          "name": "services/users.py",
+          "type": "module",
+          "file": "services/users.py",
+          "line": 1,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:services/users.py::__init__",
+          "name": "__init__",
+          "type": "function",
+          "file": "services/users.py",
+          "line": 16,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:services/users.py::get_user",
+          "name": "get_user",
+          "type": "function",
+          "file": "services/users.py",
+          "line": 19,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:services/users.py::create_user",
+          "name": "create_user",
+          "type": "function",
+          "file": "services/users.py",
+          "line": 23,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:services/users.py::list_users",
+          "name": "list_users",
+          "type": "function",
+          "file": "services/users.py",
+          "line": 31,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:services/users.py::get_user_by_email",
+          "name": "get_user_by_email",
+          "type": "function",
+          "file": "services/users.py",
+          "line": 36,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:services/users.py::count_users",
+          "name": "count_users",
+          "type": "function",
+          "file": "services/users.py",
+          "line": 42,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:services/users.py::UserService",
+          "name": "UserService",
+          "type": "class",
+          "file": "services/users.py",
+          "line": 13,
+          "exported": false,
+          "language": "python"
+        }
+      ],
+      "edges": [
+        {
+          "from": "py:services/users.py::__init__",
+          "to": "py:services/users.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:services/users.py",
+          "to": "py:services/users.py::__init__",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:services/users.py::get_user",
+          "to": "py:services/users.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:services/users.py",
+          "to": "py:services/users.py::get_user",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:services/users.py::create_user",
+          "to": "py:services/users.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:services/users.py",
+          "to": "py:services/users.py::create_user",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:services/users.py::list_users",
+          "to": "py:services/users.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:services/users.py",
+          "to": "py:services/users.py::list_users",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:services/users.py::get_user_by_email",
+          "to": "py:services/users.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:services/users.py",
+          "to": "py:services/users.py::get_user_by_email",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:services/users.py::count_users",
+          "to": "py:services/users.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:services/users.py",
+          "to": "py:services/users.py::count_users",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:services/users.py::UserService",
+          "to": "py:services/users.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:services/users.py",
+          "to": "py:services/users.py::UserService",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:services/users.py",
+          "to": "python.models",
+          "type": "imports",
+          "resolved": false
+        },
+        {
+          "from": "py:services/users.py",
+          "to": "python.utils",
+          "type": "imports",
+          "resolved": false
+        }
+      ]
+    },
+    "services/__init__.py": {
+      "mtime": 1769701097.7852886,
+      "size": 19,
+      "nodes": [
+        {
+          "id": "py:services/__init__.py",
+          "name": "services/__init__.py",
+          "type": "module",
+          "file": "services/__init__.py",
+          "line": 1,
+          "exported": false,
+          "language": "python"
+        }
+      ],
+      "edges": []
+    },
+    "services/auth.py": {
+      "mtime": 1769701097.8682907,
+      "size": 1140,
+      "nodes": [
+        {
+          "id": "py:services/auth.py",
+          "name": "services/auth.py",
+          "type": "module",
+          "file": "services/auth.py",
+          "line": 1,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:services/auth.py::__init__",
+          "name": "__init__",
+          "type": "function",
+          "file": "services/auth.py",
+          "line": 16,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:services/auth.py::login",
+          "name": "login",
+          "type": "function",
+          "file": "services/auth.py",
+          "line": 19,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:services/auth.py::logout",
+          "name": "logout",
+          "type": "function",
+          "file": "services/auth.py",
+          "line": 24,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:services/auth.py::create_token",
+          "name": "create_token",
+          "type": "function",
+          "file": "services/auth.py",
+          "line": 29,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:services/auth.py::verify_token",
+          "name": "verify_token",
+          "type": "function",
+          "file": "services/auth.py",
+          "line": 34,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:services/auth.py::refresh_token",
+          "name": "refresh_token",
+          "type": "function",
+          "file": "services/auth.py",
+          "line": 39,
+          "exported": false,
+          "language": "python"
+        },
+        {
+          "id": "py:services/auth.py::AuthService",
+          "name": "AuthService",
+          "type": "class",
+          "file": "services/auth.py",
+          "line": 13,
+          "exported": false,
+          "language": "python"
+        }
+      ],
+      "edges": [
+        {
+          "from": "py:services/auth.py::__init__",
+          "to": "py:services/auth.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:services/auth.py",
+          "to": "py:services/auth.py::__init__",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:services/auth.py::login",
+          "to": "py:services/auth.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:services/auth.py",
+          "to": "py:services/auth.py::login",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:services/auth.py::logout",
+          "to": "py:services/auth.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:services/auth.py",
+          "to": "py:services/auth.py::logout",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:services/auth.py::create_token",
+          "to": "py:services/auth.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:services/auth.py",
+          "to": "py:services/auth.py::create_token",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:services/auth.py::verify_token",
+          "to": "py:services/auth.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:services/auth.py",
+          "to": "py:services/auth.py::verify_token",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:services/auth.py::refresh_token",
+          "to": "py:services/auth.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:services/auth.py",
+          "to": "py:services/auth.py::refresh_token",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:services/auth.py::AuthService",
+          "to": "py:services/auth.py",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "py:services/auth.py",
+          "to": "py:services/auth.py::AuthService",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "py:services/auth.py",
+          "to": "python.models",
+          "type": "imports",
+          "resolved": false
+        },
+        {
+          "from": "py:services/auth.py",
+          "to": "python.utils",
+          "type": "imports",
+          "resolved": false
+        }
+      ]
+    }
+  }
+}

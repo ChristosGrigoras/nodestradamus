@@ -1,0 +1,272 @@
+{
+  "version": "1.0",
+  "created_at": "2026-01-29T16:02:18.129135+00:00",
+  "files": {
+    "utils.sh": {
+      "mtime": 1769701097.805289,
+      "size": 336,
+      "nodes": [
+        {
+          "id": "sh:utils.sh",
+          "name": "utils.sh",
+          "type": "module",
+          "file": "utils.sh",
+          "line": 1,
+          "exported": false,
+          "language": "bash"
+        },
+        {
+          "id": "sh:utils.sh::log_message",
+          "name": "log_message",
+          "type": "function",
+          "file": "utils.sh",
+          "line": 4,
+          "exported": false,
+          "language": "bash"
+        },
+        {
+          "id": "sh:utils.sh::check_dependency",
+          "name": "check_dependency",
+          "type": "function",
+          "file": "utils.sh",
+          "line": 9,
+          "exported": false,
+          "language": "bash"
+        },
+        {
+          "id": "sh:utils.sh::get_script_dir",
+          "name": "get_script_dir",
+          "type": "function",
+          "file": "utils.sh",
+          "line": 17,
+          "exported": false,
+          "language": "bash"
+        }
+      ],
+      "edges": [
+        {
+          "from": "sh:utils.sh::log_message",
+          "to": "sh:utils.sh",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "sh:utils.sh",
+          "to": "sh:utils.sh::log_message",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "sh:utils.sh::check_dependency",
+          "to": "sh:utils.sh",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "sh:utils.sh",
+          "to": "sh:utils.sh::check_dependency",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "sh:utils.sh::get_script_dir",
+          "to": "sh:utils.sh",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "sh:utils.sh",
+          "to": "sh:utils.sh::get_script_dir",
+          "type": "contains",
+          "resolved": true
+        }
+      ]
+    },
+    "main.sh": {
+      "mtime": 1769701097.8662908,
+      "size": 441,
+      "nodes": [
+        {
+          "id": "sh:main.sh",
+          "name": "main.sh",
+          "type": "module",
+          "file": "main.sh",
+          "line": 1,
+          "exported": false,
+          "language": "bash"
+        },
+        {
+          "id": "sh:main.sh::setup_environment",
+          "name": "setup_environment",
+          "type": "function",
+          "file": "main.sh",
+          "line": 9,
+          "exported": false,
+          "language": "bash"
+        },
+        {
+          "id": "sh:main.sh::main",
+          "name": "main",
+          "type": "function",
+          "file": "main.sh",
+          "line": 18,
+          "exported": false,
+          "language": "bash"
+        }
+      ],
+      "edges": [
+        {
+          "from": "sh:main.sh::setup_environment",
+          "to": "sh:main.sh",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "sh:main.sh",
+          "to": "sh:main.sh::setup_environment",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "sh:main.sh::main",
+          "to": "sh:main.sh",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "sh:main.sh",
+          "to": "sh:main.sh::main",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "sh:main.sh",
+          "to": "sh:utils.sh",
+          "type": "imports",
+          "resolved": true
+        },
+        {
+          "from": "sh:main.sh",
+          "to": "sh:lib/helpers.sh",
+          "type": "imports",
+          "resolved": true
+        },
+        {
+          "from": "sh:main.sh",
+          "to": "sh:scripts/deploy.sh",
+          "type": "imports",
+          "resolved": true
+        },
+        {
+          "from": "sh:main.sh",
+          "to": "../shared/common.sh",
+          "type": "imports",
+          "resolved": false
+        }
+      ]
+    },
+    "scripts/deploy.sh": {
+      "mtime": 1769701097.7852886,
+      "size": 204,
+      "nodes": [
+        {
+          "id": "sh:scripts/deploy.sh",
+          "name": "scripts/deploy.sh",
+          "type": "module",
+          "file": "scripts/deploy.sh",
+          "line": 1,
+          "exported": false,
+          "language": "bash"
+        },
+        {
+          "id": "sh:scripts/deploy.sh::deploy",
+          "name": "deploy",
+          "type": "function",
+          "file": "scripts/deploy.sh",
+          "line": 7,
+          "exported": false,
+          "language": "bash"
+        }
+      ],
+      "edges": [
+        {
+          "from": "sh:scripts/deploy.sh::deploy",
+          "to": "sh:scripts/deploy.sh",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "sh:scripts/deploy.sh",
+          "to": "sh:scripts/deploy.sh::deploy",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "sh:scripts/deploy.sh",
+          "to": "sh:utils.sh",
+          "type": "imports",
+          "resolved": true
+        }
+      ]
+    },
+    "lib/helpers.sh": {
+      "mtime": 1769701097.8062892,
+      "size": 173,
+      "nodes": [
+        {
+          "id": "sh:lib/helpers.sh",
+          "name": "lib/helpers.sh",
+          "type": "module",
+          "file": "lib/helpers.sh",
+          "line": 1,
+          "exported": false,
+          "language": "bash"
+        },
+        {
+          "id": "sh:lib/helpers.sh::validate_input",
+          "name": "validate_input",
+          "type": "function",
+          "file": "lib/helpers.sh",
+          "line": 4,
+          "exported": false,
+          "language": "bash"
+        },
+        {
+          "id": "sh:lib/helpers.sh::cleanup",
+          "name": "cleanup",
+          "type": "function",
+          "file": "lib/helpers.sh",
+          "line": 9,
+          "exported": false,
+          "language": "bash"
+        }
+      ],
+      "edges": [
+        {
+          "from": "sh:lib/helpers.sh::validate_input",
+          "to": "sh:lib/helpers.sh",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "sh:lib/helpers.sh",
+          "to": "sh:lib/helpers.sh::validate_input",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "sh:lib/helpers.sh::cleanup",
+          "to": "sh:lib/helpers.sh",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "sh:lib/helpers.sh",
+          "to": "sh:lib/helpers.sh::cleanup",
+          "type": "contains",
+          "resolved": true
+        }
+      ]
+    }
+  }
+}

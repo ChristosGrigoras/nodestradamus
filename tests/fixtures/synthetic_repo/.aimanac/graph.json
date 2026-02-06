@@ -1,0 +1,1014 @@
+{
+  "version": "1.0",
+  "created_at": "2026-01-29T16:02:17.712099+00:00",
+  "nodes": [
+    {
+      "id": "ts:typescript/index.ts",
+      "type": "module",
+      "file": "typescript/index.ts",
+      "name": "typescript/index.ts",
+      "line": 1,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:typescript/index.ts::main",
+      "type": "function",
+      "file": "typescript/index.ts",
+      "name": "main",
+      "line": 12,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:typescript/index.ts::bootstrap",
+      "type": "function",
+      "file": "typescript/index.ts",
+      "name": "bootstrap",
+      "line": 17,
+      "language": "typescript"
+    },
+    {
+      "id": "py:python/models.py",
+      "type": "module",
+      "file": "python/models.py",
+      "name": "python/models.py",
+      "line": 1,
+      "language": "python"
+    },
+    {
+      "id": "py:python/models.py::__init__",
+      "type": "function",
+      "file": "python/models.py",
+      "name": "__init__",
+      "line": 45,
+      "language": "python"
+    },
+    {
+      "id": "py:python/models.py::save",
+      "type": "function",
+      "file": "python/models.py",
+      "name": "save",
+      "line": 49,
+      "language": "python"
+    },
+    {
+      "id": "py:python/models.py::delete",
+      "type": "function",
+      "file": "python/models.py",
+      "name": "delete",
+      "line": 53,
+      "language": "python"
+    },
+    {
+      "id": "py:python/models.py::User",
+      "type": "class",
+      "file": "python/models.py",
+      "name": "User",
+      "line": 10,
+      "language": "python"
+    },
+    {
+      "id": "py:python/models.py::Product",
+      "type": "class",
+      "file": "python/models.py",
+      "name": "Product",
+      "line": 26,
+      "language": "python"
+    },
+    {
+      "id": "py:python/models.py::Order",
+      "type": "class",
+      "file": "python/models.py",
+      "name": "Order",
+      "line": 42,
+      "language": "python"
+    },
+    {
+      "id": "py:python/utils.py",
+      "type": "module",
+      "file": "python/utils.py",
+      "name": "python/utils.py",
+      "line": 1,
+      "language": "python"
+    },
+    {
+      "id": "py:python/utils.py::format_date",
+      "type": "function",
+      "file": "python/utils.py",
+      "name": "format_date",
+      "line": 14,
+      "language": "python"
+    },
+    {
+      "id": "py:python/utils.py::parse_json",
+      "type": "function",
+      "file": "python/utils.py",
+      "name": "parse_json",
+      "line": 19,
+      "language": "python"
+    },
+    {
+      "id": "py:python/utils.py::slugify",
+      "type": "function",
+      "file": "python/utils.py",
+      "name": "slugify",
+      "line": 24,
+      "language": "python"
+    },
+    {
+      "id": "py:python/utils.py::hash_password",
+      "type": "function",
+      "file": "python/utils.py",
+      "name": "hash_password",
+      "line": 29,
+      "language": "python"
+    },
+    {
+      "id": "py:python/utils.py::validate_email",
+      "type": "function",
+      "file": "python/utils.py",
+      "name": "validate_email",
+      "line": 34,
+      "language": "python"
+    },
+    {
+      "id": "py:python/__init__.py",
+      "type": "module",
+      "file": "python/__init__.py",
+      "name": "python/__init__.py",
+      "line": 1,
+      "language": "python"
+    },
+    {
+      "id": "ts:typescript/components/Button.tsx",
+      "type": "module",
+      "file": "typescript/components/Button.tsx",
+      "name": "typescript/components/Button.tsx",
+      "line": 1,
+      "language": "tsx"
+    },
+    {
+      "id": "ts:typescript/components/Button.tsx::Button",
+      "type": "function",
+      "file": "typescript/components/Button.tsx",
+      "name": "Button",
+      "line": 15,
+      "language": "tsx"
+    },
+    {
+      "id": "ts:typescript/components/Button.tsx::ButtonProps",
+      "type": "class",
+      "file": "typescript/components/Button.tsx",
+      "name": "ButtonProps",
+      "line": 9,
+      "language": "tsx",
+      "fields": [
+        {
+          "name": "label",
+          "type": "string",
+          "nullable": false,
+          "references": null
+        },
+        {
+          "name": "onClick",
+          "type": "() => void",
+          "nullable": false,
+          "references": null
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "nullable": true,
+          "references": null
+        }
+      ]
+    },
+    {
+      "id": "ts:typescript/components/Card.tsx",
+      "type": "module",
+      "file": "typescript/components/Card.tsx",
+      "name": "typescript/components/Card.tsx",
+      "line": 1,
+      "language": "tsx"
+    },
+    {
+      "id": "ts:typescript/components/Card.tsx::Card",
+      "type": "function",
+      "file": "typescript/components/Card.tsx",
+      "name": "Card",
+      "line": 14,
+      "language": "tsx"
+    },
+    {
+      "id": "ts:typescript/components/Card.tsx::CardHeader",
+      "type": "function",
+      "file": "typescript/components/Card.tsx",
+      "name": "CardHeader",
+      "line": 23,
+      "language": "tsx"
+    },
+    {
+      "id": "ts:typescript/components/Card.tsx::CardProps",
+      "type": "class",
+      "file": "typescript/components/Card.tsx",
+      "name": "CardProps",
+      "line": 9,
+      "language": "tsx",
+      "fields": [
+        {
+          "name": "title",
+          "type": "string",
+          "nullable": false,
+          "references": null
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "nullable": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "id": "ts:typescript/lib/api.ts",
+      "type": "module",
+      "file": "typescript/lib/api.ts",
+      "name": "typescript/lib/api.ts",
+      "line": 1,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:typescript/lib/api.ts::initApi",
+      "type": "function",
+      "file": "typescript/lib/api.ts",
+      "name": "initApi",
+      "line": 33,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:typescript/lib/api.ts::fetchJson",
+      "type": "function",
+      "file": "typescript/lib/api.ts",
+      "name": "fetchJson",
+      "line": 38,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:typescript/lib/api.ts::handleError",
+      "type": "function",
+      "file": "typescript/lib/api.ts",
+      "name": "handleError",
+      "line": 51,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:typescript/lib/api.ts::ApiClient",
+      "type": "class",
+      "file": "typescript/lib/api.ts",
+      "name": "ApiClient",
+      "line": 10,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:typescript/lib/utils.ts",
+      "type": "module",
+      "file": "typescript/lib/utils.ts",
+      "name": "typescript/lib/utils.ts",
+      "line": 1,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:typescript/lib/utils.ts::formatDate",
+      "type": "function",
+      "file": "typescript/lib/utils.ts",
+      "name": "formatDate",
+      "line": 9,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:typescript/lib/utils.ts::slugify",
+      "type": "function",
+      "file": "typescript/lib/utils.ts",
+      "name": "slugify",
+      "line": 13,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:typescript/lib/utils.ts::debounce",
+      "type": "function",
+      "file": "typescript/lib/utils.ts",
+      "name": "debounce",
+      "line": 20,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:typescript/lib/utils.ts::clamp",
+      "type": "function",
+      "file": "typescript/lib/utils.ts",
+      "name": "clamp",
+      "line": 31,
+      "language": "typescript"
+    },
+    {
+      "id": "py:python/services/users.py",
+      "type": "module",
+      "file": "python/services/users.py",
+      "name": "python/services/users.py",
+      "line": 1,
+      "language": "python"
+    },
+    {
+      "id": "py:python/services/users.py::__init__",
+      "type": "function",
+      "file": "python/services/users.py",
+      "name": "__init__",
+      "line": 16,
+      "language": "python"
+    },
+    {
+      "id": "py:python/services/users.py::get_user",
+      "type": "function",
+      "file": "python/services/users.py",
+      "name": "get_user",
+      "line": 19,
+      "language": "python"
+    },
+    {
+      "id": "py:python/services/users.py::create_user",
+      "type": "function",
+      "file": "python/services/users.py",
+      "name": "create_user",
+      "line": 23,
+      "language": "python"
+    },
+    {
+      "id": "py:python/services/users.py::list_users",
+      "type": "function",
+      "file": "python/services/users.py",
+      "name": "list_users",
+      "line": 31,
+      "language": "python"
+    },
+    {
+      "id": "py:python/services/users.py::get_user_by_email",
+      "type": "function",
+      "file": "python/services/users.py",
+      "name": "get_user_by_email",
+      "line": 36,
+      "language": "python"
+    },
+    {
+      "id": "py:python/services/users.py::count_users",
+      "type": "function",
+      "file": "python/services/users.py",
+      "name": "count_users",
+      "line": 42,
+      "language": "python"
+    },
+    {
+      "id": "py:python/services/users.py::UserService",
+      "type": "class",
+      "file": "python/services/users.py",
+      "name": "UserService",
+      "line": 13,
+      "language": "python"
+    },
+    {
+      "id": "py:python/services/__init__.py",
+      "type": "module",
+      "file": "python/services/__init__.py",
+      "name": "python/services/__init__.py",
+      "line": 1,
+      "language": "python"
+    },
+    {
+      "id": "py:python/services/auth.py",
+      "type": "module",
+      "file": "python/services/auth.py",
+      "name": "python/services/auth.py",
+      "line": 1,
+      "language": "python"
+    },
+    {
+      "id": "py:python/services/auth.py::__init__",
+      "type": "function",
+      "file": "python/services/auth.py",
+      "name": "__init__",
+      "line": 16,
+      "language": "python"
+    },
+    {
+      "id": "py:python/services/auth.py::login",
+      "type": "function",
+      "file": "python/services/auth.py",
+      "name": "login",
+      "line": 19,
+      "language": "python"
+    },
+    {
+      "id": "py:python/services/auth.py::logout",
+      "type": "function",
+      "file": "python/services/auth.py",
+      "name": "logout",
+      "line": 24,
+      "language": "python"
+    },
+    {
+      "id": "py:python/services/auth.py::create_token",
+      "type": "function",
+      "file": "python/services/auth.py",
+      "name": "create_token",
+      "line": 29,
+      "language": "python"
+    },
+    {
+      "id": "py:python/services/auth.py::verify_token",
+      "type": "function",
+      "file": "python/services/auth.py",
+      "name": "verify_token",
+      "line": 34,
+      "language": "python"
+    },
+    {
+      "id": "py:python/services/auth.py::refresh_token",
+      "type": "function",
+      "file": "python/services/auth.py",
+      "name": "refresh_token",
+      "line": 39,
+      "language": "python"
+    },
+    {
+      "id": "py:python/services/auth.py::AuthService",
+      "type": "class",
+      "file": "python/services/auth.py",
+      "name": "AuthService",
+      "line": 13,
+      "language": "python"
+    },
+    {
+      "id": "hashlib"
+    },
+    {
+      "id": "json"
+    },
+    {
+      "id": "re"
+    },
+    {
+      "id": "datetime"
+    }
+  ],
+  "edges": [
+    {
+      "from": "ts:typescript/index.ts",
+      "to": "ts:typescript/index.ts::main",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/index.ts",
+      "to": "ts:typescript/index.ts::bootstrap",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/index.ts",
+      "to": "ts:typescript/lib/api.ts",
+      "type": "imports",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/index.ts",
+      "to": "ts:typescript/lib/api.ts::initApi",
+      "type": "imports_symbol",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/index.ts",
+      "to": "ts:typescript/lib/utils.ts",
+      "type": "imports",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/index.ts",
+      "to": "ts:typescript/lib/utils.ts::formatDate",
+      "type": "imports_symbol",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/index.ts::main",
+      "to": "ts:typescript/index.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/index.ts::bootstrap",
+      "to": "ts:typescript/index.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/models.py",
+      "to": "py:python/models.py::__init__",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/models.py",
+      "to": "py:python/models.py::save",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/models.py",
+      "to": "py:python/models.py::delete",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/models.py",
+      "to": "py:python/models.py::User",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/models.py",
+      "to": "py:python/models.py::Product",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/models.py",
+      "to": "py:python/models.py::Order",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/models.py::__init__",
+      "to": "py:python/models.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/models.py::save",
+      "to": "py:python/models.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/models.py::delete",
+      "to": "py:python/models.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/models.py::User",
+      "to": "py:python/models.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/models.py::Product",
+      "to": "py:python/models.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/models.py::Order",
+      "to": "py:python/models.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/utils.py",
+      "to": "py:python/utils.py::format_date",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/utils.py",
+      "to": "py:python/utils.py::parse_json",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/utils.py",
+      "to": "py:python/utils.py::slugify",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/utils.py",
+      "to": "py:python/utils.py::hash_password",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/utils.py",
+      "to": "py:python/utils.py::validate_email",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/utils.py",
+      "to": "hashlib",
+      "type": "imports",
+      "resolved": false
+    },
+    {
+      "from": "py:python/utils.py",
+      "to": "json",
+      "type": "imports",
+      "resolved": false
+    },
+    {
+      "from": "py:python/utils.py",
+      "to": "re",
+      "type": "imports",
+      "resolved": false
+    },
+    {
+      "from": "py:python/utils.py",
+      "to": "datetime",
+      "type": "imports",
+      "resolved": false
+    },
+    {
+      "from": "py:python/utils.py::format_date",
+      "to": "py:python/utils.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/utils.py::parse_json",
+      "to": "py:python/utils.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/utils.py::slugify",
+      "to": "py:python/utils.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/utils.py::hash_password",
+      "to": "py:python/utils.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/utils.py::validate_email",
+      "to": "py:python/utils.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/components/Button.tsx",
+      "to": "ts:typescript/components/Button.tsx::Button",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/components/Button.tsx",
+      "to": "ts:typescript/components/Button.tsx::ButtonProps",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/components/Button.tsx::Button",
+      "to": "ts:typescript/components/Button.tsx",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/components/Button.tsx::ButtonProps",
+      "to": "ts:typescript/components/Button.tsx",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/components/Card.tsx",
+      "to": "ts:typescript/components/Card.tsx::Card",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/components/Card.tsx",
+      "to": "ts:typescript/components/Card.tsx::CardHeader",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/components/Card.tsx",
+      "to": "ts:typescript/components/Card.tsx::CardProps",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/components/Card.tsx::Card",
+      "to": "ts:typescript/components/Card.tsx",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/components/Card.tsx::CardHeader",
+      "to": "ts:typescript/components/Card.tsx",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/components/Card.tsx::CardProps",
+      "to": "ts:typescript/components/Card.tsx",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/lib/api.ts",
+      "to": "ts:typescript/lib/api.ts::initApi",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/lib/api.ts",
+      "to": "ts:typescript/lib/api.ts::fetchJson",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/lib/api.ts",
+      "to": "ts:typescript/lib/api.ts::handleError",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/lib/api.ts",
+      "to": "ts:typescript/lib/api.ts::ApiClient",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/lib/api.ts::initApi",
+      "to": "ts:typescript/lib/api.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/lib/api.ts::fetchJson",
+      "to": "ts:typescript/lib/api.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/lib/api.ts::handleError",
+      "to": "ts:typescript/lib/api.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/lib/api.ts::ApiClient",
+      "to": "ts:typescript/lib/api.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/lib/utils.ts",
+      "to": "ts:typescript/lib/utils.ts::formatDate",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/lib/utils.ts",
+      "to": "ts:typescript/lib/utils.ts::slugify",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/lib/utils.ts",
+      "to": "ts:typescript/lib/utils.ts::debounce",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/lib/utils.ts",
+      "to": "ts:typescript/lib/utils.ts::clamp",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/lib/utils.ts::formatDate",
+      "to": "ts:typescript/lib/utils.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/lib/utils.ts::slugify",
+      "to": "ts:typescript/lib/utils.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/lib/utils.ts::debounce",
+      "to": "ts:typescript/lib/utils.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:typescript/lib/utils.ts::clamp",
+      "to": "ts:typescript/lib/utils.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/users.py",
+      "to": "py:python/services/users.py::__init__",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/users.py",
+      "to": "py:python/services/users.py::get_user",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/users.py",
+      "to": "py:python/services/users.py::create_user",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/users.py",
+      "to": "py:python/services/users.py::list_users",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/users.py",
+      "to": "py:python/services/users.py::get_user_by_email",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/users.py",
+      "to": "py:python/services/users.py::count_users",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/users.py",
+      "to": "py:python/services/users.py::UserService",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/users.py",
+      "to": "py:python/models.py",
+      "type": "imports",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/users.py",
+      "to": "py:python/utils.py",
+      "type": "imports",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/users.py::__init__",
+      "to": "py:python/services/users.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/users.py::get_user",
+      "to": "py:python/services/users.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/users.py::create_user",
+      "to": "py:python/services/users.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/users.py::list_users",
+      "to": "py:python/services/users.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/users.py::get_user_by_email",
+      "to": "py:python/services/users.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/users.py::count_users",
+      "to": "py:python/services/users.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/users.py::UserService",
+      "to": "py:python/services/users.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/auth.py",
+      "to": "py:python/services/auth.py::__init__",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/auth.py",
+      "to": "py:python/services/auth.py::login",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/auth.py",
+      "to": "py:python/services/auth.py::logout",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/auth.py",
+      "to": "py:python/services/auth.py::create_token",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/auth.py",
+      "to": "py:python/services/auth.py::verify_token",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/auth.py",
+      "to": "py:python/services/auth.py::refresh_token",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/auth.py",
+      "to": "py:python/services/auth.py::AuthService",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/auth.py",
+      "to": "py:python/models.py",
+      "type": "imports",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/auth.py",
+      "to": "py:python/utils.py",
+      "type": "imports",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/auth.py::__init__",
+      "to": "py:python/services/auth.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/auth.py::login",
+      "to": "py:python/services/auth.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/auth.py::logout",
+      "to": "py:python/services/auth.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/auth.py::create_token",
+      "to": "py:python/services/auth.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/auth.py::verify_token",
+      "to": "py:python/services/auth.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/auth.py::refresh_token",
+      "to": "py:python/services/auth.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:python/services/auth.py::AuthService",
+      "to": "py:python/services/auth.py",
+      "type": "defined_in",
+      "resolved": true
+    }
+  ]
+}

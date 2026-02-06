@@ -1,0 +1,412 @@
+{
+  "version": "1.0",
+  "created_at": "2026-01-29T16:05:23.442383+00:00",
+  "files": {
+    "schema.sql": {
+      "mtime": 1769638195.0006397,
+      "size": 218,
+      "nodes": [
+        {
+          "id": "sql:schema.sql",
+          "name": "schema.sql",
+          "type": "module",
+          "file": "schema.sql",
+          "line": 1,
+          "exported": false,
+          "language": "sql"
+        },
+        {
+          "id": "sql:schema.sql::table::public.users",
+          "name": "public.users",
+          "type": "table",
+          "file": "schema.sql",
+          "line": 1,
+          "exported": false,
+          "language": "sql",
+          "fields": [
+            {
+              "name": "id",
+              "type": "SERIAL",
+              "nullable": true,
+              "references": null
+            },
+            {
+              "name": "name",
+              "type": "TEXT",
+              "nullable": false,
+              "references": null
+            }
+          ]
+        },
+        {
+          "id": "sql:schema.sql::table::public.orders",
+          "name": "public.orders",
+          "type": "table",
+          "file": "schema.sql",
+          "line": 6,
+          "exported": false,
+          "language": "sql",
+          "fields": [
+            {
+              "name": "id",
+              "type": "SERIAL",
+              "nullable": true,
+              "references": null
+            },
+            {
+              "name": "user_id",
+              "type": "INTEGER",
+              "nullable": true,
+              "references": "public.users.id"
+            },
+            {
+              "name": "amount",
+              "type": "unknown",
+              "nullable": false,
+              "references": null
+            }
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "from": "sql:schema.sql::table::public.users",
+          "to": "sql:schema.sql",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "sql:schema.sql",
+          "to": "sql:schema.sql::table::public.users",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "sql:schema.sql::table::public.orders",
+          "to": "sql:schema.sql",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "sql:schema.sql",
+          "to": "sql:schema.sql::table::public.orders",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "sql:schema.sql::table::public.orders",
+          "to": "public",
+          "type": "references_fk",
+          "resolved": false
+        },
+        {
+          "from": "sql:schema.sql::table::public.users",
+          "to": "public.users",
+          "type": "calls",
+          "resolved": false
+        },
+        {
+          "from": "sql:schema.sql::table::public.orders",
+          "to": "public.orders",
+          "type": "calls",
+          "resolved": false
+        },
+        {
+          "from": "sql:schema.sql::table::public.orders",
+          "to": "public.users",
+          "type": "calls",
+          "resolved": false
+        }
+      ]
+    },
+    "functions.sql": {
+      "mtime": 1769638195.03164,
+      "size": 620,
+      "nodes": [
+        {
+          "id": "sql:functions.sql",
+          "name": "functions.sql",
+          "type": "module",
+          "file": "functions.sql",
+          "line": 1,
+          "exported": false,
+          "language": "sql"
+        },
+        {
+          "id": "sql:functions.sql::procedure::public.cleanup_orders",
+          "name": "public.cleanup_orders",
+          "type": "procedure",
+          "file": "functions.sql",
+          "line": 19,
+          "exported": false,
+          "language": "sql"
+        },
+        {
+          "id": "sql:functions.sql::function::public.get_user_orders",
+          "name": "public.get_user_orders",
+          "type": "function",
+          "file": "functions.sql",
+          "line": 1,
+          "exported": false,
+          "language": "sql"
+        },
+        {
+          "id": "sql:functions.sql::function::public.log_access",
+          "name": "public.log_access",
+          "type": "function",
+          "file": "functions.sql",
+          "line": 12,
+          "exported": false,
+          "language": "sql"
+        },
+        {
+          "id": "sql:functions.sql::trigger::audit_orders",
+          "name": "audit_orders",
+          "type": "trigger",
+          "file": "functions.sql",
+          "line": 29,
+          "exported": false,
+          "language": "sql"
+        }
+      ],
+      "edges": [
+        {
+          "from": "sql:functions.sql::procedure::public.cleanup_orders",
+          "to": "sql:functions.sql",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "sql:functions.sql",
+          "to": "sql:functions.sql::procedure::public.cleanup_orders",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "sql:functions.sql::function::public.get_user_orders",
+          "to": "sql:functions.sql",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "sql:functions.sql",
+          "to": "sql:functions.sql::function::public.get_user_orders",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "sql:functions.sql::function::public.log_access",
+          "to": "sql:functions.sql",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "sql:functions.sql",
+          "to": "sql:functions.sql::function::public.log_access",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "sql:functions.sql::trigger::audit_orders",
+          "to": "sql:functions.sql",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "sql:functions.sql",
+          "to": "sql:functions.sql::trigger::audit_orders",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "sql:functions.sql::function::public.get_user_orders",
+          "to": "sql:functions.sql::function::public.get_user_orders",
+          "type": "calls",
+          "resolved": true
+        },
+        {
+          "from": "sql:functions.sql::function::public.get_user_orders",
+          "to": "sql:functions.sql::function::public.log_access",
+          "type": "calls",
+          "resolved": true
+        },
+        {
+          "from": "sql:functions.sql::function::public.get_user_orders",
+          "to": "public.orders",
+          "type": "calls",
+          "resolved": false
+        },
+        {
+          "from": "sql:functions.sql::function::public.get_user_orders",
+          "to": "values",
+          "type": "calls",
+          "resolved": false
+        },
+        {
+          "from": "sql:functions.sql",
+          "to": "public.orders",
+          "type": "calls",
+          "resolved": false
+        },
+        {
+          "from": "sql:functions.sql",
+          "to": "values",
+          "type": "calls",
+          "resolved": false
+        },
+        {
+          "from": "sql:functions.sql::function::public.log_access",
+          "to": "sql:functions.sql::function::public.log_access",
+          "type": "calls",
+          "resolved": true
+        },
+        {
+          "from": "sql:functions.sql",
+          "to": "public.orders",
+          "type": "references",
+          "resolved": false
+        },
+        {
+          "from": "sql:functions.sql::trigger::audit_orders",
+          "to": "sql:functions.sql::function::public.log_access",
+          "type": "calls",
+          "resolved": true
+        },
+        {
+          "from": "sql:functions.sql::trigger::audit_orders",
+          "to": "public.orders",
+          "type": "references",
+          "resolved": false
+        }
+      ]
+    },
+    "views.sql": {
+      "mtime": 1769638195.0006397,
+      "size": 249,
+      "nodes": [
+        {
+          "id": "sql:views.sql",
+          "name": "views.sql",
+          "type": "module",
+          "file": "views.sql",
+          "line": 1,
+          "exported": false,
+          "language": "sql"
+        },
+        {
+          "id": "sql:views.sql::view::public.user_orders",
+          "name": "public.user_orders",
+          "type": "view",
+          "file": "views.sql",
+          "line": 1,
+          "exported": false,
+          "language": "sql"
+        },
+        {
+          "id": "sql:views.sql::view::public.recent_orders",
+          "name": "public.recent_orders",
+          "type": "view",
+          "file": "views.sql",
+          "line": 6,
+          "exported": false,
+          "language": "sql"
+        },
+        {
+          "id": "sql:views.sql::cte::1::recent",
+          "name": "recent",
+          "type": "cte",
+          "file": "views.sql",
+          "line": 7,
+          "exported": false,
+          "language": "sql"
+        }
+      ],
+      "edges": [
+        {
+          "from": "sql:views.sql::view::public.user_orders",
+          "to": "sql:views.sql",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "sql:views.sql",
+          "to": "sql:views.sql::view::public.user_orders",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "sql:views.sql::view::public.recent_orders",
+          "to": "sql:views.sql",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "sql:views.sql",
+          "to": "sql:views.sql::view::public.recent_orders",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "sql:views.sql::view::public.user_orders",
+          "to": "public.users",
+          "type": "references",
+          "resolved": false
+        },
+        {
+          "from": "sql:views.sql::view::public.user_orders",
+          "to": "public.orders",
+          "type": "references",
+          "resolved": false
+        },
+        {
+          "from": "sql:views.sql::view::public.user_orders",
+          "to": "o",
+          "type": "references",
+          "resolved": false
+        },
+        {
+          "from": "sql:views.sql::view::public.user_orders",
+          "to": "u",
+          "type": "references",
+          "resolved": false
+        },
+        {
+          "from": "sql:views.sql::cte::1::recent",
+          "to": "sql:views.sql",
+          "type": "defined_in",
+          "resolved": true
+        },
+        {
+          "from": "sql:views.sql",
+          "to": "sql:views.sql::cte::1::recent",
+          "type": "contains",
+          "resolved": true
+        },
+        {
+          "from": "sql:views.sql::view::public.recent_orders",
+          "to": "public.orders",
+          "type": "references",
+          "resolved": false
+        },
+        {
+          "from": "sql:views.sql::view::public.recent_orders",
+          "to": "sql:views.sql::cte::1::recent",
+          "type": "references",
+          "resolved": true
+        },
+        {
+          "from": "sql:views.sql::view::public.recent_orders",
+          "to": "as",
+          "type": "calls",
+          "resolved": false
+        },
+        {
+          "from": "sql:views.sql",
+          "to": "public.orders",
+          "type": "references",
+          "resolved": false
+        }
+      ]
+    }
+  }
+}

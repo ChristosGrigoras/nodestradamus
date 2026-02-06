@@ -1,0 +1,73 @@
+---
+description: MCP server development patterns
+globs: ["**/mcp/**/*.py", "**/*_mcp*.py"]
+alwaysApply: false
+---
+
+# MCP Server Patterns
+
+## Tool Implementation
+
+- Each tool function returns a JSON-serializable dict
+- Tool names use snake_case: `analyze_deps`, `get_impact`
+- Input validation via Pydantic models or explicit type checks
+- Return structured results with `summary` and detailed keys
+
+```python
+# Good: Structured return with summary
+def handle_analyze_deps(repo_path: str, **kwargs) -> dict:
+    graph = build_graph(repo_path)
+    return {
+        "summary": {
+            "total_nodes": len(graph.nodes),
+            "total_edges": len(graph.edges),
+        },
+        "top_callers": get_top_callers(graph, n=10),
+        "top_called": get_top_called(graph, n=10),
+    }
+```
+
+## Error Handling
+
+- Raise descriptive exceptions for user errors (invalid paths, bad args)
+- Log internal errors with full context, return sanitized messages
+- Never expose file paths, stack traces, or internal state to users
+- Use specific error types: `ValueError`, `FileNotFoundError`, custom exceptions
+
+```python
+# Good: Descriptive error
+if not Path(repo_path).exists():
+    raise ValueError(f"Repository not found: {repo_path}")
+
+# Bad: Generic error
+raise Exception("Error")
+```
+
+## Performance Guidelines
+
+- **Summaries by default:** Return compact summaries, full data on `full_graph=True`
+- **Cache expensive computations:** AST parsing, embeddings, graph algorithms
+- **Streaming for large data:** Graphs >1000 nodes should chunk or stream
+- **Limit defaults:** Use `top_n=15` or `max_items=20` parameters
+
+## Node ID Format
+
+Normalize all node IDs for cross-language consistency:
+
+| Language | Format | Example |
+|----------|--------|---------|
+| Python | `py:path/file.py::ClassName::method` | `py:nodestradamus/mcp/server.py::handle_request` |
+| TypeScript | `ts:path/file.ts::exportName` | `ts:src/utils.ts::formatDate` |
+| Rust | `rs:path/file.rs::mod::item` | `rs:src/lib.rs::graph::build` |
+| SQL | `sql:path/file.sql::table_name` | `sql:schema.sql::users` |
+
+## Tool Registration
+
+Register tools in `nodestradamus/mcp/server.py`:
+
+```python
+@server.tool()
+async def tool_name(arguments: dict) -> list[types.TextContent]:
+    result = handle_tool_name(**arguments)
+    return [types.TextContent(type="text", text=json.dumps(result, indent=2))]
+```

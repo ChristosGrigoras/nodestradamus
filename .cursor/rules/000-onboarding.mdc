@@ -1,0 +1,118 @@
+---
+description: Onboarding rule for adapting template to existing codebases
+globs: "**/*"
+alwaysApply: false
+---
+
+# Onboarding
+
+## Trigger Phrases
+
+Activate when user says:
+- "adapt rules to my codebase"
+- "compare rules to my code"
+- "onboard this project"
+- "check rule conflicts"
+- "analyze my conventions"
+
+## Analysis Process
+
+### Step 1: Sample the Codebase
+
+Read 5-10 representative files:
+- Main entry points (main.py, app.py, index.ts, etc.)
+- Core business logic (services/, domain/, core/)
+- Utility functions (utils/, helpers/, lib/)
+- Tests (test_*, *.test.*, *.spec.*)
+- Config files (pyproject.toml, package.json, etc.)
+
+### Step 2: Detect Conventions
+
+Analyze for:
+
+| Convention | What to Look For |
+|------------|------------------|
+| **Naming** | snake_case, camelCase, PascalCase, prefixes/suffixes |
+| **Docstrings** | Google, NumPy, reStructuredText, JSDoc, or none |
+| **Imports** | Organization, absolute vs relative, grouping |
+| **Types** | Type hints presence, style (inline vs stub files) |
+| **Testing** | Framework (pytest/unittest/jest), fixture patterns |
+| **Errors** | Exceptions, Result types, error codes |
+| **Structure** | Layer patterns, file organization |
+
+> **Note:** The table above shows *detection* patterns, not recommendations.
+> Actual conventions are defined in language-specific rules (100-python.mdc, etc.)
+
+### Step 3: Read Current Rules
+
+Load and parse all files in `.cursor/rules/`:
+- Note prescriptive conventions
+- Identify technology-specific rules
+- Check for conflicts with detected patterns
+
+### Step 4: Report Findings
+
+Output format:
+
+```markdown
+## Codebase Analysis
+
+**Files analyzed:** [list]
+
+### Detected Conventions
+
+| Area | Your Codebase | Current Rules | Conflict? |
+|------|---------------|---------------|-----------|
+| Naming | camelCase | snake_case (100-python.mdc) | ⚠️ Yes |
+| Docstrings | None | Google style | ⚠️ Yes |
+| Testing | unittest | pytest assumed | ⚠️ Yes |
+| Imports | Relative | No preference | ✅ OK |
+
+### Recommended Rule Changes
+
+1. **100-python.mdc line XX:** Change `snake_case` to `camelCase`
+2. **301-testing.mdc:** Update for unittest patterns
+3. **New rule needed:** [description]
+
+### Inconsistencies in Your Codebase
+
+- `src/old_module.py` uses snake_case, rest uses camelCase
+- Consider: Standardize or create exception rule?
+```
+
+### Step 5: Apply Changes
+
+On user approval:
+1. Edit conflicting rules to match codebase conventions
+2. Create project-specific overrides in `200-project.mdc`
+3. Note any codebase inconsistencies for user to resolve
+4. Remind to reload window
+
+## Project-Specific Overrides
+
+Prefer editing `200-project.mdc` for project-specific conventions.
+Keep generic rules (003-005) intact for reusability.
+
+Example override in 200-project.mdc:
+```markdown
+## Project Conventions (Override Defaults)
+
+- **Naming:** Use camelCase for functions (overrides 100-python.mdc)
+- **Docstrings:** Not required for internal functions
+- **Testing:** Use unittest.TestCase pattern
+```
+
+## After Onboarding
+
+Remind user:
+> ⚠️ **Reload required:** Press `Cmd/Ctrl+Shift+P` → "Developer: Reload Window"
+>
+> Rules have been adapted to your codebase. Future AI responses will follow your conventions.
+
+## Limitations
+
+Note to user:
+- Analysis is based on sampled files, may miss edge cases
+- Dynamic patterns (metaprogramming) not detected
+- Cross-repository conventions not analyzed
+- Run again if major refactoring occurs

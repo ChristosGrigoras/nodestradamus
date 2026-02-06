@@ -1,0 +1,15 @@
+[package]
+name = "nodestradamus_graph"
+version = "0.1.0"
+edition = "2021"
+description = "Rust graph algorithms for Nodestradamus"
+license = "MIT"
+
+[lib]
+name = "nodestradamus_graph"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.22", features = ["extension-module"] }
+petgraph = "0.6"
+rustc-hash = "2.0"

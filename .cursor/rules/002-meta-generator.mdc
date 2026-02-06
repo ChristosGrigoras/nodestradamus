@@ -1,0 +1,86 @@
+---
+description: Meta-generator for rule creation and optimization
+globs: "**/*"
+alwaysApply: false
+---
+
+# Meta-Generator
+
+## Rule Compliance
+
+- Reply with "Applying rules: X, Y, Z" at start of complex responses
+- Self-check rule compliance during long conversations
+- Re-read rules every ~10 messages in extended sessions
+- If output quality degrades, prompt user to start fresh chat
+
+## Pattern Detection
+
+**Observe user corrections:**
+- Track when user modifies generated code
+- Identify repeated patterns in corrections
+- Note context where patterns occur
+- Count frequency of similar modifications
+
+**Detection threshold:** 3+ occurrences = potential rule
+
+## Rule Synthesis
+
+**When creating new rules:**
+1. Extract actionable directives from patterns
+2. Compress language to <40 tokens per directive
+3. Remove redundancy with existing rules
+4. Add minimal examples only if ambiguous
+5. Define clear trigger keywords/file patterns
+
+**Output format:**
+```markdown
+---
+description: [Auto-generated description]
+globs: [Detected file patterns]
+alwaysApply: false
+---
+
+# [Context Name]
+
+## Conventions
+- [Directive 1: <40 tokens]
+- [Directive 2: <40 tokens]
+
+## Avoid
+- [Anti-pattern from corrections]
+```
+
+## Token Efficiency
+
+- Each directive <40 tokens
+- Remove redundant language
+- Use action over explanation
+- Consolidate similar directives
+- Token budget: Router 150, Meta 200, Context 180 max
+
+## Effectiveness Scoring
+
+**Track rule performance:**
+- Acceptance rate: % of generated code used as-is
+- Modification frequency: How often user changes output
+- Context accuracy: % of correct context detections
+
+**Threshold:** Score <0.5 triggers optimization suggestions
+
+## Suggestion Process
+
+**When pattern detected:**
+1. Analyze frequency and context
+2. Generate rule proposal
+3. Present to user for approval
+4. Create rule file on approval
+5. Update router triggers
+6. **Remind user to reload window**
+
+## After Rule Changes
+
+**Always remind user after creating or modifying rules:**
+
+> ⚠️ **Reload required:** To apply this rule change, press `Cmd/Ctrl+Shift+P` → "Developer: Reload Window"
+
+This ensures the new rules take effect immediately.

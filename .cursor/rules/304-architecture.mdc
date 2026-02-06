@@ -1,0 +1,95 @@
+---
+description: Architectural patterns for AI-assisted development
+globs: ["**/*"]
+alwaysApply: false
+---
+
+# Architecture Patterns
+
+## Core Principle
+
+AI agents make implicit architectural decisions if you don't guide them explicitly.
+Always define architecture before implementation — treat prompts as architecture documents.
+
+## Layered Architecture
+
+```
+┌─────────────────┐
+│   Controllers   │  ← HTTP/API layer, routing only
+├─────────────────┤
+│    Services     │  ← Business logic, orchestration
+├─────────────────┤
+│  Repositories   │  ← Data access, persistence
+├─────────────────┤
+│     Models      │  ← Domain entities, DTOs
+└─────────────────┘
+```
+
+- Controllers: Handle requests, delegate to services
+- Services: Business logic, no direct DB access
+- Repositories: Data access, query building
+- Models: Data structures, validation
+
+## Separation of Concerns
+
+- One responsibility per module/class/function
+- Business logic never in controllers or route handlers
+- Database queries never in services (use repositories)
+- Validation at boundaries, trust internal code
+
+## Avoid Tight Coupling
+
+- Depend on abstractions, not implementations
+- Use dependency injection for external services
+- Define clear interfaces between layers
+- Mock at boundaries for testing
+
+## Non-Functional Requirements
+
+Always specify these explicitly — agents skip them by default:
+
+| Requirement | What to Request |
+|-------------|-----------------|
+| Observability | Structured logging, metrics, tracing |
+| Resilience | Retry logic, circuit breakers, timeouts |
+| Scalability | Statelessness, caching strategy, pagination |
+| Security | Auth, input validation, secrets handling |
+
+## Statelessness
+
+- No shared mutable state between requests
+- Session data in external stores (Redis, DB)
+- Design for horizontal scaling
+- Avoid in-memory caches that don't sync
+
+## Domain Boundaries
+
+- Group code by domain, not by technical layer
+- Each domain owns its data and logic
+- Cross-domain communication via defined interfaces
+- Prepare for future service extraction
+
+## Anti-Patterns to Reject
+
+- God classes that do everything
+- Business logic in route handlers
+- Hardcoded configuration
+- Synchronous calls that block under load
+- Missing error boundaries
+
+## Design-First Approach
+
+- **No code until design is validated** — resist urge to start coding immediately
+- **Validate assumptions early** — test design concepts before implementation
+- **Document design decisions** — keep record of why choices were made
+- **Iterate on design cheaply** — changes are easier in design phase than code
+- **Get stakeholder buy-in** — ensure alignment before development starts
+
+## When Planning
+
+Before coding, define:
+1. What layers exist and their responsibilities
+2. How domains are separated
+3. What external dependencies exist
+4. How errors propagate
+5. What non-functional requirements apply

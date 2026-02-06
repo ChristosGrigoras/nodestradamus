@@ -1,0 +1,164 @@
+# <img src="assets/nodestradamus-logo.png" alt="Nodestradamus" width="42" style="vertical-align: middle;" /> Nodestradamus
+
+**Codebase intelligence for AI assistants.** An MCP server that gives Cursor, Claude, and other AI tools deep understanding of your code through dependency graphs, semantic search, and impact analysis.
+
+Nodestradamus builds a map of your code (what calls what), so you or your AI can see impact before changing things and find important or risky areas.
+
+### What Nodestradamus does
+
+- **Maps who-calls-what** — builds a dependency graph of your codebase
+- **Answers "what breaks if I change this?"** — impact analysis before refactors
+- **Finds code by meaning** — semantic search and duplicate detection
+- **Checks docs and rules** — finds stale references and coverage gaps
+
+New to dependency graphs or these terms? See [Understanding dependency graphs](docs/dependency-graphs.md) and [Glossary](docs/glossary.md).
+
+## Install
+
+```bash
+pip install nodestradamus
+
+# Or from source
+git clone https://github.com/ChristosGrigoras/nodestradamus.git
+cd nodestradamus && pip install -e .
+
+# With FAISS for faster similarity search on large codebases (optional)
+pip install nodestradamus[faiss]
+
+# With Rust acceleration (optional, requires Rust toolchain)
+pip install maturin
+maturin develop --release
+```
+
+## Quick Start
+
+```bash
+# Start the MCP server
+nodestradamus serve
+
+# Analyze a repo
+nodestradamus analyze /path/to/repo
+```
+
+**Optimal tool sequence** for best results:
+
+```
+1. project_scout     → Get overview + suggested_ignores
+2. analyze_deps      → Build graph (pass suggested_ignores)
+3. codebase_health   → Health check
+4. semantic_analysis → mode="embeddings" (pre-compute)
+5. semantic_analysis → mode="search" (now fast)
+```
+
+See [docs/getting-started-workflow.md](docs/getting-started-workflow.md) for the complete guide.
+
+Add to Cursor (`.cursor/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "nodestradamus": {
+      "command": "nodestradamus",
+      "args": ["serve"]
+    }
+  }
+}
+```
+
+## Supported Languages
+
+| Language | Dependency Analysis | Semantic Search | String Analysis |
+|----------|---------------------|-----------------|-----------------|
+| **Python** | ✅ Full | ✅ Full | ✅ Full |
+| **TypeScript/JavaScript** | ✅ Full | ✅ Full | ✅ Full |
+| **Rust** | ✅ Full | ✅ Full | ✅ Full |
+| **SQL (PostgreSQL)** | ✅ Full | ✅ Full | ✅ Full |
+| **Bash** | ✅ Full | — | — |
+| **JSON** | ✅ Configs | — | — |
+
+## Tools
+
+| Tool | What it does |
+|------|--------------|
+| `quick_start` | Runs optimal setup sequence automatically |
+| `project_scout` | Reconnaissance: languages, frameworks, key dirs; lazy options for monorepos |
+| `analyze_deps` | Build dependency graph (Python, TS, Rust, SQL, Bash, JSON) |
+| `analyze_cooccurrence` | Files that change together in git history |
+| `get_impact` | What breaks if I change this file/function? |
+| `analyze_graph` | Graph algorithms on dependencies |
+| `analyze_strings` | Find and trace string literals |
+| `semantic_analysis` | Embedding-based search and duplicate detection |
+| `find_similar` | Structurally similar code (fingerprint match) |
+| `get_changes_since_last` | Diff vs last run (snapshots) |
+| `codebase_health` | Health check: dead code, duplicates, cycles, docs |
+| `manage_cache` | Inspect or clear `.nodestradamus/` cache |
+| `analyze_docs` | Docs: stale refs and coverage |
+| `compare_rules_to_codebase` | Audit rules vs hotspots; gaps and stale refs |
+
+### Examples
+
+**Check impact before refactoring:**
+```
+get_impact(repo_path="/my/repo", file_path="src/auth.py", symbol="validate_token")
+→ Shows files that call this function
+```
+
+**Semantic search:**
+```
+semantic_analysis(repo_path="/my/repo", mode="search", query="authentication")
+→ Natural language code search over embedded chunks
+```
+
+More examples in [docs/getting-started-workflow.md](docs/getting-started-workflow.md) and [docs/creative-use-cases.md](docs/creative-use-cases.md).
+
+### Graph Algorithms
+
+`analyze_graph` supports pagerank, betweenness, communities, cycles, path, hierarchy, layers. Optional Rust backend for speed. See [docs/dependency-graphs.md](docs/dependency-graphs.md) and [docs/graph-theory-reference.md](docs/graph-theory-reference.md). Rust extension: [docs/installation.md](docs/installation.md).
+
+### Rust Support
+
+Rust analysis extracts functions, structs, enums, traits, impls, use statements. See [docs/mcp-server-spec.md](docs/mcp-server-spec.md) for details.
+
+### Semantic Analysis
+
+Modes: search, similar, duplicates, embeddings. See [docs/getting-started-workflow.md](docs/getting-started-workflow.md).
+
+### Cache
+
+Results are cached under **`.nodestradamus/`** (repo when standalone, workspace when via MCP). Use `manage_cache` (mode="info" / "clear"). Optional `.nodestradamusignore` (gitignore-style) excludes paths; `project_scout` reports if it exists. File list and incremental embedding behavior: [docs/getting-started-workflow.md](docs/getting-started-workflow.md).
+
+### Environment
+
+Copy `.env.example` to `.env` for embedding provider and API keys. See [docs/installation.md](docs/installation.md).
+
+## Cursor Rules
+
+Nodestradamus ships `.cursor/rules/` for code quality, security, and meta-generator. See [docs/cursor-rules.md](docs/cursor-rules.md).
+
+## Documentation
+
+| Topic | Link |
+|-------|------|
+| **Getting Started** | [docs/getting-started-workflow.md](docs/getting-started-workflow.md) |
+| Installation | [docs/installation.md](docs/installation.md) |
+| Understanding Dependency Graphs | [docs/dependency-graphs.md](docs/dependency-graphs.md) |
+| Glossary | [docs/glossary.md](docs/glossary.md) |
+| MCP Server Spec | [docs/mcp-server-spec.md](docs/mcp-server-spec.md) |
+| Creative Use Cases | [docs/creative-use-cases.md](docs/creative-use-cases.md) |
+| Cursor Rules | [docs/cursor-rules.md](docs/cursor-rules.md) |
+| GitHub Setup | [docs/github-setup.md](docs/github-setup.md) |
+| Troubleshooting | [docs/troubleshooting.md](docs/troubleshooting.md) |
+
+## License
+
+MIT
+
+## Credits
+
+- [MCP](https://modelcontextprotocol.io) — Model Context Protocol
+- [NetworkX](https://networkx.org) — Graph algorithms (Python)
+- [petgraph](https://github.com/petgraph/petgraph) — Graph algorithms (Rust)
+- [PyO3](https://pyo3.rs) — Rust-Python bindings
+- [FAISS](https://github.com/facebookresearch/faiss) — Approximate nearest neighbor search (optional)
+- [sentence-transformers](https://sbert.net) — Embeddings
+- [tree-sitter](https://tree-sitter.github.io/tree-sitter/) — Code parsing (Python, TypeScript, Rust, SQL)

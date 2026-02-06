@@ -1,0 +1,51 @@
+name: Validate Rules
+
+on:
+  pull_request:
+    paths:
+      - '.cursor/rules/**'
+  push:
+    branches: [main]
+    paths:
+      - '.cursor/rules/**'
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Validate rules
+        run: |
+          echo "Validating Cursor rules..."
+          python scripts/validate_rules.py .cursor/rules/
+      
+      - name: Check for conflicts
+        run: |
+          echo "Checking for rule conflicts..."
+          python scripts/detect_rule_conflicts.py .cursor/rules/
+        continue-on-error: true  # Conflicts are warnings, not failures
+      
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Rule Validation Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          python scripts/validate_rules.py .cursor/rules/ --json | python -c "
+import sys, json
+data = json.load(sys.stdin)
+summary = data['summary']
+print(f\"- **Total rules:** {summary['total']}\")
+print(f\"- **Valid:** {summary['valid']}\")
+print(f\"- **Warnings:** {summary['with_warnings']}\")
+print(f\"- **Errors:** {summary['with_errors']}\")
+" >> $GITHUB_STEP_SUMMARY || echo "Could not generate summary" >> $GITHUB_STEP_SUMMARY

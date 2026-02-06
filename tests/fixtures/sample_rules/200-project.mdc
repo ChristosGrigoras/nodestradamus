@@ -1,0 +1,14 @@
+---
+description: Project-specific conventions
+globs: "**/*"
+alwaysApply: true
+---
+
+# My Project
+
+## Overview
+Sample project for testing rule validation.
+
+## Conventions
+- Follow team style guide
+- Use pytest for testing

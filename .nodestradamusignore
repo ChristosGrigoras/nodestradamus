@@ -1,0 +1,12 @@
+# .nodestradamusignore - Nodestradamus-specific ignore patterns
+# Uses gitignore-style syntax
+
+# Cloned repositories for evaluation (not part of Nodestradamus)
+fastapi/
+pydantic/
+
+# Rust build artifacts (already in DEFAULT_IGNORES via language detection, but explicit)
+target/
+
+# Test fixtures (analyzed only when testing)
+tests/fixtures/

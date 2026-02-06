@@ -1,0 +1,43 @@
+---
+description: Router for context detection and rule activation
+globs: "**/*"
+alwaysApply: true
+---
+
+# Rule Router
+
+## Context Detection
+
+| Context | Keywords | Files | Rule |
+|---------|----------|-------|------|
+| **Onboarding** | adapt rules, compare rules, onboard, conventions | — | `000-onboarding.mdc` |
+| **Python** | api, backend, server, flask, django | *.py, **/api/** | `100-python.mdc` |
+| **Git** | commit, branch, merge, pr, changelog | .git*, CHANGELOG | `102-git.mdc` |
+| **MCP Server** | mcp, tool, server, handler | **/mcp/** | `106-mcp-server.mdc` |
+| **Analyzers** | analyzer, parse, graph, deps, ast | **/analyzers/**, analyze_*.py | `107-analyzers.mdc` |
+| **Testing** | test, spec, coverage, mock, fixture | test_*, *.test.*, *.spec.* | `301-testing.mdc` |
+| **Validation** | validate, schema, pydantic, zod | **/models/**, **/schemas/** | `302-validation.mdc` |
+| **API** | endpoint, route, handler, REST | **/api/**, **/routes/** | `303-api-patterns.mdc` |
+| **Architecture** | layer, service, repository, domain, module | **/services/**, **/domain/** | `304-architecture.mdc` |
+| **DevOps** | deploy, docker, ci, pipeline | Dockerfile, *.yml, .github/** | *(planned)* |
+| **Docs** | readme, docs, documentation | *.md, **/docs/** | *(planned)* |
+
+## Activation Logic
+
+1. Single context → Load that rule
+2. Multiple contexts → Ask to clarify
+3. No context → Code-quality baseline only
+4. File extension → Override keyword detection
+
+## Default Behavior
+
+- Apply code-quality standards
+- Use universal best practices
+- Ask for clarification if ambiguous
+
+## Meta-Generator Integration
+
+When user corrects generated code 3+ times with same pattern:
+1. Note the correction pattern
+2. Suggest: "I noticed you keep correcting X. Should I create a rule for this?"
+3. If approved, invoke meta-generator to create rule

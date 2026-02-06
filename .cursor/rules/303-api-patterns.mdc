@@ -1,0 +1,100 @@
+---
+description: API design patterns and conventions
+globs: ["**/api/**", "**/routes/**", "**/endpoints/**", "**/handlers/**"]
+alwaysApply: false
+---
+
+# API Patterns
+
+## REST Conventions
+
+| Method | Purpose | Idempotent | Response |
+|--------|---------|------------|----------|
+| GET | Read resource | Yes | 200 + data |
+| POST | Create resource | No | 201 + created resource |
+| PUT | Replace resource | Yes | 200 + updated resource |
+| PATCH | Partial update | Yes | 200 + updated resource |
+| DELETE | Remove resource | Yes | 204 no content |
+
+## URL Design
+
+- Use nouns, not verbs: `/users` not `/getUsers`
+- Plural for collections: `/users`, `/orders`
+- Nested for relationships: `/users/{id}/orders`
+- Query params for filtering: `/users?status=active`
+- No trailing slashes: `/users` not `/users/`
+
+## Response Format
+
+```json
+{
+  "data": { },
+  "meta": { "page": 1, "total": 100 },
+  "errors": []
+}
+```
+
+- Always wrap responses in consistent structure
+- Include pagination metadata for collections
+- Return created/updated resource, not just ID
+
+## Error Responses
+
+```json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid request data",
+    "details": [
+      { "field": "email", "message": "Invalid email format" }
+    ]
+  }
+}
+```
+
+- Use consistent error structure across all endpoints
+- Include machine-readable error codes
+- Provide actionable error messages
+- Never expose stack traces or internal paths
+
+## Status Codes
+
+| Code | When to Use |
+|------|-------------|
+| 200 | Success with data |
+| 201 | Resource created |
+| 204 | Success, no content |
+| 400 | Bad request (validation) |
+| 401 | Not authenticated |
+| 403 | Authenticated but forbidden |
+| 404 | Resource not found |
+| 409 | Conflict (duplicate) |
+| 422 | Unprocessable entity |
+| 500 | Server error (never intentional) |
+
+## Request Validation
+
+- Validate request body schema before processing
+- Return 400 for malformed requests
+- Return 422 for valid format but invalid data
+- Validate path and query params
+
+## Authentication
+
+- Use Authorization header, not query params
+- Return 401 for missing/invalid credentials
+- Return 403 for valid credentials but no permission
+- Never log tokens or credentials
+
+## Versioning
+
+- Version in URL path: `/v1/users`
+- Or in header: `Accept: application/vnd.api+json; version=1`
+- Maintain backwards compatibility within version
+- Document breaking changes
+
+## Rate Limiting
+
+- Return 429 when rate limited
+- Include `Retry-After` header
+- Document rate limits in API docs

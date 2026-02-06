@@ -1,0 +1,96 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Type checking
+.mypy_cache/
+.pytype/
+
+# Linting
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets (never commit)
+.env
+.env.local
+*.pem
+*.key
+
+# Nodestradamus caches
+.nodestradamus/
+*.embeddings.json
+*.embeddings.pkl
+
+# ML models (if downloaded locally)
+*.pt
+*.bin
+*.onnx
+sentence-transformers/
+
+# Rust build artifacts
+rust/target/
+
+# Evaluation temp files
+evaluation/last_response_nodestradamus
+evaluation/last_response_cursor
+evaluation/.eval-start-*
+evaluation/
+
+# Cloned repos for evaluation
+fastapi/
+pydantic/
+
+# Legacy cache (pre-rename from Codence) and internal planning docs
+.codence/
+MERGED_ARCHITECTURE.md
+PLAN_VS_CODEBASE.md
+REPONDER.md
+future_nodestradamus.md
+mcp-server-phase1-tasks.md

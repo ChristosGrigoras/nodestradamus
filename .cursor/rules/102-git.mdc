@@ -1,0 +1,132 @@
+---
+description: Git conventions for commits, branches, and workflow
+globs: ".git*,CHANGELOG*,*.md"
+alwaysApply: false
+---
+
+# Git Conventions
+
+## Commit Messages
+
+**Format:** Conventional Commits
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+**Types:**
+| Type | When to use |
+|------|-------------|
+| `feat` | New feature |
+| `fix` | Bug fix |
+| `docs` | Documentation only |
+| `style` | Formatting, no code change |
+| `refactor` | Code change that neither fixes nor adds |
+| `perf` | Performance improvement |
+| `test` | Adding or fixing tests |
+| `chore` | Maintenance, dependencies, config |
+| `ci` | CI/CD changes |
+
+**Rules:**
+- Subject: imperative mood, no period, max 50 chars
+- Body: wrap at 72 chars, explain what and why
+- Footer: reference issues (`Fixes #123`, `Closes #456`)
+
+**Examples:**
+```
+feat(auth): add password reset functionality
+
+Users can now reset their password via email link.
+Token expires after 24 hours.
+
+Closes #42
+```
+
+```
+fix(api): handle null response from external service
+
+The payment API occasionally returns null instead of
+an error object. Added defensive check.
+
+Fixes #78
+```
+
+## Branch Naming
+
+**Format:** `<type>/<issue>-<short-description>`
+
+**Examples:**
+- `feat/123-user-authentication`
+- `fix/456-null-pointer-crash`
+- `docs/789-api-documentation`
+- `chore/update-dependencies`
+
+## Pull Requests
+
+**Title:** Same format as commit subject
+**Body template:**
+```markdown
+## Summary
+Brief description of changes.
+
+## Changes
+- Change 1
+- Change 2
+
+## Testing
+How was this tested?
+
+## Related Issues
+Fixes #123
+```
+
+## .gitignore Essentials
+
+Always exclude:
+```
+# Environment
+.env
+.env.local
+*.local
+
+# Secrets
+*.key
+*.pem
+*.p12
+credentials.json
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Dependencies
+node_modules/
+venv/
+__pycache__/
+
+# Build
+dist/
+build/
+*.egg-info/
+```
+
+## Git Workflow
+
+1. **Create branch** from `main`
+2. **Make commits** (small, focused, conventional)
+3. **Push and create PR**
+4. **Review and merge** (squash or rebase preferred)
+5. **Delete branch** after merge
+
+## Commit Discipline
+
+- **One task = one commit** — keep commits atomic and focused
+- **Test before committing** — verify change works before `git commit`
+- **Small, frequent commits** — easier to review, revert, track progress
+- **Never batch unrelated changes** — split into separate commits
+- **Commit working code only** — don't commit broken or half-done work

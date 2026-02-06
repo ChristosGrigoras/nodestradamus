@@ -1,0 +1,118 @@
+---
+description: Code analyzer development patterns
+globs: ["**/analyzers/**/*.py", "**/scripts/analyze_*.py"]
+alwaysApply: false
+---
+
+# Analyzer Patterns
+
+## Function Signatures
+
+Standard signatures for analyzer functions:
+
+```python
+# Single file analysis
+def analyze_file(path: Path) -> dict:
+    """Analyze a single file and return structured results."""
+
+# Directory analysis (recursive)
+def analyze_directory(path: Path, **options) -> dict:
+    """Recursively analyze a directory."""
+
+# Graph building
+def build_graph(repo_path: Path) -> nx.DiGraph:
+    """Build dependency graph for a repository."""
+```
+
+## Node ID Normalization
+
+All node IDs follow the format: `{lang}:{relative_path}::{symbol}`
+
+```python
+# Good: Normalized node IDs
+"py:nodestradamus/analyzers/deps.py::analyze_file"
+"py:nodestradamus/analyzers/deps.py::DepsAnalyzer"
+"py:nodestradamus/analyzers/deps.py::DepsAnalyzer::process"
+
+# Bad: Inconsistent formats
+"analyze_file"  # Missing path
+"/home/user/nodestradamus/deps.py::func"  # Absolute path
+```
+
+## Common Utilities
+
+Reuse existing utilities instead of reimplementing:
+
+| Utility | Location | Purpose |
+|---------|----------|---------|
+| `parse_python_file()` | `nodestradamus.analyzers.code_parser` | AST parsing with caching |
+| `get_file_hash()` | `nodestradamus.utils.cache` | Content-based cache keys |
+| `normalize_path()` | `nodestradamus.utils` | Relative path normalization |
+
+## File Traversal
+
+Use consistent patterns for directory walking:
+
+```python
+from pathlib import Path
+
+def iter_source_files(root: Path, extensions: set[str]) -> Iterator[Path]:
+    """Iterate source files, respecting .gitignore."""
+    for path in root.rglob("*"):
+        if path.suffix in extensions and not _is_ignored(path):
+            yield path
+```
+
+## Graph Construction
+
+Build graphs with consistent node/edge attributes:
+
+```python
+import networkx as nx
+
+G = nx.DiGraph()
+
+# Nodes have: id, type, file, line, name
+G.add_node(
+    "py:path/file.py::func",
+    type="function",
+    file="path/file.py",
+    line=42,
+    name="func",
+)
+
+# Edges have: type (calls, imports, inherits)
+G.add_edge(
+    "py:a.py::caller",
+    "py:b.py::callee",
+    type="calls",
+)
+```
+
+## Caching Strategy
+
+Cache expensive operations:
+
+```python
+from nodestradamus.utils.cache import get_cache
+
+cache = get_cache("analyzer_name")
+
+def analyze_with_cache(path: Path) -> dict:
+    cache_key = f"{path}:{get_file_hash(path)}"
+    if cache_key in cache:
+        return cache[cache_key]
+    
+    result = _do_analysis(path)
+    cache[cache_key] = result
+    return result
+```
+
+## Avoid Duplication
+
+Before adding new utilities, check for existing implementations in:
+
+1. `nodestradamus/analyzers/code_parser.py` — AST utilities
+2. `nodestradamus/analyzers/deps.py` — Dependency extraction
+3. `nodestradamus/utils/cache.py` — Caching utilities
+4. `scripts/` — May have standalone versions to consolidate

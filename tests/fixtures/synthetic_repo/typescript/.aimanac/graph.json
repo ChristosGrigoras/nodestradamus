@@ -1,0 +1,406 @@
+{
+  "version": "1.0",
+  "created_at": "2026-01-29T16:02:17.763241+00:00",
+  "nodes": [
+    {
+      "id": "ts:index.ts",
+      "type": "module",
+      "file": "index.ts",
+      "name": "index.ts",
+      "line": 1,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:index.ts::main",
+      "type": "function",
+      "file": "index.ts",
+      "name": "main",
+      "line": 12,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:index.ts::bootstrap",
+      "type": "function",
+      "file": "index.ts",
+      "name": "bootstrap",
+      "line": 17,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:components/Button.tsx",
+      "type": "module",
+      "file": "components/Button.tsx",
+      "name": "components/Button.tsx",
+      "line": 1,
+      "language": "tsx"
+    },
+    {
+      "id": "ts:components/Button.tsx::Button",
+      "type": "function",
+      "file": "components/Button.tsx",
+      "name": "Button",
+      "line": 15,
+      "language": "tsx"
+    },
+    {
+      "id": "ts:components/Button.tsx::ButtonProps",
+      "type": "class",
+      "file": "components/Button.tsx",
+      "name": "ButtonProps",
+      "line": 9,
+      "language": "tsx",
+      "fields": [
+        {
+          "name": "label",
+          "type": "string",
+          "nullable": false,
+          "references": null
+        },
+        {
+          "name": "onClick",
+          "type": "() => void",
+          "nullable": false,
+          "references": null
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "nullable": true,
+          "references": null
+        }
+      ]
+    },
+    {
+      "id": "ts:components/Card.tsx",
+      "type": "module",
+      "file": "components/Card.tsx",
+      "name": "components/Card.tsx",
+      "line": 1,
+      "language": "tsx"
+    },
+    {
+      "id": "ts:components/Card.tsx::Card",
+      "type": "function",
+      "file": "components/Card.tsx",
+      "name": "Card",
+      "line": 14,
+      "language": "tsx"
+    },
+    {
+      "id": "ts:components/Card.tsx::CardHeader",
+      "type": "function",
+      "file": "components/Card.tsx",
+      "name": "CardHeader",
+      "line": 23,
+      "language": "tsx"
+    },
+    {
+      "id": "ts:components/Card.tsx::CardProps",
+      "type": "class",
+      "file": "components/Card.tsx",
+      "name": "CardProps",
+      "line": 9,
+      "language": "tsx",
+      "fields": [
+        {
+          "name": "title",
+          "type": "string",
+          "nullable": false,
+          "references": null
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "nullable": false,
+          "references": null
+        }
+      ]
+    },
+    {
+      "id": "ts:lib/api.ts",
+      "type": "module",
+      "file": "lib/api.ts",
+      "name": "lib/api.ts",
+      "line": 1,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:lib/api.ts::initApi",
+      "type": "function",
+      "file": "lib/api.ts",
+      "name": "initApi",
+      "line": 33,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:lib/api.ts::fetchJson",
+      "type": "function",
+      "file": "lib/api.ts",
+      "name": "fetchJson",
+      "line": 38,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:lib/api.ts::handleError",
+      "type": "function",
+      "file": "lib/api.ts",
+      "name": "handleError",
+      "line": 51,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:lib/api.ts::ApiClient",
+      "type": "class",
+      "file": "lib/api.ts",
+      "name": "ApiClient",
+      "line": 10,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:lib/utils.ts",
+      "type": "module",
+      "file": "lib/utils.ts",
+      "name": "lib/utils.ts",
+      "line": 1,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:lib/utils.ts::formatDate",
+      "type": "function",
+      "file": "lib/utils.ts",
+      "name": "formatDate",
+      "line": 9,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:lib/utils.ts::slugify",
+      "type": "function",
+      "file": "lib/utils.ts",
+      "name": "slugify",
+      "line": 13,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:lib/utils.ts::debounce",
+      "type": "function",
+      "file": "lib/utils.ts",
+      "name": "debounce",
+      "line": 20,
+      "language": "typescript"
+    },
+    {
+      "id": "ts:lib/utils.ts::clamp",
+      "type": "function",
+      "file": "lib/utils.ts",
+      "name": "clamp",
+      "line": 31,
+      "language": "typescript"
+    }
+  ],
+  "edges": [
+    {
+      "from": "ts:index.ts",
+      "to": "ts:index.ts::main",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:index.ts",
+      "to": "ts:index.ts::bootstrap",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:index.ts",
+      "to": "ts:lib/api.ts",
+      "type": "imports",
+      "resolved": true
+    },
+    {
+      "from": "ts:index.ts",
+      "to": "ts:lib/api.ts::initApi",
+      "type": "imports_symbol",
+      "resolved": true
+    },
+    {
+      "from": "ts:index.ts",
+      "to": "ts:lib/utils.ts",
+      "type": "imports",
+      "resolved": true
+    },
+    {
+      "from": "ts:index.ts",
+      "to": "ts:lib/utils.ts::formatDate",
+      "type": "imports_symbol",
+      "resolved": true
+    },
+    {
+      "from": "ts:index.ts::main",
+      "to": "ts:index.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:index.ts::bootstrap",
+      "to": "ts:index.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:components/Button.tsx",
+      "to": "ts:components/Button.tsx::Button",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:components/Button.tsx",
+      "to": "ts:components/Button.tsx::ButtonProps",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:components/Button.tsx::Button",
+      "to": "ts:components/Button.tsx",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:components/Button.tsx::ButtonProps",
+      "to": "ts:components/Button.tsx",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:components/Card.tsx",
+      "to": "ts:components/Card.tsx::Card",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:components/Card.tsx",
+      "to": "ts:components/Card.tsx::CardHeader",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:components/Card.tsx",
+      "to": "ts:components/Card.tsx::CardProps",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:components/Card.tsx::Card",
+      "to": "ts:components/Card.tsx",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:components/Card.tsx::CardHeader",
+      "to": "ts:components/Card.tsx",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:components/Card.tsx::CardProps",
+      "to": "ts:components/Card.tsx",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:lib/api.ts",
+      "to": "ts:lib/api.ts::initApi",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:lib/api.ts",
+      "to": "ts:lib/api.ts::fetchJson",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:lib/api.ts",
+      "to": "ts:lib/api.ts::handleError",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:lib/api.ts",
+      "to": "ts:lib/api.ts::ApiClient",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:lib/api.ts::initApi",
+      "to": "ts:lib/api.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:lib/api.ts::fetchJson",
+      "to": "ts:lib/api.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:lib/api.ts::handleError",
+      "to": "ts:lib/api.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:lib/api.ts::ApiClient",
+      "to": "ts:lib/api.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:lib/utils.ts",
+      "to": "ts:lib/utils.ts::formatDate",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:lib/utils.ts",
+      "to": "ts:lib/utils.ts::slugify",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:lib/utils.ts",
+      "to": "ts:lib/utils.ts::debounce",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:lib/utils.ts",
+      "to": "ts:lib/utils.ts::clamp",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "ts:lib/utils.ts::formatDate",
+      "to": "ts:lib/utils.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:lib/utils.ts::slugify",
+      "to": "ts:lib/utils.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:lib/utils.ts::debounce",
+      "to": "ts:lib/utils.ts",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "ts:lib/utils.ts::clamp",
+      "to": "ts:lib/utils.ts",
+      "type": "defined_in",
+      "resolved": true
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "version": "1.0",
+  "created_at": "2026-01-29T16:05:23.367152+00:00",
+  "nodes": [
+    {
+      "id": "sql:schema.sql",
+      "type": "module",
+      "file": "schema.sql",
+      "name": "schema.sql",
+      "line": 1,
+      "language": "sql"
+    },
+    {
+      "id": "sql:schema.sql::table::users",
+      "type": "table",
+      "file": "schema.sql",
+      "name": "users",
+      "line": 3,
+      "language": "sql",
+      "fields": [
+        {
+          "name": "id",
+          "type": "SERIAL",
+          "nullable": true,
+          "references": null
+        },
+        {
+          "name": "email",
+          "type": "VARCHAR(255)",
+          "nullable": false,
+          "references": null
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "nullable": true,
+          "references": null
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMP",
+          "nullable": true,
+          "references": null
+        }
+      ]
+    },
+    {
+      "id": "sql:schema.sql::table::orders",
+      "type": "table",
+      "file": "schema.sql",
+      "name": "orders",
+      "line": 10,
+      "language": "sql",
+      "fields": [
+        {
+          "name": "id",
+          "type": "SERIAL",
+          "nullable": true,
+          "references": null
+        },
+        {
+          "name": "user_id",
+          "type": "INTEGER",
+          "nullable": true,
+          "references": "users.id"
+        },
+        {
+          "name": "total",
+          "type": "DECIMAL(10, 2)",
+          "nullable": false,
+          "references": null
+        },
+        {
+          "name": "status",
+          "type": "VARCHAR(50)",
+          "nullable": true,
+          "references": null
+        }
+      ]
+    },
+    {
+      "id": "now"
+    },
+    {
+      "id": "users"
+    },
+    {
+      "id": "varchar"
+    },
+    {
+      "id": "orders"
+    },
+    {
+      "id": "decimal"
+    }
+  ],
+  "edges": [
+    {
+      "from": "sql:schema.sql",
+      "to": "sql:schema.sql::table::users",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "sql:schema.sql",
+      "to": "sql:schema.sql::table::orders",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "sql:schema.sql::table::users",
+      "to": "sql:schema.sql",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "sql:schema.sql::table::users",
+      "to": "now",
+      "type": "calls",
+      "resolved": false
+    },
+    {
+      "from": "sql:schema.sql::table::users",
+      "to": "users",
+      "type": "calls",
+      "resolved": false
+    },
+    {
+      "from": "sql:schema.sql::table::users",
+      "to": "varchar",
+      "type": "calls",
+      "resolved": false
+    },
+    {
+      "from": "sql:schema.sql::table::orders",
+      "to": "sql:schema.sql",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "sql:schema.sql::table::orders",
+      "to": "sql:schema.sql::table::users",
+      "type": "references_fk",
+      "resolved": true
+    },
+    {
+      "from": "sql:schema.sql::table::orders",
+      "to": "orders",
+      "type": "calls",
+      "resolved": false
+    },
+    {
+      "from": "sql:schema.sql::table::orders",
+      "to": "users",
+      "type": "calls",
+      "resolved": false
+    },
+    {
+      "from": "sql:schema.sql::table::orders",
+      "to": "decimal",
+      "type": "calls",
+      "resolved": false
+    },
+    {
+      "from": "sql:schema.sql::table::orders",
+      "to": "varchar",
+      "type": "calls",
+      "resolved": false
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+[project]
+name = "nodestradamus"
+version = "0.1.0"
+description = "Nodestradamus - MCP server for codebase intelligence"
+readme = { file = "README.md", content-type = "text/markdown" }
+license = { text = "MIT" }
+requires-python = ">=3.12"
+authors = [
+    { name = "Christos Grigoras", email = "chris.grigoras@gmail.com" }
+]
+keywords = ["ai", "cursor", "mcp", "development", "automation", "codebase-intelligence"]
+urls = { Homepage = "https://github.com/ChristosGrigoras/nodestradamus", Repository = "https://github.com/ChristosGrigoras/nodestradamus", Documentation = "https://github.com/ChristosGrigoras/nodestradamus/tree/main/docs" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = [
+    "mcp>=1.0.0",
+    "click>=8.0.0",
+    "pydantic>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "tqdm>=4.66.0",
+    "tree-sitter>=0.21.0",
+    "tree-sitter-python>=0.21.0",
+    "tree-sitter-typescript>=0.21.0",
+    "tree-sitter-javascript>=0.21.0",
+    "tree-sitter-rust>=0.21.0",
+    "tree-sitter-sql>=0.3.0",
+    "tree-sitter-bash>=0.23.0",
+    "tree-sitter-json>=0.21.0",
+    "tree-sitter-markdown>=0.3.2",
+    "tree-sitter-cpp>=0.23.0",
+    "networkx>=3.0",
+    "scipy>=1.10.0",
+    "msgpack>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.1.0",
+    "mypy>=1.8.0",
+    "black>=24.0.0",
+    "ruff>=0.2.0",
+    "maturin>=1.4,<2.0",
+]
+faiss = [
+    "faiss-cpu>=1.7.4",
+]
+mistral = [
+    "httpx>=0.27.0",
+]
+all = [
+    "nodestradamus[dev,faiss,mistral]",
+]
+
+[project.scripts]
+nodestradamus = "nodestradamus.cli:main"
+analyze-python-deps = "scripts.analyze_python_deps:main"
+analyze-git-cooccurrence = "scripts.analyze_git_cooccurrence:main"
+analyze-ts-deps = "scripts.analyze_ts_deps:main"
+validate-rules = "scripts.validate_rules:main"
+merge-graphs = "scripts.merge_graphs:main"
+detect-rule-conflicts = "scripts.detect_rule_conflicts:main"
+benchmark-graph = "scripts.benchmark_graph:main"
+
+[build-system]
+requires = ["maturin>=1.4,<2.0"]
+build-backend = "maturin"
+
+[tool.maturin]
+manifest-path = "rust/Cargo.toml"
+python-source = "."
+features = ["pyo3/extension-module"]
+module-name = "nodestradamus_graph"
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # Pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "UP",     # pyupgrade
+]
+ignore = [
+    "E501",   # line too long (handled by black)
+]
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_ignores = true
+disallow_untyped_defs = true
+strict = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short -m 'not slow'"
+asyncio_mode = "auto"
+markers = [
+    "slow: marks tests as slow (deselected by default, use -m slow to run)",
+]

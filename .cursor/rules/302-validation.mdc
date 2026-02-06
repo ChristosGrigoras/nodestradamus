@@ -1,0 +1,68 @@
+---
+description: Data validation patterns
+globs: ["**/*"]
+alwaysApply: false
+---
+
+# Validation Rules
+
+## Core Principles
+
+- **Fail fast:** Validate early, reject invalid data immediately
+- **Schema-first:** Define expected shape before processing
+- **Validate at boundaries:** User input, API responses, file reads
+- **Trust internal code:** Don't re-validate inside trusted functions
+
+## Validation Boundaries
+
+| Boundary | Validate | Example |
+|----------|----------|---------|
+| User input | Always | Form fields, query params, request bodies |
+| External APIs | Always | Third-party responses, webhooks |
+| File reads | Always | Config files, uploaded files |
+| Database reads | Rarely | Trust your own schema |
+| Internal function calls | Never | Trust your own code |
+
+## Error Messages
+
+- Be specific: "Email must contain @" not "Invalid input"
+- Include field name: "username: must be 3-20 characters"
+- Don't expose internals: No stack traces, SQL errors, or paths
+- Return all validation errors at once, not one at a time
+
+## Type Coercion
+
+- Be explicit about coercion rules
+- Prefer strict validation over silent coercion
+- Document when coercion happens (e.g., string "123" → int 123)
+- Reject ambiguous values rather than guessing
+
+## Null/Empty Handling
+
+- Distinguish between: missing, null, empty string, zero
+- Define explicit behavior for each case
+- Use required vs optional fields explicitly
+- Default values should be documented
+
+## Validation Patterns
+
+```
+# Good: Validate once at boundary, then trust
+def create_user(request: Request) -> User:
+    data = validate_user_input(request.json)  # Boundary
+    return user_service.create(data)          # Trust validated data
+
+# Bad: Defensive validation everywhere
+def create_user(request: Request) -> User:
+    data = request.json
+    if not data: raise Error()                # Repeated
+    if not data.get("email"): raise Error()   # validation
+    return user_service.create(data)          # everywhere
+```
+
+## Schema Documentation
+
+- Schemas are documentation — keep them readable
+- Include examples for complex types
+- Document constraints (min/max, patterns, enums)
+- Version schemas when they change

@@ -1,0 +1,244 @@
+{
+  "version": "1.0",
+  "created_at": "2026-01-29T16:08:21.768074+00:00",
+  "nodes": [
+    {
+      "id": "py:utils.py",
+      "type": "module",
+      "file": "utils.py",
+      "name": "utils.py",
+      "line": 1,
+      "language": "python"
+    },
+    {
+      "id": "py:utils.py::helper_function",
+      "type": "function",
+      "file": "utils.py",
+      "name": "helper_function",
+      "line": 4,
+      "language": "python"
+    },
+    {
+      "id": "py:utils.py::another_helper",
+      "type": "function",
+      "file": "utils.py",
+      "name": "another_helper",
+      "line": 9,
+      "language": "python"
+    },
+    {
+      "id": "py:main.py",
+      "type": "module",
+      "file": "main.py",
+      "name": "main.py",
+      "line": 1,
+      "language": "python"
+    },
+    {
+      "id": "py:main.py::main",
+      "type": "function",
+      "file": "main.py",
+      "name": "main",
+      "line": 7,
+      "language": "python"
+    },
+    {
+      "id": "py:services/__init__.py",
+      "type": "module",
+      "file": "services/__init__.py",
+      "name": "services/__init__.py",
+      "line": 1,
+      "language": "python"
+    },
+    {
+      "id": "py:services/user.py",
+      "type": "module",
+      "file": "services/user.py",
+      "name": "services/user.py",
+      "line": 1,
+      "language": "python"
+    },
+    {
+      "id": "py:services/user.py::__init__",
+      "type": "function",
+      "file": "services/user.py",
+      "name": "__init__",
+      "line": 9,
+      "language": "python"
+    },
+    {
+      "id": "py:services/user.py::get_user",
+      "type": "function",
+      "file": "services/user.py",
+      "name": "get_user",
+      "line": 13,
+      "language": "python"
+    },
+    {
+      "id": "py:services/user.py::create_user",
+      "type": "function",
+      "file": "services/user.py",
+      "name": "create_user",
+      "line": 18,
+      "language": "python"
+    },
+    {
+      "id": "py:services/user.py::delete_user",
+      "type": "function",
+      "file": "services/user.py",
+      "name": "delete_user",
+      "line": 27,
+      "language": "python"
+    },
+    {
+      "id": "py:services/user.py::UserService",
+      "type": "class",
+      "file": "services/user.py",
+      "name": "UserService",
+      "line": 6,
+      "language": "python"
+    },
+    {
+      "id": "py:services/user.py::AdminService",
+      "type": "class",
+      "file": "services/user.py",
+      "name": "AdminService",
+      "line": 24,
+      "language": "python"
+    }
+  ],
+  "edges": [
+    {
+      "from": "py:utils.py",
+      "to": "py:utils.py::helper_function",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:utils.py",
+      "to": "py:utils.py::another_helper",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:utils.py::helper_function",
+      "to": "py:utils.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:utils.py::another_helper",
+      "to": "py:utils.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:main.py",
+      "to": "py:main.py::main",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:main.py",
+      "to": "py:services/user.py",
+      "type": "imports",
+      "resolved": true
+    },
+    {
+      "from": "py:main.py",
+      "to": "py:utils.py",
+      "type": "imports",
+      "resolved": true
+    },
+    {
+      "from": "py:main.py::main",
+      "to": "py:main.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:services/user.py",
+      "to": "py:services/user.py::__init__",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:services/user.py",
+      "to": "py:services/user.py::get_user",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:services/user.py",
+      "to": "py:services/user.py::create_user",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:services/user.py",
+      "to": "py:services/user.py::delete_user",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:services/user.py",
+      "to": "py:services/user.py::UserService",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:services/user.py",
+      "to": "py:services/user.py::AdminService",
+      "type": "contains",
+      "resolved": true
+    },
+    {
+      "from": "py:services/user.py",
+      "to": "py:utils.py",
+      "type": "imports",
+      "resolved": true
+    },
+    {
+      "from": "py:services/user.py::__init__",
+      "to": "py:services/user.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:services/user.py::get_user",
+      "to": "py:services/user.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:services/user.py::create_user",
+      "to": "py:services/user.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:services/user.py::delete_user",
+      "to": "py:services/user.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:services/user.py::UserService",
+      "to": "py:services/user.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:services/user.py::AdminService",
+      "to": "py:services/user.py",
+      "type": "defined_in",
+      "resolved": true
+    },
+    {
+      "from": "py:services/user.py::AdminService",
+      "to": "py:services/user.py::UserService",
+      "type": "extends",
+      "resolved": true
+    }
+  ]
+}

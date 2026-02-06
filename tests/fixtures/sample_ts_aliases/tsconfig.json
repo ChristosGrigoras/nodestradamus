@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@lib/*": ["./src/lib/*"],
+      "@components/*": ["./src/components/*"]
+    },
+    "target": "ES2020",
+    "module": "ESNext",
+    "strict": true
+  },
+  "include": ["src/**/*"]
+}
