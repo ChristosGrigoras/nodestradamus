@@ -9,8 +9,9 @@ from typing import Any
 
 # Import consolidated extraction functions
 from nodestradamus.analyzers.string_extraction import (
-    # Re-export extension constants for backward compatibility
+    extract_bash_strings,
     extract_python_strings,
+    extract_rust_strings,
     extract_sql_strings,
     extract_typescript_strings,
 )
@@ -59,16 +60,20 @@ def analyze_string_refs(
     include_python: bool = True,
     include_typescript: bool = True,
     include_sql: bool = True,
+    include_rust: bool = True,
+    include_bash: bool = True,
 ) -> StringRefGraph:
     """Analyze a repository to extract all string references.
 
-    Runs Python, TypeScript, and SQL extraction, then combines results.
+    Runs Python, TypeScript, SQL, Rust, and Bash extraction, then combines results.
 
     Args:
         repo_path: Absolute path to repository root.
         include_python: Whether to analyze Python files.
         include_typescript: Whether to analyze TypeScript/JavaScript files.
         include_sql: Whether to analyze SQL files.
+        include_rust: Whether to analyze Rust files.
+        include_bash: Whether to analyze Bash files.
 
     Returns:
         StringRefGraph with all extracted string references.
@@ -114,6 +119,28 @@ def analyze_string_refs(
             total_files += sql_result.get("file_count", 0)
         except Exception as e:
             all_errors.append({"analyzer": "sql", "error": str(e)})
+
+    # Extract Rust strings
+    if include_rust:
+        try:
+            rust_result = extract_rust_strings(repo_path)
+            rust_nodes = _convert_raw_to_models(rust_result["strings"])
+            all_strings.extend(rust_nodes)
+            all_errors.extend(rust_result.get("errors", []))
+            total_files += rust_result.get("file_count", 0)
+        except Exception as e:
+            all_errors.append({"analyzer": "rust", "error": str(e)})
+
+    # Extract Bash strings
+    if include_bash:
+        try:
+            bash_result = extract_bash_strings(repo_path)
+            bash_nodes = _convert_raw_to_models(bash_result["strings"])
+            all_strings.extend(bash_nodes)
+            all_errors.extend(bash_result.get("errors", []))
+            total_files += bash_result.get("file_count", 0)
+        except Exception as e:
+            all_errors.append({"analyzer": "bash", "error": str(e)})
 
     metadata = StringRefMetadata(
         analyzer="string_refs",
@@ -170,4 +197,42 @@ def analyze_sql_string_refs(repo_path: str | Path) -> StringRefGraph:
     """
     return analyze_string_refs(
         repo_path, include_python=False, include_typescript=False, include_sql=True
+    )
+
+
+def analyze_rust_string_refs(repo_path: str | Path) -> StringRefGraph:
+    """Analyze only Rust files for string references.
+
+    Args:
+        repo_path: Absolute path to repository root.
+
+    Returns:
+        StringRefGraph with Rust string references.
+    """
+    return analyze_string_refs(
+        repo_path,
+        include_python=False,
+        include_typescript=False,
+        include_sql=False,
+        include_rust=True,
+        include_bash=False,
+    )
+
+
+def analyze_bash_string_refs(repo_path: str | Path) -> StringRefGraph:
+    """Analyze only Bash files for string references.
+
+    Args:
+        repo_path: Absolute path to repository root.
+
+    Returns:
+        StringRefGraph with Bash string references.
+    """
+    return analyze_string_refs(
+        repo_path,
+        include_python=False,
+        include_typescript=False,
+        include_sql=False,
+        include_rust=False,
+        include_bash=True,
     )

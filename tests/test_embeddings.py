@@ -227,6 +227,35 @@ def farewell(name):
         with pytest.raises(ValueError, match="does not exist"):
             compute_embeddings("/nonexistent/path/to/repo")
 
+    def test_computes_embeddings_for_rust_and_bash(self) -> None:
+        """Test that Rust and Bash files produce AST-based chunks."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            (root / "src").mkdir()
+            (root / "src" / "main.rs").write_text("""
+fn main() {
+    println!("hello");
+}
+fn other() -> i32 { 42 }
+""")
+            (root / "script.sh").write_text("""
+main() {
+    echo "world"
+}
+""")
+            result = compute_embeddings(tmpdir)
+            chunks = result.get("chunks", [])
+            ids = [c["id"] for c in chunks]
+            rust_chunks = [c for c in chunks if c["id"].startswith("rs:")]
+            bash_chunks = [c for c in chunks if c["id"].startswith("sh:")]
+            assert (
+                len(rust_chunks) + len(bash_chunks) >= 1
+            ), f"Expected some rs: or sh: chunks, got ids: {ids}"
+            for c in rust_chunks + bash_chunks:
+                assert "name" in c
+                assert "line_start" in c
+                assert "line_end" in c
+
 
 class TestFindSimilarCode:
     """Tests for find_similar_code function."""

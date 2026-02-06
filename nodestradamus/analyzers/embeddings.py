@@ -35,7 +35,16 @@ from nodestradamus.analyzers.embedding_providers import (
     get_embedding_provider,
     get_expected_model_name,
 )
+from nodestradamus.analyzers.code_parser import (
+    EXTENSION_TO_LANGUAGE,
+    LANGUAGE_CONFIGS,
+    _extract_class_name,
+    _extract_function_name,
+    _find_nodes,
+    _get_language,
+)
 from nodestradamus.analyzers.ignore import DEFAULT_IGNORES
+from tree_sitter import Parser
 from nodestradamus.logging import logger, progress_bar
 from nodestradamus.utils.cache import get_cache_dir
 from nodestradamus.utils.db import (
@@ -366,12 +375,15 @@ def _faiss_search(
 def _extract_code_chunks(
     file_path: Path,
     chunk_by: str = "function",
+    base_dir: Path | None = None,
 ) -> list[dict[str, Any]]:
     """Extract code chunks from a file for embedding.
 
     Args:
         file_path: Path to the source file.
         chunk_by: How to chunk the file - "function", "class", or "file".
+        base_dir: Repository root for relative paths in chunk ids (Rust/SQL/Bash).
+            If None, tree-sitter chunking uses file_path.parent so rel_path is filename.
 
     Returns:
         List of chunks with content and metadata.
@@ -384,7 +396,11 @@ def _extract_code_chunks(
     if not content.strip():
         return []
 
-    rel_path = str(file_path)
+    base = base_dir if base_dir is not None else file_path.parent
+    try:
+        rel_path = str(file_path.relative_to(base))
+    except ValueError:
+        rel_path = file_path.name
     suffix = file_path.suffix.lower()
 
     # For now, use simple line-based chunking for functions
@@ -412,6 +428,10 @@ def _extract_code_chunks(
     # Simple heuristic extraction for TypeScript/JavaScript
     elif suffix in (".ts", ".tsx", ".js", ".jsx"):
         chunks.extend(_extract_js_chunks(content, rel_path))
+
+    # Tree-sitter extraction for Rust, SQL, Bash
+    elif suffix in (".rs", ".sql", ".pgsql", ".sh", ".bash"):
+        chunks.extend(_extract_chunks_via_treesitter(file_path, base, chunk_by))
 
     # Fallback: treat whole file as one chunk
     if not chunks:
@@ -613,6 +633,99 @@ def _extract_js_chunks(content: str, file_path: str) -> list[dict[str, Any]]:
                 current_name = ""
                 in_definition = False
                 brace_count = 0
+
+    return chunks
+
+
+# Languages we support for embedding chunking (subset of EXTENSION_TO_LANGUAGE)
+_EMBEDDING_LANGUAGES = frozenset({
+    "python", "typescript", "javascript", "tsx", "rust", "sql", "bash",
+})
+
+
+def _extract_chunks_via_treesitter(
+    file_path: Path,
+    base_dir: Path,
+    chunk_by: str,
+) -> list[dict[str, Any]]:
+    """Extract code chunks using tree-sitter and code_parser config.
+
+    Used for Rust, SQL, Bash (and optionally others). Reuses LANGUAGE_CONFIGS
+    and extractors from code_parser; uses node start/end for content slicing.
+
+    Args:
+        file_path: Path to the source file.
+        base_dir: Repository root for relative path in chunk ids.
+        chunk_by: Chunking strategy ("function", "class", or "file"); we use
+            both function and class types from config.
+
+    Returns:
+        List of chunk dicts with id, type, file, name, line_start, line_end, content.
+    """
+    try:
+        content = file_path.read_text(encoding="utf-8", errors="ignore")
+    except Exception:
+        return []
+
+    if not content.strip():
+        return []
+
+    suffix = file_path.suffix.lower()
+    language = EXTENSION_TO_LANGUAGE.get(suffix)
+    if not language or language not in LANGUAGE_CONFIGS:
+        return []
+
+    if language not in _EMBEDDING_LANGUAGES:
+        return []
+
+    config = LANGUAGE_CONFIGS[language]
+    ts_lang = _get_language(language)
+    if ts_lang is None:
+        return []
+
+    try:
+        parser = Parser(ts_lang)
+        tree = parser.parse(content.encode("utf-8"))
+    except Exception:
+        return []
+
+    if tree.root_node is None or tree.root_node.has_error:
+        return []
+
+    try:
+        rel_path = file_path.relative_to(base_dir)
+    except ValueError:
+        rel_path = file_path.name
+    rel_path_str = str(rel_path)
+
+    chunk_types = config.function_types | config.class_types
+    if not chunk_types:
+        return []
+
+    lines = content.split("\n")
+    chunks: list[dict[str, Any]] = []
+
+    for node in _find_nodes(tree.root_node, chunk_types):
+        name = _extract_function_name(node, config) or _extract_class_name(node, config)
+        if not name:
+            name = f"{node.type}_{node.start_point[0] + 1}"
+
+        line_start = node.start_point[0] + 1
+        line_end = node.end_point[0] + 1
+        chunk_content = "\n".join(lines[line_start - 1 : line_end])[:4000]
+
+        node_type = "function" if node.type in config.function_types else "class"
+        chunk_id = f"{config.prefix}:{rel_path_str}::{name}"
+
+        chunks.append({
+            "id": chunk_id,
+            "type": node_type,
+            "file": rel_path_str,
+            "name": name,
+            "line_start": line_start,
+            "line_end": line_end,
+            "content": chunk_content,
+        })
 
     return chunks
 
@@ -956,6 +1069,9 @@ def _detect_language(file_path: str) -> str:
         ".java": "java",
         ".rb": "ruby",
         ".sql": "sql",
+        ".pgsql": "sql",
+        ".sh": "bash",
+        ".bash": "bash",
     }
     return lang_map.get(suffix, "unknown")
 
@@ -1066,12 +1182,19 @@ def compute_embeddings(
     faiss_cache_path = _get_faiss_cache_path(workspace_path, repo_path)
     faiss_cache_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # Find files to process
-    extensions = set()
-    if languages is None or "python" in languages:
-        extensions.add(".py")
-    if languages is None or "typescript" in languages:
-        extensions.update([".ts", ".tsx", ".js", ".jsx"])
+    # Find files to process (single source of truth from code_parser)
+    if languages is None:
+        extensions = {
+            ext
+            for ext, lang in EXTENSION_TO_LANGUAGE.items()
+            if lang in _EMBEDDING_LANGUAGES
+        }
+    else:
+        extensions = {
+            ext
+            for ext, lang in EXTENSION_TO_LANGUAGE.items()
+            if lang in languages or (lang == "tsx" and "typescript" in languages)
+        }
 
     # Use package path as search root if provided
     search_root = repo / package if package else repo
@@ -1114,7 +1237,7 @@ def compute_embeddings(
     for file_path in progress_bar(files, desc="Extracting chunks", unit="files"):
         try:
             rel_path = file_path.relative_to(repo)
-            chunks = _extract_code_chunks(file_path, chunk_by)
+            chunks = _extract_code_chunks(file_path, chunk_by, base_dir=repo)
             for chunk in chunks:
                 chunk["file"] = str(rel_path)
                 chunk["id"] = chunk["id"].replace(str(file_path), str(rel_path))
@@ -1365,7 +1488,7 @@ def _compute_embeddings_streaming(
     for file_path in progress_bar(files, desc="Streaming embeddings", unit="files"):
         try:
             rel_path = file_path.relative_to(repo)
-            chunks = _extract_code_chunks(file_path, chunk_by)
+            chunks = _extract_code_chunks(file_path, chunk_by, base_dir=repo)
             for chunk in chunks:
                 chunk["file"] = str(rel_path)
                 chunk["id"] = chunk["id"].replace(str(file_path), str(rel_path))

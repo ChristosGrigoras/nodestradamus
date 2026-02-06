@@ -13,6 +13,19 @@ Nodestradamus builds a map of your code (what calls what), so you or your AI can
 
 New to dependency graphs or these terms? See [Understanding dependency graphs](docs/dependency-graphs.md) and [Glossary](docs/glossary.md).
 
+### Why use Nodestradamus with cheaper models?
+
+Nodestradamus pre-computes codebase structure (who calls what, impact, semantic index) and exposes it via MCP tools. That shifts the work from the model to the tools:
+
+| | **Cheap model + Nodestradamus** | **Expensive model, no Nodestradamus** |
+|---|--------------------------------|--------------------------------------|
+| **Context** | Structured answers from tools (graph, impact, search) — small, precise inputs | Raw file dumps and long context — more tokens, more noise |
+| **Cost** | Fewer tokens per task; small/cheap models can drive the same workflows | Large context and repeated reads; often need bigger, pricier models |
+| **Accuracy** | Impact and dependencies come from the graph, not guesswork | Model infers structure from text; easy to miss callers or side effects |
+| **Speed** | One tool call → targeted result (e.g. “what breaks if I change this?”) | Many file reads and long chains of reasoning |
+
+Use Nodestradamus so your assistant gets **precise, graph-backed answers** instead of guessing from raw code. That makes cheaper models effective for refactors, impact analysis, and codebase navigation.
+
 ## Install
 
 ```bash
@@ -73,7 +86,7 @@ Add to Cursor (`.cursor/mcp.json`):
 | **TypeScript/JavaScript** | ✅ Full | ✅ Full | ✅ Full |
 | **Rust** | ✅ Full | ✅ Full | ✅ Full |
 | **SQL (PostgreSQL)** | ✅ Full | ✅ Full | ✅ Full |
-| **Bash** | ✅ Full | — | — |
+| **Bash** | ✅ Full | ✅ Full | ✅ Full |
 | **JSON** | ✅ Configs | — | — |
 
 ## Tools

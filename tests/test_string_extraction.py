@@ -11,7 +11,11 @@ from nodestradamus.analyzers.string_extraction import (
     SKIP_DIRS,
     SQL_NOISE_PATTERNS,
     TYPESCRIPT_NOISE_PATTERNS,
+    extract_bash_strings,
+    extract_bash_strings_from_file,
     extract_python_strings,
+    extract_rust_strings,
+    extract_rust_strings_from_file,
     # Python extraction
     extract_python_strings_from_file,
     extract_sql_strings,
@@ -379,6 +383,88 @@ INSERT INTO users (name, email) VALUES ('John Doe', 'john@example.com');
                 pytest.skip("tree-sitter-sql not available")
 
         assert result["file_count"] == 2
+
+
+class TestRustStringExtraction:
+    """Tests for Rust string extraction."""
+
+    def test_extracts_string_literals(self, tmp_path: Path) -> None:
+        """Test extraction of Rust string literals."""
+        code = r'''
+fn main() {
+    let msg = "Hello, World!";
+    println!("{}", msg);
+}
+'''
+        rs_file = tmp_path / "main.rs"
+        rs_file.write_text(code)
+
+        result = extract_rust_strings_from_file(rs_file, tmp_path)
+
+        if result.get("errors") and any(
+            "tree-sitter-rust not available" in str(e) for e in result["errors"]
+        ):
+            pytest.skip("tree-sitter-rust not available")
+
+        values = [s["value"] for s in result["strings"]]
+        assert "Hello, World!" in values
+
+    def test_directory_extraction(self, tmp_path: Path) -> None:
+        """Test extraction from Rust files in a directory."""
+        (tmp_path / "lib.rs").write_text(r'let x = "config";')
+        (tmp_path / "main.rs").write_text(r'println!("start");')
+
+        result = extract_rust_strings(tmp_path)
+
+        if result.get("errors") and any(
+            "tree-sitter-rust not available" in str(e) for e in result["errors"]
+        ):
+            pytest.skip("tree-sitter-rust not available")
+
+        assert result["file_count"] >= 1
+        values = [s["value"] for s in result["strings"]]
+        assert "config" in values or "start" in values
+
+
+class TestBashStringExtraction:
+    """Tests for Bash string extraction."""
+
+    def test_extracts_string_literals(self, tmp_path: Path) -> None:
+        """Test extraction of Bash string literals."""
+        code = '''
+main() {
+    echo "hello from bash"
+}
+'''
+        sh_file = tmp_path / "script.sh"
+        sh_file.write_text(code)
+
+        result = extract_bash_strings_from_file(sh_file, tmp_path)
+
+        if result.get("errors") and any(
+            "tree-sitter-bash not available" in str(e) for e in result["errors"]
+        ):
+            pytest.skip("tree-sitter-bash not available")
+
+        values = [s["value"] for s in result["strings"]]
+        assert "hello from bash" in values
+
+    def test_directory_extraction(self, tmp_path: Path) -> None:
+        """Test extraction from Bash files in a directory."""
+        (tmp_path / "a.sh").write_text('echo "first"')
+        (tmp_path / "b.sh").write_text('echo "second"')
+
+        result = extract_bash_strings(tmp_path)
+
+        if result.get("errors") and any(
+            "tree-sitter-bash not available" in str(e) for e in result["errors"]
+        ):
+            pytest.skip("tree-sitter-bash not available")
+
+        assert result["file_count"] == 2
+        values = [s["value"] for s in result["strings"]]
+        assert "first" in values
+        assert "second" in values
 
 
 class TestIntegration:

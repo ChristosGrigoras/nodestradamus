@@ -182,6 +182,9 @@ def analyze_string_topology(
     include_single_use: bool = False,
     include_python: bool = True,
     include_typescript: bool = True,
+    include_sql: bool = True,
+    include_rust: bool = True,
+    include_bash: bool = True,
 ) -> StringAnalysisResult:
     """Analyze string references and rank by importance using graph topology.
 
@@ -197,6 +200,9 @@ def analyze_string_topology(
         include_single_use: Include strings that appear in only one file.
         include_python: Analyze Python files.
         include_typescript: Analyze TypeScript/JavaScript files.
+        include_sql: Analyze SQL files.
+        include_rust: Analyze Rust files.
+        include_bash: Analyze Bash files.
 
     Returns:
         StringAnalysisResult with ranked significant strings.
@@ -208,6 +214,9 @@ def analyze_string_topology(
         repo_path,
         include_python=include_python,
         include_typescript=include_typescript,
+        include_sql=include_sql,
+        include_rust=include_rust,
+        include_bash=include_bash,
     )
 
     if not refs.strings:
@@ -281,6 +290,9 @@ def find_string_usages(
     target_string: str,
     include_python: bool = True,
     include_typescript: bool = True,
+    include_sql: bool = True,
+    include_rust: bool = True,
+    include_bash: bool = True,
 ) -> dict[str, Any]:
     """Find all usages of a specific string in the codebase.
 
@@ -293,6 +305,9 @@ def find_string_usages(
         target_string: The string to search for.
         include_python: Analyze Python files.
         include_typescript: Analyze TypeScript/JavaScript files.
+        include_sql: Analyze SQL files.
+        include_rust: Analyze Rust files.
+        include_bash: Analyze Bash files.
 
     Returns:
         Dictionary with usages grouped by file.
@@ -303,6 +318,9 @@ def find_string_usages(
         repo_path,
         include_python=include_python,
         include_typescript=include_typescript,
+        include_sql=include_sql,
+        include_rust=include_rust,
+        include_bash=include_bash,
     )
 
     usages: dict[str, list[dict[str, Any]]] = defaultdict(list)

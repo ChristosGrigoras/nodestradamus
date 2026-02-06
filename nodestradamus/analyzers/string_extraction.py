@@ -30,6 +30,12 @@ from nodestradamus.analyzers.code_parser import (
 from nodestradamus.analyzers.code_parser import (
     _get_child_by_type as get_child_by_type,
 )
+from nodestradamus.analyzers.code_parser import (
+    _extract_class_name,
+    _extract_function_name,
+    _get_language,
+    LANGUAGE_CONFIGS,
+)
 
 # =============================================================================
 # Shared Constants
@@ -74,13 +80,32 @@ SQL_NOISE_PATTERNS = _BASE_NOISE_PATTERNS | frozenset({
     "plpgsql", "sql", "c", "internal",
 })
 
+# Rust-specific noise patterns
+RUST_NOISE_PATTERNS = _BASE_NOISE_PATTERNS | frozenset({
+    "r", "cstr", "format",
+})
+
+# Bash-specific noise patterns
+BASH_NOISE_PATTERNS = _BASE_NOISE_PATTERNS | frozenset({
+    "echo", "test", "exit",
+})
+
 # Combined noise patterns for generic use
-NOISE_PATTERNS = _BASE_NOISE_PATTERNS | PYTHON_NOISE_PATTERNS | TYPESCRIPT_NOISE_PATTERNS | SQL_NOISE_PATTERNS
+NOISE_PATTERNS = (
+    _BASE_NOISE_PATTERNS
+    | PYTHON_NOISE_PATTERNS
+    | TYPESCRIPT_NOISE_PATTERNS
+    | SQL_NOISE_PATTERNS
+    | RUST_NOISE_PATTERNS
+    | BASH_NOISE_PATTERNS
+)
 
 # File extensions by language
 PYTHON_EXTENSIONS = frozenset({".py", ".pyw"})
 TYPESCRIPT_EXTENSIONS = frozenset({".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"})
 SQL_EXTENSIONS = frozenset({".sql", ".pgsql"})
+RUST_EXTENSIONS = frozenset({".rs"})
+BASH_EXTENSIONS = frozenset({".sh", ".bash"})
 
 
 # =============================================================================
@@ -865,6 +890,269 @@ def extract_sql_strings(directory: Path) -> dict[str, Any]:
 
 
 # =============================================================================
+# Rust String Extraction
+# =============================================================================
+
+
+def _clean_rust_string(raw: str) -> str:
+    """Extract content from Rust string literal (handles r\"...\", b\"...\", etc.)."""
+    if not raw or len(raw) < 2:
+        return ""
+    # Normal "..."
+    if raw.startswith('"') and raw.endswith('"'):
+        inner = raw[1:-1].replace("\\\"", '"').replace("\\\\", "\\").replace("\\n", "\n").replace("\\t", "\t")
+        return inner
+    # r"..."
+    if raw.startswith('r"') and raw.endswith('"'):
+        return raw[2:-1].replace("\\\"", '"')
+    # b"..."
+    if raw.startswith('b"') and raw.endswith('"'):
+        return raw[2:-1].replace("\\\"", '"')
+    # r#"..."#
+    if raw.startswith("r#") and raw.endswith("#"):
+        inner = raw[2:-1]
+        if inner.startswith('"') and inner.endswith('"'):
+            return inner[1:-1].replace("\\\"", '"')
+        return inner
+    return raw
+
+
+def _get_rust_enclosing_context(node: Node) -> tuple[str | None, str | None]:
+    """Find enclosing function or struct/enum for context."""
+    config = LANGUAGE_CONFIGS.get("rust")
+    if not config:
+        return None, None
+    current = node.parent
+    while current:
+        if current.type in config.function_types:
+            name = _extract_function_name(current, config)
+            return "function", name
+        if current.type in config.class_types:
+            name = _extract_class_name(current, config)
+            return "struct", name
+        current = current.parent
+    return None, None
+
+
+def extract_rust_strings_from_file(
+    filepath: Path,
+    base_dir: Path | None = None,
+) -> dict[str, Any]:
+    """Extract all string literals from a Rust file.
+
+    Args:
+        filepath: Path to the Rust file.
+        base_dir: Base directory for relative paths.
+
+    Returns:
+        Dict with 'strings' list and 'errors' list.
+    """
+    ts_lang = _get_language("rust")
+    if ts_lang is None:
+        return {
+            "strings": [],
+            "errors": [{"error": "tree-sitter-rust not available", "file": str(filepath)}],
+        }
+
+    try:
+        source = filepath.read_bytes()
+        content = source.decode("utf-8", errors="replace")
+    except (OSError, UnicodeDecodeError) as e:
+        return {"strings": [], "errors": [{"error": str(e), "file": str(filepath)}]}
+
+    rel_path = str(filepath.relative_to(base_dir) if base_dir else filepath)
+    parser = Parser(ts_lang)
+    tree = parser.parse(source)
+
+    strings: list[dict[str, Any]] = []
+    for node in find_nodes(tree.root_node, {"string_literal"}):
+        try:
+            raw = node.text.decode()
+            value = _clean_rust_string(raw)
+        except Exception:
+            continue
+        if is_noise(value, noise_patterns=RUST_NOISE_PATTERNS):
+            continue
+
+        def_type, def_name = _get_rust_enclosing_context(node)
+        context = {
+            "call_site": def_type,
+            "variable_name": None,
+            "enclosing_function": def_name,
+            "enclosing_class": def_type,
+            "line": node.start_point[0] + 1,
+        }
+        strings.append({"value": value, "file": rel_path, "context": context})
+
+    return {"strings": strings, "errors": []}
+
+
+def extract_rust_strings(directory: Path) -> dict[str, Any]:
+    """Extract all string literals from Rust files in a directory.
+
+    Args:
+        directory: Path to the directory.
+
+    Returns:
+        Dict with 'strings' list, 'errors' list, and 'file_count'.
+    """
+    directory = Path(directory).resolve()
+    if not directory.is_dir():
+        return {"strings": [], "errors": [{"error": f"Not a directory: {directory}"}], "file_count": 0}
+
+    all_strings: list[dict[str, Any]] = []
+    all_errors: list[dict[str, Any]] = []
+    file_count = 0
+
+    for filepath in directory.rglob("*"):
+        if not filepath.is_file() or filepath.suffix.lower() not in RUST_EXTENSIONS:
+            continue
+        if should_skip_path(filepath):
+            continue
+        file_count += 1
+        result = extract_rust_strings_from_file(filepath, directory)
+        all_strings.extend(result["strings"])
+        all_errors.extend(result.get("errors", []))
+
+    grouped: dict[tuple[str, str], dict[str, Any]] = {}
+    for s in all_strings:
+        key = (s["value"], s["file"])
+        if key not in grouped:
+            grouped[key] = {"value": s["value"], "file": s["file"], "contexts": []}
+        grouped[key]["contexts"].append(s["context"])
+
+    return {
+        "strings": list(grouped.values()),
+        "errors": all_errors,
+        "file_count": file_count,
+        "metadata": {
+            "analyzer": "rust_strings",
+            "version": "0.1.0",
+            "generated_at": datetime.now(UTC).isoformat(),
+            "source_directory": str(directory),
+        },
+    }
+
+
+# =============================================================================
+# Bash String Extraction
+# =============================================================================
+
+
+def _get_bash_enclosing_context(node: Node) -> str | None:
+    """Find enclosing function name for context."""
+    config = LANGUAGE_CONFIGS.get("bash")
+    if not config:
+        return None
+    current = node.parent
+    while current:
+        if current.type in config.function_types:
+            name = _extract_function_name(current, config)
+            return name
+        current = current.parent
+    return None
+
+
+def extract_bash_strings_from_file(
+    filepath: Path,
+    base_dir: Path | None = None,
+) -> dict[str, Any]:
+    """Extract all string literals from a Bash file.
+
+    Args:
+        filepath: Path to the Bash file.
+        base_dir: Base directory for relative paths.
+
+    Returns:
+        Dict with 'strings' list and 'errors' list.
+    """
+    ts_lang = _get_language("bash")
+    if ts_lang is None:
+        return {
+            "strings": [],
+            "errors": [{"error": "tree-sitter-bash not available", "file": str(filepath)}],
+        }
+
+    try:
+        source = filepath.read_bytes()
+        content = source.decode("utf-8", errors="replace")
+    except (OSError, UnicodeDecodeError) as e:
+        return {"strings": [], "errors": [{"error": str(e), "file": str(filepath)}]}
+
+    rel_path = str(filepath.relative_to(base_dir) if base_dir else filepath)
+    parser = Parser(ts_lang)
+    tree = parser.parse(source)
+
+    strings: list[dict[str, Any]] = []
+    for node in find_nodes(tree.root_node, {"string"}):
+        try:
+            value = extract_string_value(node)
+        except Exception:
+            continue
+        if is_noise(value, noise_patterns=BASH_NOISE_PATTERNS):
+            continue
+
+        func_name = _get_bash_enclosing_context(node)
+        context = {
+            "call_site": None,
+            "variable_name": None,
+            "enclosing_function": func_name,
+            "enclosing_class": None,
+            "line": node.start_point[0] + 1,
+        }
+        strings.append({"value": value, "file": rel_path, "context": context})
+
+    return {"strings": strings, "errors": []}
+
+
+def extract_bash_strings(directory: Path) -> dict[str, Any]:
+    """Extract all string literals from Bash files in a directory.
+
+    Args:
+        directory: Path to the directory.
+
+    Returns:
+        Dict with 'strings' list, 'errors' list, and 'file_count'.
+    """
+    directory = Path(directory).resolve()
+    if not directory.is_dir():
+        return {"strings": [], "errors": [{"error": f"Not a directory: {directory}"}], "file_count": 0}
+
+    all_strings: list[dict[str, Any]] = []
+    all_errors: list[dict[str, Any]] = []
+    file_count = 0
+
+    for filepath in directory.rglob("*"):
+        if not filepath.is_file() or filepath.suffix.lower() not in BASH_EXTENSIONS:
+            continue
+        if should_skip_path(filepath):
+            continue
+        file_count += 1
+        result = extract_bash_strings_from_file(filepath, directory)
+        all_strings.extend(result["strings"])
+        all_errors.extend(result.get("errors", []))
+
+    grouped: dict[tuple[str, str], dict[str, Any]] = {}
+    for s in all_strings:
+        key = (s["value"], s["file"])
+        if key not in grouped:
+            grouped[key] = {"value": s["value"], "file": s["file"], "contexts": []}
+        grouped[key]["contexts"].append(s["context"])
+
+    return {
+        "strings": list(grouped.values()),
+        "errors": all_errors,
+        "file_count": file_count,
+        "metadata": {
+            "analyzer": "bash_strings",
+            "version": "0.1.0",
+            "generated_at": datetime.now(UTC).isoformat(),
+            "source_directory": str(directory),
+        },
+    }
+
+
+# =============================================================================
 # Public API
 # =============================================================================
 
@@ -876,9 +1164,13 @@ __all__ = [
     "PYTHON_NOISE_PATTERNS",
     "TYPESCRIPT_NOISE_PATTERNS",
     "SQL_NOISE_PATTERNS",
+    "RUST_NOISE_PATTERNS",
+    "BASH_NOISE_PATTERNS",
     "PYTHON_EXTENSIONS",
     "TYPESCRIPT_EXTENSIONS",
     "SQL_EXTENSIONS",
+    "RUST_EXTENSIONS",
+    "BASH_EXTENSIONS",
     # Utilities
     "is_noise",
     "should_skip_path",
@@ -898,4 +1190,10 @@ __all__ = [
     # SQL extraction
     "extract_sql_strings_from_file",
     "extract_sql_strings",
+    # Rust extraction
+    "extract_rust_strings_from_file",
+    "extract_rust_strings",
+    # Bash extraction
+    "extract_bash_strings_from_file",
+    "extract_bash_strings",
 ]
