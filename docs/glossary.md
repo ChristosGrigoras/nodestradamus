@@ -7,7 +7,7 @@ Quick definitions for terms used in Nodestradamus documentation.
 ## Graph Concepts
 
 **Dependency graph**
-A **directed** graph of your codebase: nodes are files, functions, or classes; edges are relationships like "calls" or "imports." Edge \((u,v)\) means "\(u\) depends on \(v\)." Edges are unweighted. For formal definitions and algorithm specs, see [Graph Theory Reference](graph-theory-reference.md).
+A **directed** graph of your codebase: nodes are files, functions, or classes; edges are relationships like "calls" or "imports." Edge \(u,v\) means "\(u\) depends on \(v\)." Edges are unweighted. For formal definitions and algorithm specs, see [Graph Theory Reference](graph-theory-reference.md).
 
 **Node**
 A single element in the graph: a file, function, class, or module.
